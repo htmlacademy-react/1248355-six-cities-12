@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4fc513a3-fce7-4977-aab3-5f92702d5f8f" name="Changes" comment="Добавляет наставника">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/css/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/css/main.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-bold.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-bold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-light.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-light.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-medium.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-medium.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/fonts/rubik-regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/amsterdam.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/amsterdam@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/apartment-01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/apartment-02.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/apartment-03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/apartment-small-03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/apartment-small-04.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/avatar-angelina.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/avatar-max.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/avatar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/ico-adults.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/ico-bedrooms.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/ico-no-results.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/ico-place.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/ico-saved.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/icon-arrow-select.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/icon-bookmark.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/icon-star.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/map-big.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/map-big@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/map.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/map@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/no-places.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/no-places@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/pin-active.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/pin.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/room-small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/room.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/sprite.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/star-active.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/star-white.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/stars-active.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/stars.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/studio-01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/studio-photos.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/img/triangle.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/components/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/components/app/app.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/components/app/app.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/hooks/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/pages/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/react-app-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/setupTests.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/store/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/types/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MM7ZJWfUrQJjMFDbQiqARMhlpf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Mi/Desktop/React/6cities/project/public",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\Mi\\Desktop\\React\\6cities\\project\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Mi\Desktop\React\6cities\project\public" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/project/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4fc513a3-fce7-4977-aab3-5f92702d5f8f" name="Changes" comment="" />
+      <created>1677565651695</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1677565651695</updated>
+      <workItem from="1677565652838" duration="11000" />
+      <workItem from="1677565683735" duration="1168000" />
+      <workItem from="1677594766851" duration="1286000" />
+    </task>
+    <task id="LOCAL-00001" summary="Добавляет наставника">
+      <created>1677566115271</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677566115271</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Добавляет наставника" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавляет наставника" />
+  </component>
+</project>
