@@ -1,6 +1,6 @@
 import PlaceCard from '../../components/place-card/place-card';
-import {PlaceCardVariant} from '../../consts/component';
 import {Helmet} from 'react-helmet-async';
+import {PlaceCardVariant} from '../../consts/enum';
 
 const FavoritesScreen = () => (
   <main className="page__main page__main--favorites">

@@ -1,4 +1,4 @@
-import {PlaceCardVariant} from '../../consts/component';
+import {PlaceCardVariant} from '../../consts/enum';
 
 type PlaceCardProps = {
   variant: typeof PlaceCardVariant[keyof typeof PlaceCardVariant];
@@ -16,7 +16,13 @@ const PlaceCard = ({variant}: PlaceCardProps) => {
         </div>}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <a href="/">
-          <img className="place-card__image" src="img/room.jpg" width={imgSize.width} height={imgSize.height} alt="Place"/>
+          <img
+            className="place-card__image"
+            src="img/room.jpg"
+            width={imgSize.width}
+            height={imgSize.height}
+            alt="Place"
+          />
         </a>
       </div>
       <div className={`${isFavorite ? `${className}__card-info` : ''} place-card__info`}>

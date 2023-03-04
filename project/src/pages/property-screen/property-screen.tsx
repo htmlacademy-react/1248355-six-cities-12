@@ -1,10 +1,9 @@
 import {Helmet} from 'react-helmet-async';
-import {AuthorizationStatus} from '../../consts/api';
 import PlaceCard from '../../components/place-card/place-card';
-import {PlaceCardVariant} from '../../consts/component';
+import {AuthorizationStatus, PlaceCardVariant} from '../../consts/enum';
 
 type PropertyScreenProps = {
-  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+  authorizationStatus: AuthorizationStatus;
 }
 
 const PropertyScreen = ({authorizationStatus}:PropertyScreenProps) => {

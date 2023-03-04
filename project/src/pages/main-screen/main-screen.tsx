@@ -1,7 +1,7 @@
 import PlaceCard from '../../components/place-card/place-card';
-import {PlaceCardVariant} from '../../consts/component';
 import Tabs from '../../components/tabs/tabs';
 import {useState} from 'react';
+import {PlaceCardVariant} from '../../consts/enum';
 
 type MainScreenProps = {
   cardsCount: number;
@@ -10,7 +10,7 @@ type MainScreenProps = {
 const MainScreen = ({cardsCount}: MainScreenProps): JSX.Element => {
   const [isSortOpened, setSortState] = useState(false);
 
-  return(
+  return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <Tabs/>
@@ -21,13 +21,15 @@ const MainScreen = ({cardsCount}: MainScreenProps): JSX.Element => {
             <b className="places__found">{cardsCount} places to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
-              <span onClick={()=>setSortState(!isSortOpened)} className="places__sorting-type" tabIndex={0}>
+              <span onClick={() => setSortState(!isSortOpened)} className="places__sorting-type" tabIndex={0}>
                   Popular
                 <svg className="places__sorting-arrow" width="7" height="4">
                   <use xlinkHref="#icon-arrow-select"></use>
                 </svg>
               </span>
-              <ul className={`places__options places__options--custom ${ isSortOpened ? 'places__options--opened' : ''}`}>
+              <ul
+                className={`places__options places__options--custom ${isSortOpened ? 'places__options--opened' : ''}`}
+              >
                 <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                 <li className="places__option" tabIndex={0}>Price: low to high</li>
                 <li className="places__option" tabIndex={0}>Price: high to low</li>
