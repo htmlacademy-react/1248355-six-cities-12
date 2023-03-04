@@ -1,7 +1,7 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cl from './not-found.module.css';
 import { FaSadTear } from 'react-icons/fa';
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 
 const NotFoundScreen = () => (
   <main className={cl.container}>

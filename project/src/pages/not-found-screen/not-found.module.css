@@ -1,4 +1,4 @@
-.container{
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,12 +6,12 @@
   height: 100vh;
 }
 
-.link{
+.link {
   color: #4481c3;
   font-weight: bold;
 }
 
-.sadFace{
+.sadFace {
   width: 100px;
   height: 100px;
 }

@@ -1,11 +1,11 @@
-import {PlaceCardVariant} from '../../consts/enum';
+import { PlaceCardVariant } from '../../consts/enum';
 
 type PlaceCardProps = {
   variant: typeof PlaceCardVariant[keyof typeof PlaceCardVariant];
 }
 
-const PlaceCard = ({variant}: PlaceCardProps) => {
-  const {className, imgSize} = variant;
+const PlaceCard = ({ variant }: PlaceCardProps) => {
+  const { className, imgSize } = variant;
   const isFavorite = PlaceCardVariant.Favorites === variant;
 
   return (
@@ -40,7 +40,7 @@ const PlaceCard = ({variant}: PlaceCardProps) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{ width: '80%' }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

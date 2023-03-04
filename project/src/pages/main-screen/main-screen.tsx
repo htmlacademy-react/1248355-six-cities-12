@@ -1,13 +1,13 @@
 import PlaceCard from '../../components/place-card/place-card';
 import Tabs from '../../components/tabs/tabs';
-import {useState} from 'react';
-import {PlaceCardVariant} from '../../consts/enum';
+import { useState } from 'react';
+import { PlaceCardVariant } from '../../consts/enum';
 
 type MainScreenProps = {
   cardsCount: number;
 }
 
-const MainScreen = ({cardsCount}: MainScreenProps): JSX.Element => {
+const MainScreen = ({ cardsCount }: MainScreenProps): JSX.Element => {
   const [isSortOpened, setSortState] = useState(false);
 
   return (

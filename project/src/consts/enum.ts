@@ -43,7 +43,7 @@ const PlaceCardVariant = {
       width: '150',
       height: '110'
     }
-  },
+  }
 };
 
-export {PlaceCardVariant, LayoutClassName, AppRoute, Setting, AuthorizationStatus};
+export { PlaceCardVariant, LayoutClassName, AppRoute, Setting, AuthorizationStatus };

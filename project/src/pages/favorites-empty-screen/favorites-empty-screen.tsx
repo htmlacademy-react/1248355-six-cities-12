@@ -1,4 +1,4 @@
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 
 const FavoritesEmptyScreen = () => (
   <main className="page__main page__main--favorites page__main--favorites-empty">
@@ -11,7 +11,7 @@ const FavoritesEmptyScreen = () => (
         <div className="favorites__status-wrapper">
           <b className="favorites__status">Nothing yet saved.</b>
           <p className="favorites__status-description">Save properties to narrow down search or plan your future
-              trips.
+            trips.
           </p>
         </div>
       </section>
