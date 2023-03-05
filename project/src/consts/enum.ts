@@ -6,7 +6,7 @@ enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
   Login = '/login',
-  Property = '/offer'
+  Offer = '/offer/:id'
 }
 
 enum AuthorizationStatus {
@@ -30,7 +30,7 @@ const PlaceCardVariant = {
       height: '200'
     }
   },
-  Property: {
+  Offer: {
     className: 'near-places',
     imgSize: {
       width: '260',

@@ -1,26 +1,30 @@
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import { Outlet, useLocation, useMatch } from 'react-router-dom';
+import { Outlet, useMatch } from 'react-router-dom';
 import { useMemo } from 'react';
 import { AppRoute, LayoutClassName } from '../../consts/enum';
 
 const Layout = () => {
-  const isFavoritesRoute = !!useMatch(AppRoute.Favorites);
-  const pathname = useLocation().pathname;
+  const isFavoritesRoute = useMatch(AppRoute.Favorites);
+  const isLoginRoute = useMatch(AppRoute.Login);
+  const isRootRoute = useMatch(AppRoute.Root);
   const mockData = ['mock'];
 
   const className = useMemo(() => {
-    switch (pathname) {
-      case AppRoute.Favorites:
-        return mockData.length ? LayoutClassName.Default : LayoutClassName.EmptyFavorites;
-      case AppRoute.Root:
-        return LayoutClassName.Main;
-      case AppRoute.Login:
-        return LayoutClassName.Login;
-      default:
-        return LayoutClassName.Default;
+    if (isFavoritesRoute) {
+      return mockData.length ? LayoutClassName.Default : LayoutClassName.EmptyFavorites;
     }
-  }, [pathname, mockData.length]);
+
+    if (isRootRoute) {
+      return LayoutClassName.Main;
+    }
+
+    if (isLoginRoute) {
+      return LayoutClassName.Login;
+    }
+
+    return LayoutClassName.Default;
+  }, [isFavoritesRoute, isLoginRoute, isRootRoute, mockData.length]);
 
   return (
     <div className={className}>

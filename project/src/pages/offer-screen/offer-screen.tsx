@@ -2,11 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import PlaceCard from '../../components/place-card/place-card';
 import { AuthorizationStatus, PlaceCardVariant } from '../../consts/enum';
 
-type PropertyScreenProps = {
+type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;
 }
 
-const PropertyScreen = ({ authorizationStatus }: PropertyScreenProps) => {
+const OfferScreen = ({ authorizationStatus }: OfferScreenProps) => {
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   //этот причешим когда сделаем моки -)
@@ -115,7 +115,11 @@ const PropertyScreen = ({ authorizationStatus }: PropertyScreenProps) => {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74"
+                  <img
+                    className="property__avatar user__avatar"
+                    src="img/avatar-angelina.jpg"
+                    width="74"
+                    height="74"
                     alt="Host avatar"
                   />
                 </div>
@@ -259,15 +263,14 @@ const PropertyScreen = ({ authorizationStatus }: PropertyScreenProps) => {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <PlaceCard variant={PlaceCardVariant.Property}/>
-            <PlaceCard variant={PlaceCardVariant.Property}/>
-            <PlaceCard variant={PlaceCardVariant.Property}/>
+            <PlaceCard variant={PlaceCardVariant.Offer}/>
+            <PlaceCard variant={PlaceCardVariant.Offer}/>
+            <PlaceCard variant={PlaceCardVariant.Offer}/>
           </div>
         </section>
       </div>
     </main>
-
   );
 };
 
-export default PropertyScreen;
+export default OfferScreen;
