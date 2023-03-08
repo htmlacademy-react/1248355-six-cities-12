@@ -10,29 +10,51 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../consts/enum';
+import { Offers } from '../../types/offers';
+import { Comments } from '../../types/comments';
 
 type AppProps = {
   cardsCount: number;
+  offers: Offers;
+  comments: Comments;
 }
 
-//для теста
-const mockData = ['asd'];
-
-const App = ({ cardsCount }: AppProps): JSX.Element => (
+const App = ({ cardsCount, offers, comments }: AppProps): JSX.Element => (
   <HelmetProvider>
     <RouterProvider router={createBrowserRouter((createRoutesFromElements(
-      <Route path={AppRoute.Root} element={<Layout/>} errorElement={<NotFoundScreen/>}>
+      <Route path={AppRoute.Root} element={<Layout offers={offers}/>} errorElement={<NotFoundScreen/>}>
         <Route errorElement={<NotFoundScreen/>}>
-          <Route index element={mockData.length ? <MainScreen cardsCount={cardsCount}/> : <MainEmptyScreen/>}/>
-          <Route path={AppRoute.Offer} element={<OfferScreen authorizationStatus={AuthorizationStatus.NoAuth}/>}/>
-          <Route path={AppRoute.Login} element={<LoginScreen/>}/>
-          <Route path={AppRoute.Favorites} element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              {mockData.length
-                ? <FavoritesScreen/>
-                : <FavoritesEmptyScreen/>}
-            </PrivateRoute>
-          }
+          <Route
+            index
+            element={
+              offers.length
+                ? <MainScreen offers={offers} cardsCount={cardsCount}/>
+                : <MainEmptyScreen/>
+            }
+          />
+          <Route
+            path={AppRoute.Offer}
+            element={
+              <OfferScreen
+                offers={offers}
+                comments={comments}
+                authorizationStatus={AuthorizationStatus.Auth}
+              />
+            }
+          />
+          <Route
+            path={AppRoute.Login}
+            element={<LoginScreen/>}
+          />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                {offers.length
+                  ? <FavoritesScreen offers={offers}/>
+                  : <FavoritesEmptyScreen/>}
+              </PrivateRoute>
+            }
           />
         </Route>
       </Route>)))}

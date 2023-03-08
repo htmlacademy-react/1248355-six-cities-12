@@ -2,17 +2,28 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import { Outlet, useMatch } from 'react-router-dom';
 import { useMemo } from 'react';
-import { AppRoute, LayoutClassName } from '../../consts/enum';
+import { AppRoute } from '../../consts/enum';
+import { Offers } from '../../types/offers';
 
-const Layout = () => {
+enum LayoutClassName {
+  Main = 'page page--gray page--main',
+  EmptyFavorites = 'page page--favorites-empty',
+  Login = 'page page--gray page--login',
+  Default = 'page'
+}
+
+type LayoutProps = {
+  offers: Offers;
+}
+
+const Layout = ({ offers }: LayoutProps) => {
   const isFavoritesRoute = useMatch(AppRoute.Favorites);
   const isLoginRoute = useMatch(AppRoute.Login);
   const isRootRoute = useMatch(AppRoute.Root);
-  const mockData = ['mock'];
 
   const className = useMemo(() => {
     if (isFavoritesRoute) {
-      return mockData.length ? LayoutClassName.Default : LayoutClassName.EmptyFavorites;
+      return offers.length ? LayoutClassName.Default : LayoutClassName.EmptyFavorites;
     }
 
     if (isRootRoute) {
@@ -24,7 +35,7 @@ const Layout = () => {
     }
 
     return LayoutClassName.Default;
-  }, [isFavoritesRoute, isLoginRoute, isRootRoute, mockData.length]);
+  }, [isFavoritesRoute, isLoginRoute, isRootRoute, offers.length]);
 
   return (
     <div className={className}>

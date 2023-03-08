@@ -9,7 +9,7 @@ const NotFoundScreen = () => (
       <title>Not found</title>
     </Helmet>
     <FaSadTear className={cl.sadFace}/>
-    <h1 className={cl.styles}>404. Page not found</h1>
+    <h1>404. Page not found</h1>
     <Link className={cl.link} to="/">Вернуться на главную</Link>
   </main>
 );
