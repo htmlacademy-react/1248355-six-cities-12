@@ -1,12 +1,12 @@
-import { CITIES } from '../../consts/app';
+import { AppRoute, City } from '../../consts/enum';
 
 const Tabs = () => (
   <div className="tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {CITIES.map((city) => (
+        {Object.values(City).map((city) => (
           <li key={city} className="locations__item">
-            <a className="locations__item-link tabs__item" href="/">
+            <a className="locations__item-link tabs__item" href={AppRoute.Root}>
               <span>{city}</span>
             </a>
           </li>
