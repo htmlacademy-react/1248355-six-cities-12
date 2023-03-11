@@ -1,5 +1,5 @@
 import Offers from '../offer/offers/offers';
-import { OfferCardVariant } from '../../consts/enum';
+import { AppRoute, OfferCardVariant } from '../../consts/enum';
 import { Offers as OffersType } from '../../types/offers';
 import { filterOffersByCity } from '../../utils/filter';
 import { sortCitiesByAlphabet } from '../../utils/sort';
@@ -21,7 +21,7 @@ const Favorites = ({ offers }: FavoritesProps) => {
             <li key={city} className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <a className="locations__item-link" href="/">
+                  <a className="locations__item-link" href={AppRoute.Root}>
                     <span>{city}</span>
                   </a>
                 </div>

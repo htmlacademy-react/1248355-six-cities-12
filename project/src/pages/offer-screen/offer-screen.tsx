@@ -13,6 +13,7 @@ import Price from '../../components/offer/price/price';
 import Goods from '../../components/offer/goods/goods';
 import Gallery from '../../components/offer/gallery/gallery';
 import { Comments } from '../../types/comments';
+import { useMemo } from 'react';
 
 type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -23,7 +24,7 @@ type OfferScreenProps = {
 const OfferScreen = ({ authorizationStatus, offers, comments }: OfferScreenProps) => {
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const { id } = useParams();
-  const offer = id && offers.find((it) => it.id === +id);
+  const offer = useMemo(() => id && offers.find((it) => it.id === +id), [id, offers]);
 
   if (!offer) {
     return <Navigate to="*"/>;

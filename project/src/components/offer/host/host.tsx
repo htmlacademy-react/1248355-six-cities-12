@@ -21,9 +21,7 @@ const Host = ({ host: { isPro, name, avatarUrl, description } }: HostProps) => (
       <span className="property__user-name">
         {name}
       </span>
-      <span className="property__user-status">
-        {isPro && 'Pro'}
-      </span>
+      {isPro && <span className="property__user-status">&apos;Pro&apos;</span>}
     </div>
     <div className="property__description">
       <p className="property__text">

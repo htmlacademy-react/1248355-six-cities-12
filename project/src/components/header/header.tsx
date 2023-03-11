@@ -1,5 +1,5 @@
 import Logo from '../logo/logo';
-import { LogoVariant } from '../../consts/enum';
+import { AppRoute, LogoVariant } from '../../consts/enum';
 
 const Header = () => (
   <header className="header">
@@ -11,7 +11,7 @@ const Header = () => (
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              <a className="header__nav-link header__nav-link--profile" href="/">
+              <a className="header__nav-link header__nav-link--profile" href={AppRoute.Root}>
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -19,7 +19,7 @@ const Header = () => (
               </a>
             </li>
             <li className="header__nav-item">
-              <a className="header__nav-link" href="/">
+              <a className="header__nav-link" href={AppRoute.Root}>
                 <span className="header__signout">Sign out</span>
               </a>
             </li>

@@ -23,7 +23,7 @@ const OfferCard = ({ variant, offer, onMouseOver }: PlaceCardProps) => {
     <article onMouseOver={() => onMouseOver(id)} className={`${block}__card place-card`}>
       {isPremium && <Mark block={Block.OfferCard}/>}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <a href="/">
+        <a href={AppRoute.Root}>
           <img
             className="place-card__image"
             src={previewImage}

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Offers } from '../../types/offers';
 import Favorites from '../../components/favorites/favorites';
+import { useMemo } from 'react';
 
 type FavoritesScreenProps = {
   offers: Offers;
@@ -8,7 +9,7 @@ type FavoritesScreenProps = {
 
 const FavoritesScreen = ({ offers }: FavoritesScreenProps) => {
   //Это уберем, вавориты приходят с сервера
-  const filterOffers = offers.filter(({ isFavorite }) => isFavorite);
+  const filterOffers = useMemo(() => offers.filter(({ isFavorite }) => isFavorite), [offers]);
 
   return (
     <main className="page__main page__main--favorites">

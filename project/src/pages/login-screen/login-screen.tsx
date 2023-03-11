@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import LoginForm from '../../components/form/login/login-form';
+import { AppRoute } from '../../consts/enum';
 
 const LoginScreen = () => (
   <main className="page__main page__main--login">
@@ -13,7 +14,7 @@ const LoginScreen = () => (
       </section>
       <section className="locations locations--login locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="/">
+          <a className="locations__item-link" href={AppRoute.Root}>
             <span>Amsterdam</span>
           </a>
         </div>

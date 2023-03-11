@@ -1,6 +1,7 @@
 import React from 'react';
 import { LogoVariant } from '../../types/components';
 import { NavLink } from 'react-router-dom';
+import { AppRoute } from '../../consts/enum';
 
 type LogoTypes = {
   variant: LogoVariant;
@@ -11,7 +12,7 @@ const Logo = ({ variant }: LogoTypes) => (
     className={({ isActive }) => isActive
       ? `${variant.block}__logo-link ${variant.block}__logo-link--active`
       : `${variant.block}__logo-link`}
-    to="/"
+    to={AppRoute.Root}
   >
     <img
       className={`${variant.block}__logo`}
