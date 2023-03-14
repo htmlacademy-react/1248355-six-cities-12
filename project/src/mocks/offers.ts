@@ -7,7 +7,7 @@ export const offers: Offers = [
       'location': {
         'latitude': 52.37454,
         'longitude': 4.897976,
-        'zoom': 13
+        'zoom': 10
       }
     },
     'previewImage': 'https://12.react.pages.academy/static/hotel/7.jpg',

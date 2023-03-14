@@ -66,7 +66,7 @@ const BookmarkButtonVariant = {
 };
 
 const OfferCardVariant = {
-  Index: {
+  Cities: {
     block: Block.Cities,
     imgSize: {
       width: '260',

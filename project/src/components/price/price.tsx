@@ -1,4 +1,4 @@
-import { Block } from '../../../consts/enum';
+import { Block } from '../../consts/enum';
 
 type PriceProps = {
   price: number;

@@ -8,7 +8,6 @@ type FavoritesScreenProps = {
 }
 
 const FavoritesScreen = ({ offers }: FavoritesScreenProps) => {
-  //Это уберем, вавориты приходят с сервера
   const filterOffers = useMemo(() => offers.filter(({ isFavorite }) => isFavorite), [offers]);
 
   return (

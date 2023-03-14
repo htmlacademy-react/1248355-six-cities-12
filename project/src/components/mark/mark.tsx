@@ -1,5 +1,5 @@
 import React from 'react';
-import { Block } from '../../../consts/enum';
+import { Block } from '../../consts/enum';
 
 type MarkProps = {
   block: Block;
