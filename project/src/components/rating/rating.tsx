@@ -1,6 +1,6 @@
 import React from 'react';
-import { adaptRatingForRendering } from '../../../utils/adapt';
-import { Block } from '../../../consts/enum';
+import { adaptRatingForRendering } from '../../utils/adapt';
+import { Block } from '../../consts/enum';
 
 type RatingProps = {
   block: Block;

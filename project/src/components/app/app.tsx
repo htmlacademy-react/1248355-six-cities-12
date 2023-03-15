@@ -14,12 +14,11 @@ import { Offers } from '../../types/offers';
 import { Comments } from '../../types/comments';
 
 type AppProps = {
-  cardsCount: number;
   offers: Offers;
   comments: Comments;
 }
 
-const App = ({ cardsCount, offers, comments }: AppProps): JSX.Element => (
+const App = ({ offers, comments }: AppProps): JSX.Element => (
   <HelmetProvider>
     <RouterProvider router={createBrowserRouter((createRoutesFromElements(
       <Route path={AppRoute.Root} element={<Layout offers={offers}/>} errorElement={<NotFoundScreen/>}>
@@ -28,7 +27,7 @@ const App = ({ cardsCount, offers, comments }: AppProps): JSX.Element => (
             index
             element={
               offers.length
-                ? <MainScreen offers={offers} cardsCount={cardsCount}/>
+                ? <MainScreen offers={offers}/>
                 : <MainEmptyScreen/>
             }
           />

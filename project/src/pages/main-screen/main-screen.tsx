@@ -1,34 +1,37 @@
 import Tabs from '../../components/tabs/tabs';
 import { Offers as OffersTypes } from '../../types/offers';
-import Offers from '../../components/offer/offers/offers';
-import { OfferCardVariant } from '../../consts/enum';
-import Sort from '../../components/form/sort/sort';
+import { Block } from '../../consts/enum';
+import Cities from '../../components/cities/cities';
+import CityPlaces from '../../components/cities/city-places/city-places';
+import MapContainer from '../../components/cities/map-container/map-container';
+import Map from '../../components/map/map';
+import React, { useState } from 'react';
+import { locations } from '../../mocks/locations';
 
 type MainScreenProps = {
-  cardsCount: number;
   offers: OffersTypes;
 }
 
-const MainScreen = ({ cardsCount, offers }: MainScreenProps): JSX.Element => (
-  <main className="page__main page__main--index">
-    <h1 className="visually-hidden">Cities</h1>
-    <Tabs/>
-    <div className="cities">
-      <div className="cities__places-container container">
-        <section className="cities__places places">
-          <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{cardsCount} places to stay in Amsterdam</b>
-          <Sort/>
-          <div className="cities__places-list places__list tabs__content">
-            <Offers offers={offers} variant={OfferCardVariant.Index}/>
-          </div>
-        </section>
-        <div className="cities__right-section">
-          <section className="cities__map map"></section>
-        </div>
-      </div>
-    </div>
-  </main>
-);
+const MainScreen = ({ offers }: MainScreenProps) => {
+  const [activeCard, setActiveCard] = useState<number>();
+
+  return (
+    <main className="page__main page__main--index">
+      <h1 className="visually-hidden">Cities</h1>
+      <Tabs />
+      <Cities>
+        <CityPlaces onMouseEnter={setActiveCard} offers={offers} />
+        <MapContainer>
+          <Map
+            activeCard={activeCard}
+            city={offers[0].city}
+            block={Block.Cities}
+            points={locations}
+          />
+        </MapContainer>
+      </Cities>
+    </main>
+  );
+};
 
 export default MainScreen;
