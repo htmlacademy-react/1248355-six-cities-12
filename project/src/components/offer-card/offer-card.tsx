@@ -20,8 +20,8 @@ const OfferCard = ({ variant, offer, onMouseEnter }: PlaceCardProps) => {
   const isFavoriteVariant = OfferCardVariant.Favorites === variant;
 
   return (
-    <article onMouseEnter={onMouseEnter ? () => onMouseEnter(id) : undefined} className={`${block}__card place-card`}>
-      {isPremium && <Mark block={Block.OfferCard}/>}
+    <article onMouseEnter={onMouseEnter && (() => onMouseEnter(id))} className={`${block}__card place-card`}>
+      {isPremium && <Mark block={Block.OfferCard} />}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <a href={AppRoute.Root}>
           <img
@@ -35,10 +35,10 @@ const OfferCard = ({ variant, offer, onMouseEnter }: PlaceCardProps) => {
       </div>
       <div className={`${isFavoriteVariant ? `${block}__card-info` : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
-          <Price price={price} block={Block.OfferCard}/>
-          <BookmarkButton variant={BookmarkButtonVariant.Card} isActive={isFavorite}/>
+          <Price price={price} block={Block.OfferCard} />
+          <BookmarkButton variant={BookmarkButtonVariant.Card} isActive={isFavorite} />
         </div>
-        <Rating block={Block.OfferCard} rating={rating}/>
+        <Rating block={Block.OfferCard} rating={rating} />
         <h2 className="place-card__name">
           <Link to={generatePath(AppRoute.Offer, { id: id.toString() })}>{title}</Link>
         </h2>

@@ -1,7 +1,7 @@
 import { Block } from '../../consts/enum';
 import classNames from 'classnames';
 import useMap, { createPoint } from '../../hooks/useMap';
-import { useEffect, useMemo, useRef } from 'react';
+import { LegacyRef, useEffect, useMemo, useRef } from 'react';
 import { City, Location } from '../../types/offers';
 import { PointExpression } from 'leaflet';
 
@@ -26,7 +26,7 @@ const Icon = {
 };
 
 const Map = ({ block, city, points, activeCard }: MapProps) => {
-  const mapRef = useRef<HTMLElement | null>(null);
+  const mapRef = useRef<HTMLElement>();
   const leaflet = useMap(mapRef, useMemo(() => ({
     zoom: city.location.zoom,
     center: {
@@ -53,7 +53,7 @@ const Map = ({ block, city, points, activeCard }: MapProps) => {
 
   return (
     <section
-      ref={mapRef}
+      ref={mapRef as LegacyRef<HTMLElement> | undefined}
       className={classNames('map', {
         'property__map': block === Block.Property,
         'cities__map': block === Block.Cities

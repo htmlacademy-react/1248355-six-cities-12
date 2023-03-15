@@ -13,14 +13,14 @@ type MainScreenProps = {
 }
 
 const MainScreen = ({ offers }: MainScreenProps) => {
-  const [activeCard, setActiveCard] = useState(-1);
+  const [activeCard, setActiveCard] = useState<number>();
 
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs/>
+      <Tabs />
       <Cities>
-        <CityPlaces onMouseEnter={setActiveCard} offers={offers}/>
+        <CityPlaces onMouseEnter={setActiveCard} offers={offers} />
         <MapContainer>
           <Map
             activeCard={activeCard}
