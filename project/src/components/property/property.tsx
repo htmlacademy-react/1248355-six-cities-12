@@ -8,7 +8,7 @@ import Host from './host/host';
 import Reviews from './reviews/reviews';
 import { Navigate, useParams } from 'react-router-dom';
 import { useMemo } from 'react';
-import { Offers as OffersType } from '../../types/offers';
+import { Offer, Offers as OffersType } from '../../types/offers';
 import { Comments } from '../../types/comments';
 import GalleryContainer from './container/gallery-container/gallery-container';
 import PropertyContainer from './container/property-container/property-container';
@@ -21,10 +21,22 @@ type PropertyProps = {
   comments: Comments;
 }
 
+const MAX_NEAR_PLACES_COUNT = 3;
+
 const Property = ({ offers, comments, authorizationStatus }: PropertyProps) => {
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const { id } = useParams();
-  const offer = useMemo(() => id && offers.find((it) => it.id === +id), [id, offers]);
+  const offer = useMemo(() => id && offers.find((it) => it.id === +id), [id, offers]) as Offer;
+
+  const nearPoints = useMemo(() => {
+    const points = [...locations.slice(0, MAX_NEAR_PLACES_COUNT)];
+    const isPointInPoints = points.some((point) => point.id === offer.id);
+
+    return isPointInPoints ? points : [...points, {
+      ...offer.city.location,
+      id: offer.id
+    }];
+  }, [offer]);
 
   if (!offer) {
     return <Navigate to="*"/>;
@@ -58,7 +70,7 @@ const Property = ({ offers, comments, authorizationStatus }: PropertyProps) => {
         <Host host={{ ...host, description }}/>
         <Reviews comments={comments} isAuthorized={isAuthorized}/>
       </PropertyContainer>
-      <Map block={Block.Property} city={offers[0].city} points={locations}/>
+      <Map block={Block.Property} city={offers[0].city} points={nearPoints} activeCard={offer.id}/>
     </section>
   );
 };

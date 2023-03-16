@@ -1,9 +1,10 @@
 import { Block } from '../../consts/enum';
 import classNames from 'classnames';
-import useMap, { createPoint } from '../../hooks/useMap';
+import useMap from '../../hooks/useMap';
 import { LegacyRef, useEffect, useMemo, useRef } from 'react';
 import { City, Location } from '../../types/offers';
 import { PointExpression } from 'leaflet';
+import { createPoint } from '../../utils/leaflet';
 
 type MapProps = {
   block: Block;
