@@ -8,7 +8,7 @@ import Host from './host/host';
 import Reviews from './reviews/reviews';
 import { Navigate, useParams } from 'react-router-dom';
 import { useMemo } from 'react';
-import { Offer, Offers as OffersType } from '../../types/offers';
+import { Offers as OffersType } from '../../types/offers';
 import { Comments } from '../../types/comments';
 import GalleryContainer from './container/gallery-container/gallery-container';
 import PropertyContainer from './container/property-container/property-container';
@@ -26,16 +26,16 @@ const MAX_NEAR_PLACES_COUNT = 3;
 const Property = ({ offers, comments, authorizationStatus }: PropertyProps) => {
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const { id } = useParams();
-  const offer = useMemo(() => id && offers.find((it) => it.id === +id), [id, offers]) as Offer;
+  const offer = useMemo(() => id && offers.find((it) => it.id === +id), [id, offers]);
 
   const nearPoints = useMemo(() => {
     const points = [...locations.slice(0, MAX_NEAR_PLACES_COUNT)];
-    const isPointInPoints = points.some((point) => point.id === offer.id);
+    const isPointInPoints = offer && points.some((point) => point.id === offer.id);
 
-    return isPointInPoints ? points : [...points, {
+    return isPointInPoints && offer ? [...points, {
       ...offer.city.location,
       id: offer.id
-    }];
+    }] : points;
   }, [offer]);
 
   if (!offer) {
