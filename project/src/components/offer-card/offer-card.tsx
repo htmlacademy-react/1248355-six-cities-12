@@ -2,11 +2,12 @@ import { AppRoute, Block, BookmarkButtonVariant, OfferCardVariant } from '../../
 import { Offer } from '../../types/offers';
 import { OfferVariant } from '../../types/components';
 import Mark from '../mark/mark';
-import BookmarkButton from '../button/bookmark-button/bookmark-button';
-import { makeFirstLetterUpperCase } from '../../utils/common';
-import Rating from '../rating/rating';
+import classNames from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
+import { makeFirstLetterUpperCase } from '../../utils/common';
+import BookmarkButton from '../button/bookmark-button/bookmark-button';
 import Price from '../price/price';
+import Rating from '../rating/rating';
 
 type PlaceCardProps = {
   variant: OfferVariant;
@@ -21,7 +22,7 @@ const OfferCard = ({ variant, offer, onMouseEnter }: PlaceCardProps) => {
 
   return (
     <article onMouseEnter={onMouseEnter && (() => onMouseEnter(id))} className={`${block}__card place-card`}>
-      {isPremium && <Mark block={Block.OfferCard} />}
+      {isPremium && <Mark block={Block.OfferCard}/>}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <a href={AppRoute.Root}>
           <img
@@ -33,12 +34,12 @@ const OfferCard = ({ variant, offer, onMouseEnter }: PlaceCardProps) => {
           />
         </a>
       </div>
-      <div className={`${isFavoriteVariant ? `${block}__card-info` : ''} place-card__info`}>
+      <div className={classNames('place-card__info', { 'favorites__card-info': isFavoriteVariant })}>
         <div className="place-card__price-wrapper">
-          <Price price={price} block={Block.OfferCard} />
-          <BookmarkButton variant={BookmarkButtonVariant.Card} isActive={isFavorite} />
+          <Price price={price} block={Block.OfferCard}/>
+          <BookmarkButton variant={BookmarkButtonVariant.Card} isActive={isFavorite}/>
         </div>
-        <Rating block={Block.OfferCard} rating={rating} />
+        <Rating block={Block.OfferCard} rating={rating}/>
         <h2 className="place-card__name">
           <Link to={generatePath(AppRoute.Offer, { id: id.toString() })}>{title}</Link>
         </h2>
@@ -47,5 +48,4 @@ const OfferCard = ({ variant, offer, onMouseEnter }: PlaceCardProps) => {
     </article>
   );
 };
-
 export default OfferCard;

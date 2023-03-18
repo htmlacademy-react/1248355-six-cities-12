@@ -21,10 +21,22 @@ type PropertyProps = {
   comments: Comments;
 }
 
+const MAX_NEAR_PLACES_COUNT = 3;
+
 const Property = ({ offers, comments, authorizationStatus }: PropertyProps) => {
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const { id } = useParams();
   const offer = useMemo(() => id && offers.find((it) => it.id === +id), [id, offers]);
+
+  const nearPoints = useMemo(() => {
+    const points = [...locations.slice(0, MAX_NEAR_PLACES_COUNT)];
+    const isPointInPoints = offer && points.some((point) => point.id === offer.id);
+
+    return isPointInPoints && offer ? [...points, {
+      ...offer.city.location,
+      id: offer.id
+    }] : points;
+  }, [offer]);
 
   if (!offer) {
     return <Navigate to="*"/>;
@@ -58,7 +70,7 @@ const Property = ({ offers, comments, authorizationStatus }: PropertyProps) => {
         <Host host={{ ...host, description }}/>
         <Reviews comments={comments} isAuthorized={isAuthorized}/>
       </PropertyContainer>
-      <Map block={Block.Property} city={offers[0].city} points={locations}/>
+      <Map block={Block.Property} city={offers[0].city} points={nearPoints} activeCard={offer.id}/>
     </section>
   );
 };

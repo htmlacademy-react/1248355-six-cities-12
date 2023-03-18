@@ -18,9 +18,9 @@ const MainScreen = ({ offers }: MainScreenProps) => {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs />
+      <Tabs/>
       <Cities>
-        <CityPlaces onMouseEnter={setActiveCard} offers={offers} />
+        <CityPlaces onMouseEnter={setActiveCard} offers={offers}/>
         <MapContainer>
           <Map
             activeCard={activeCard}

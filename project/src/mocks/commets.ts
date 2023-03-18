@@ -10,7 +10,7 @@ export const comments: Comments = [{
   },
   'rating': 4,
   'comment': 'What an amazing view! The house is stunning and in an amazing location. The large glass wall had an amazing view of the river!',
-  'date': new Date('2023-02-09T10:33:21.322Z')
+  'date': new Date('2023-02-12T10:33:21.322Z')
 },
 {
   'id': 2,

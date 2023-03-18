@@ -6,7 +6,7 @@ type PlacesProps = {
   className: string;
 }
 
-const Places = ({children, className}: PlacesProps) => (
+const Places = ({ children, className }: PlacesProps) => (
   <section className={classNames(className, 'places')}>
     {children}
   </section>
