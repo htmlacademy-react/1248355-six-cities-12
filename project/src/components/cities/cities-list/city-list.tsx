@@ -6,15 +6,13 @@ import PlacesList from '../../places-list/places-list';
 
 type CityListProps = {
   offers: Offer[];
-  onMouseEnter: (id: number) => void;
 }
 
-const CityList = ({ offers, onMouseEnter }: CityListProps) => (
+const CityList = ({ offers }: CityListProps) => (
   <PlacesList className="cities__places-list tabs__content">
     {offers.map((offer) => (
       <OfferCard
         key={offer.id}
-        onMouseEnter={onMouseEnter}
         offer={offer}
         variant={OfferCardVariant.Cities}
       />))}

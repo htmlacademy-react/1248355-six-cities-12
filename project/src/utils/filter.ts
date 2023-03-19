@@ -18,4 +18,4 @@ const filterOffersByCity = (offers: Offers) =>
       return cityOffers.length ? [...filteredOffers, { city, cityOffers }] : filteredOffers;
     }, []);
 
-export { filterOffersByCity };
+export { filterOffersByCity, filter };

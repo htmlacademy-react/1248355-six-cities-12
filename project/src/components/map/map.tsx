@@ -1,17 +1,17 @@
 import { Block } from '../../consts/enum';
 import classNames from 'classnames';
 import useMap from '../../hooks/useMap';
-import { LegacyRef, useEffect, useMemo, useRef } from 'react';
-import { City, Location } from '../../types/offers';
+import { useEffect, useMemo, useRef } from 'react';
 import { PointExpression } from 'leaflet';
 import { createPoint } from '../../utils/leaflet';
+import { useAppSelector } from '../../hooks/store';
+import { adaptLocation } from '../../utils/adapt';
 
 type MapProps = {
   block: Block;
-  city: City;
-  points: (Location & { id: number })[];
-  activeCard?: number;
 }
+
+const MAX_NEAR_PLACES_COUNT = 3;
 
 const Icon = {
   Default: {
@@ -26,15 +26,23 @@ const Icon = {
   }
 };
 
-const Map = ({ block, city, points, activeCard }: MapProps) => {
-  const mapRef = useRef<HTMLElement>();
-  const leaflet = useMap(mapRef, useMemo(() => ({
-    zoom: city.location.zoom,
+const Map = ({ block }: MapProps) => {
+  const { offers, activeOffer, nearOffers } = useAppSelector((state) => state);
+
+  const points = useMemo(() => activeOffer && block === Block.Property
+    ? [...adaptLocation(nearOffers).slice(0, MAX_NEAR_PLACES_COUNT), { id: activeOffer.id, ...activeOffer.city.location }]
+    : adaptLocation(offers), [block, activeOffer, offers, nearOffers]);
+
+  const mapConfig = useMemo(() => ({
+    zoom: offers[0].city.location.zoom,
     center: {
-      lng: city.location.longitude,
-      lat: city.location.latitude
+      lng: offers[0].city.location.longitude,
+      lat: offers[0].city.location.latitude
     }
-  }), [city]));
+  }), [offers]);
+
+  const mapRef = useRef<HTMLElement>(null);
+  const leaflet = useMap(mapRef, mapConfig);
 
   useEffect(() => {
     if (!leaflet) {
@@ -42,7 +50,7 @@ const Map = ({ block, city, points, activeCard }: MapProps) => {
     }
 
     points.forEach((point) => {
-      const icon = point.id === activeCard ? Icon.Active : Icon.Default;
+      const icon = point.id === activeOffer?.id ? Icon.Active : Icon.Default;
 
       createPoint(point, icon).addTo(leaflet.groupLayer);
     });
@@ -50,11 +58,11 @@ const Map = ({ block, city, points, activeCard }: MapProps) => {
     return () => {
       leaflet.groupLayer.clearLayers();
     };
-  }, [leaflet, points, activeCard]);
+  }, [leaflet, activeOffer, points]);
 
   return (
     <section
-      ref={mapRef as LegacyRef<HTMLElement> | undefined}
+      ref={mapRef}
       className={classNames('map', {
         'property__map': block === Block.Property,
         'cities__map': block === Block.Cities

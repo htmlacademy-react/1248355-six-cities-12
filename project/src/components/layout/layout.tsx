@@ -4,11 +4,12 @@ import { Outlet, useMatch } from 'react-router-dom';
 import { useMemo } from 'react';
 import { AppRoute } from '../../consts/enum';
 import { Offers } from '../../types/offers';
+import classNames from 'classnames';
 
 enum LayoutClassName {
-  Main = 'page page--gray page--main',
-  EmptyFavorites = 'page page--favorites-empty',
-  Login = 'page page--gray page--login',
+  Main = 'page--gray page--main',
+  EmptyFavorites = 'page--favorites-empty',
+  Login = 'page--gray page--login',
   Default = 'page'
 }
 
@@ -20,22 +21,16 @@ const Layout = ({ offers }: LayoutProps) => {
   const isFavoritesRoute = useMatch(AppRoute.Favorites);
   const isLoginRoute = useMatch(AppRoute.Login);
   const isRootRoute = useMatch(AppRoute.Root);
+  const isCityRoute = useMatch(AppRoute.City);
 
-  const className = useMemo(() => {
-    if (isFavoritesRoute) {
-      return offers.length ? LayoutClassName.Default : LayoutClassName.EmptyFavorites;
-    }
-
-    if (isRootRoute) {
-      return LayoutClassName.Main;
-    }
-
-    if (isLoginRoute) {
-      return LayoutClassName.Login;
-    }
-
-    return LayoutClassName.Default;
-  }, [isFavoritesRoute, isLoginRoute, isRootRoute, offers.length]);
+  const className = useMemo(() => classNames(
+    LayoutClassName.Default,
+    {
+      [LayoutClassName.EmptyFavorites]: !offers.length && isFavoritesRoute,
+      [LayoutClassName.Main]: isRootRoute || isCityRoute,
+      [LayoutClassName.Login]: isLoginRoute
+    })
+  , [isCityRoute, isFavoritesRoute, isLoginRoute, isRootRoute, offers.length]);
 
   return (
     <div className={className}>

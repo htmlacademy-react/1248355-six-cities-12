@@ -4,7 +4,6 @@ import Layout from '../layout/layout';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import FavoritesEmptyScreen from '../../pages/favorites-empty-screen/favorites-empty-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
-import MainEmptyScreen from '../../pages/main-empty-screen/main-empty-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -25,17 +24,16 @@ const App = ({ offers, comments }: AppProps): JSX.Element => (
         <Route errorElement={<NotFoundScreen/>}>
           <Route
             index
-            element={
-              offers.length
-                ? <MainScreen offers={offers}/>
-                : <MainEmptyScreen/>
-            }
+            element={<MainScreen/>}
+          />
+          <Route
+            path={AppRoute.City}
+            element={<MainScreen/>}
           />
           <Route
             path={AppRoute.Offer}
             element={
               <OfferScreen
-                offers={offers}
                 comments={comments}
                 authorizationStatus={AuthorizationStatus.Auth}
               />
@@ -56,6 +54,10 @@ const App = ({ offers, comments }: AppProps): JSX.Element => (
             }
           />
         </Route>
+        <Route
+          path={AppRoute.Error}
+          element={<NotFoundScreen/>}
+        />
       </Route>)))}
     />
   </HelmetProvider>
