@@ -33,6 +33,13 @@ enum Block {
   Footer = 'footer'
 }
 
+enum SortType {
+  LowToHigh = 'low-to-high',
+  HighToLow = 'high-to-low',
+  RatedFirst = 'rated-first',
+  Popular = 'popular'
+}
+
 const LogoVariant = {
   Footer: {
     block: Block.Footer,
@@ -48,7 +55,7 @@ const LogoVariant = {
       height: '41'
     }
   }
-};
+} as const;
 
 const BookmarkButtonVariant = {
   Offer: {
@@ -65,7 +72,7 @@ const BookmarkButtonVariant = {
       height: '19'
     }
   }
-};
+} as const;
 
 const OfferCardVariant = {
   Cities: {
@@ -89,6 +96,6 @@ const OfferCardVariant = {
       height: '110'
     }
   }
-};
+} as const;
 
-export { OfferCardVariant, AppRoute, AuthorizationStatus, City, BookmarkButtonVariant, Block, LogoVariant };
+export { OfferCardVariant, AppRoute, AuthorizationStatus, City, BookmarkButtonVariant, Block, LogoVariant, SortType };

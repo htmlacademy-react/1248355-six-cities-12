@@ -1,22 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setActiveOffer, setCity, setCityOffers, setExternalVisit } from './actions';
+import { City, SortType } from '../consts/enum';
+import { setActiveOffer, setCity, setCityOffers, setExternalVisit, sortCities } from './actions';
+import { Offer } from '../types/offers';
 import { offers } from '../mocks/offers';
 import { filter } from '../utils/filter';
-import { Offer } from '../types/offers';
-import { City } from '../consts/enum';
+import { sortBy } from '../utils/sort';
 
-export type InitialState = {
+type InitialState = {
   city?: City;
   offers: Offer[];
   activeOffer?: Offer;
   nearOffers?: Offer[];
   isExternalVisit: boolean;
+  sourceOffers: Offer[];
 }
 
 const initialState: InitialState = {
   isExternalVisit: true,
   offers: offers,
-  nearOffers: offers
+  nearOffers: offers,
+  sourceOffers: offers
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -30,6 +33,15 @@ const reducer = createReducer(initialState, (builder) => {
       }
 
       state.offers = filter[state.city](offers);
+      state.sourceOffers = state.offers;
+    })
+    .addCase(sortCities, (state, action) => {
+      if (action.payload === SortType.Popular) {
+        state.offers = state.sourceOffers;
+        return;
+      }
+
+      state.offers = state.offers.sort(sortBy[action.payload]);
     })
     .addCase(setActiveOffer, (state, action) => {
       state.activeOffer = action.payload;
