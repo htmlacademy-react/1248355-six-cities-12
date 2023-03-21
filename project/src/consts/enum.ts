@@ -2,7 +2,9 @@ enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
   Login = '/login',
-  Offer = '/offer/:id'
+  Offer = '/offer/:id',
+  City = '/tab/:city',
+  Error = '/error'
 }
 
 enum AuthorizationStatus {

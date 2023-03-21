@@ -1,9 +1,9 @@
-import { MutableRefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import Leaflet, { LayerGroup, Map, MapOptions } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { addTileLayer, createMapInstance } from '../utils/leaflet';
 
-type UseMapFn = (container: MutableRefObject<HTMLElement | undefined>, options: MapOptions) =>
+type UseMapFn = (container: RefObject<HTMLElement>, options: MapOptions) =>
   {
     map: Map;
     groupLayer: LayerGroup;

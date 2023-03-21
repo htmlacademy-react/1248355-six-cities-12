@@ -8,20 +8,32 @@ import { makeFirstLetterUpperCase } from '../../utils/common';
 import BookmarkButton from '../button/bookmark-button/bookmark-button';
 import Price from '../price/price';
 import Rating from '../rating/rating';
+import { useAppDispatch } from '../../hooks/store';
+import { setActiveOffer } from '../../store/actions';
 
 type PlaceCardProps = {
   variant: OfferVariant;
   offer: Offer;
-  onMouseEnter?: (activeCard: number) => void;
 }
 
-const OfferCard = ({ variant, offer, onMouseEnter }: PlaceCardProps) => {
+const OfferCard = ({ variant, offer }: PlaceCardProps) => {
   const { block, imgSize } = variant;
   const { isFavorite, isPremium, previewImage, title, type, rating, price, id } = offer;
+
   const isFavoriteVariant = OfferCardVariant.Favorites === variant;
+  const isMouseEnterEvent = OfferCardVariant.Cities === variant || undefined;
+
+  const dispatch = useAppDispatch();
+
+  const handleActiveOffer = () => {
+    dispatch(setActiveOffer(offer));
+  };
 
   return (
-    <article onMouseEnter={onMouseEnter && (() => onMouseEnter(id))} className={`${block}__card place-card`}>
+    <article
+      onMouseEnter={isMouseEnterEvent && handleActiveOffer}
+      className={`${block}__card place-card`}
+    >
       {isPremium && <Mark block={Block.OfferCard}/>}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <a href={AppRoute.Root}>
@@ -41,7 +53,11 @@ const OfferCard = ({ variant, offer, onMouseEnter }: PlaceCardProps) => {
         </div>
         <Rating block={Block.OfferCard} rating={rating}/>
         <h2 className="place-card__name">
-          <Link to={generatePath(AppRoute.Offer, { id: id.toString() })}>{title}</Link>
+          <Link
+            onClick={handleActiveOffer}
+            to={generatePath(AppRoute.Offer, { id: id.toString() })}
+          >{title}
+          </Link>
         </h2>
         <p className="place-card__type">{makeFirstLetterUpperCase(type)}</p>
       </div>
