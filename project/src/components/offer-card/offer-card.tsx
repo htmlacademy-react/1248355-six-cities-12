@@ -21,13 +21,17 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
   const { isFavorite, isPremium, previewImage, title, type, rating, price, id } = offer;
 
   const isFavoriteVariant = OfferCardVariant.Favorites === variant;
-  const isCitiesVariant = OfferCardVariant.Cities === variant || undefined;
+  const isMouseEnterEvent = OfferCardVariant.Cities === variant || undefined;
 
   const dispatch = useAppDispatch();
 
+  const handleActiveOffer = () => {
+    dispatch(setActiveOffer(offer));
+  };
+
   return (
     <article
-      onMouseEnter={isCitiesVariant && (() => dispatch(setActiveOffer(offer)))}
+      onMouseEnter={isMouseEnterEvent && handleActiveOffer}
       className={`${block}__card place-card`}
     >
       {isPremium && <Mark block={Block.OfferCard}/>}
@@ -50,7 +54,7 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
         <Rating block={Block.OfferCard} rating={rating}/>
         <h2 className="place-card__name">
           <Link
-            onClick={() => dispatch(setActiveOffer(offer))}
+            onClick={handleActiveOffer}
             to={generatePath(AppRoute.Offer, { id: id.toString() })}
           >{title}
           </Link>

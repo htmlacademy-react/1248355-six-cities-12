@@ -19,39 +19,24 @@ type PropertyProps = {
 }
 
 const Property = ({ comments, authorizationStatus }: PropertyProps) => {
-  const { activeOffer } = useAppSelector((state) => state);
+  const activeOffer = useAppSelector((state) => state.activeOffer);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   if (!activeOffer) {
     return <ErrorNavigate/>;
   }
 
-  const {
-    images,
-    type,
-    isPremium,
-    title,
-    isFavorite,
-    rating,
-    bedrooms,
-    maxAdults,
-    price,
-    goods,
-    host,
-    description
-  } = activeOffer;
-
   return (
     <section className="property">
       <GalleryContainer>
-        <Gallery images={images} type={type}/>
+        <Gallery images={activeOffer.images} type={activeOffer.type}/>
       </GalleryContainer>
-      <PropertyContainer data={{ isFavorite, title, isPremium }}>
-        <Rating block={Block.Property} rating={rating}/>
-        <OfferFeatures features={{ type, bedrooms, maxAdults }}/>
-        <Price price={price} block={Block.Property}/>
-        <Goods goods={goods}/>
-        <Host host={{ ...host, description }}/>
+      <PropertyContainer data={activeOffer}>
+        <Rating block={Block.Property} rating={activeOffer.rating}/>
+        <OfferFeatures features={activeOffer}/>
+        <Price price={activeOffer.price} block={Block.Property}/>
+        <Goods goods={activeOffer.goods}/>
+        <Host host={{ ...activeOffer.host, description: activeOffer.description }}/>
         <Reviews comments={comments} isAuthorized={isAuthorized}/>
       </PropertyContainer>
       <Map block={Block.Property}/>

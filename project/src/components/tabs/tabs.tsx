@@ -2,6 +2,7 @@ import { AppRoute, City } from '../../consts/enum';
 import { generatePath, NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/store';
 import { setCity, setCityOffers } from '../../store/actions';
+import classNames from 'classnames';
 
 const Tabs = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,8 @@ const Tabs = () => {
             <li key={city} className="locations__item">
               <NavLink
                 onClick={() => handleNavLinkClick(city)}
-                className={({ isActive }) => (isActive ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item')}
+                className={({ isActive }) =>
+                  classNames({ 'tabs__item--active': isActive }, 'locations__item-link tabs__item')}
                 to={generatePath(AppRoute.City, { city })}
               >
                 <span>{city}</span>

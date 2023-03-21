@@ -1,11 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { City } from '../consts/enum';
 import { setActiveOffer, setCity, setCityOffers, setExternalVisit } from './actions';
-import { Offer } from '../types/offers';
 import { offers } from '../mocks/offers';
 import { filter } from '../utils/filter';
+import { Offer } from '../types/offers';
+import { City } from '../consts/enum';
 
-type InitialState = {
+export type InitialState = {
   city?: City;
   offers: Offer[];
   activeOffer?: Offer;

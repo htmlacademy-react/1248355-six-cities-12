@@ -34,7 +34,6 @@ const MainScreen = () => {
     dispatch(setExternalVisit(false));
     dispatch(setCity(city));
     dispatch(setCityOffers());
-    return null;
   }
 
   return (

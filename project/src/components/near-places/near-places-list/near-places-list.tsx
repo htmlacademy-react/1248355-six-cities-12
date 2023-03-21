@@ -5,7 +5,7 @@ import PlacesList from '../../places-list/places-list';
 import { useAppSelector } from '../../../hooks/store';
 
 const NearPlacesList = () => {
-  const { nearOffers } = useAppSelector((state) => state);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
 
   return (
     <PlacesList className="near-places__list">

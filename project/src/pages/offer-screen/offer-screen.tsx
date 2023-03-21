@@ -29,8 +29,6 @@ const OfferScreen = ({ authorizationStatus, comments }: OfferScreenProps) => {
     dispatch(setExternalVisit(false));
     dispatch(setActiveOffer(offer));
     dispatch(setCityOffers());
-
-    return null;
   }
 
   return (
