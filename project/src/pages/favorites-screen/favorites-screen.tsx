@@ -1,25 +1,18 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types/offers';
-import Favorites from '../../components/favorites/favorites';
-import { useMemo } from 'react';
+import FavoritesList from '../../components/favorites/favorites-list/favorites-list';
 
-type FavoritesScreenProps = {
-  offers: Offers;
-}
-
-const FavoritesScreen = ({ offers }: FavoritesScreenProps) => {
-  const filterOffers = useMemo(() => offers.filter(({ isFavorite }) => isFavorite), [offers]);
-
-  return (
-    <main className="page__main page__main--favorites">
-      <Helmet>
-        <title>Favorites</title>
-      </Helmet>
-      <div className="page__favorites-container container">
-        <Favorites offers={filterOffers}/>
-      </div>
-    </main>
-  );
-};
+const FavoritesScreen = () => (
+  <main className="page__main page__main--favorites">
+    <Helmet>
+      <title>Favorites</title>
+    </Helmet>
+    <div className="page__favorites-container container">
+      <section className="favorites">
+        <h1 className="favorites__title">Saved listing</h1>
+        <FavoritesList/>
+      </section>
+    </div>
+  </main>
+);
 
 export default FavoritesScreen;

@@ -1,10 +1,10 @@
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { Outlet, useMatch } from 'react-router-dom';
-import { useMemo } from 'react';
-import { AppRoute } from '../../consts/enum';
-import { Offers } from '../../types/offers';
+import { AppRoute, AuthorizationStatus } from '../../consts/enum';
 import classNames from 'classnames';
+import Spinner from '../spinner/spinner';
+import { useAppSelector } from '../../hooks/store';
 
 enum LayoutClassName {
   Main = 'page--gray page--main',
@@ -13,32 +13,43 @@ enum LayoutClassName {
   Default = 'page'
 }
 
-type LayoutProps = {
-  offers: Offers;
-}
+const Layout = () => {
+  const isLoading = useAppSelector((state) => state.api.isLoading);
+  const authorizationStatus = useAppSelector((state) => state.api.authorizationStatus);
+  const offers = useAppSelector((state) => state.city.offers);
 
-const Layout = ({ offers }: LayoutProps) => {
   const isFavoritesRoute = useMatch(AppRoute.Favorites);
   const isLoginRoute = useMatch(AppRoute.Login);
   const isRootRoute = useMatch(AppRoute.Root);
   const isCityRoute = useMatch(AppRoute.City);
 
-  const className = useMemo(() => classNames(
+  //удалил useMemo так как реакт разработчики советуют испольовать его толкьо на трудозатраных операциях или для dep[]
+  // плюс он практически всегда тут срабатывает так как зависимостей много и они всегда меняются при ререндере
+  const className = classNames(
     LayoutClassName.Default,
     {
       [LayoutClassName.EmptyFavorites]: !offers.length && isFavoritesRoute,
       [LayoutClassName.Main]: isRootRoute || isCityRoute,
       [LayoutClassName.Login]: isLoginRoute
-    })
-  , [isCityRoute, isFavoritesRoute, isLoginRoute, isRootRoute, offers.length]);
+    });
 
   return (
     <div className={className}>
-      <Header/>
-      <Outlet/>
+      <Header authorizationStatus={authorizationStatus} isLoading={isLoading}/>
+      {isLoading || authorizationStatus === AuthorizationStatus.Unknown
+        ?
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh'
+        }}
+        ><Spinner/>
+        </div>
+        :
+        <Outlet/>}
       {isFavoritesRoute && <Footer/>}
     </div>
   );
 };
-
 export default Layout;

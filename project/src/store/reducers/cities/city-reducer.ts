@@ -6,17 +6,20 @@ import { filter } from '../../../utils/filter';
 import { sortBy } from '../../../utils/sort';
 
 type InitialState = {
-  city?: City;
+  city: City | null;
   offers: Offer[];
-  activeOffer?: Offer;
-  nearOffers?: Offer[];
+  activeOffer: Offer | null;
+  nearOffers: Offer[];
   sourceOffers: Offer[];
 }
 
 const initialState: InitialState = {
   offers: [],
   nearOffers: [],
-  sourceOffers: []
+  sourceOffers: [],
+  city: null,
+  activeOffer: null,
+
 };
 
 const cityReducer = createReducer(initialState, (builder) => {

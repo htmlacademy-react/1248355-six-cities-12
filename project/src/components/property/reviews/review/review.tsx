@@ -1,6 +1,6 @@
-import Rating from '../../../../rating/rating';
-import { Block } from '../../../../../consts/enum';
-import { Comment } from '../../../../../types/comments';
+import Rating from '../../../rating/rating';
+import { Block } from '../../../../consts/enum';
+import { Comment } from '../../../../types/comments';
 import dayjs from 'dayjs';
 
 type ReviewProps = {

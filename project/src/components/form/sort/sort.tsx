@@ -1,9 +1,9 @@
-import { KeyboardEventHandler, MouseEventHandler, useState } from 'react';
+import React, { KeyboardEventHandler, MouseEventHandler, useState } from 'react';
 import { SortType } from '../../../consts/enum';
 import classNames from 'classnames';
 import cl from './styles.module.css';
 import { useAppDispatch } from '../../../hooks/store';
-import { sortCities } from '../../../store/actions';
+import { sortCities } from '../../../store/reducers/cities/city-actions';
 
 const sortTypeToTitle = {
   [SortType.Popular]: 'Popular',
@@ -12,13 +12,16 @@ const sortTypeToTitle = {
   [SortType.LowToHigh]: 'Price: low to high'
 };
 
+const ENTER_KEY = 'Enter';
+
 const Sort = () => {
   const [isSortOpened, setSortState] = useState(false);
   const [activeSort, setActiveSort] = useState<SortType>(SortType.Popular);
   const dispatch = useAppDispatch();
 
-  const handleSortOptionAction = (currentTarget: EventTarget & HTMLLIElement) => {
+  const handleSortOptionChange = (currentTarget: EventTarget & HTMLLIElement) => {
     const { sort } = currentTarget.dataset;
+
     if (sort) {
       setActiveSort(sort as SortType);
       setSortState(!isSortOpened);
@@ -26,23 +29,23 @@ const Sort = () => {
     }
   };
 
-  const onSortOpenPanelClick = () => {
+  const onOpenPanelClick = () => {
     setSortState(!isSortOpened);
   };
 
-  const onSortOpenPanelKeyDown: KeyboardEventHandler<HTMLSpanElement> = ({ key }) => {
-    if (key === 'Enter') {
+  const onOpenPanelKeyDown: KeyboardEventHandler<HTMLSpanElement> = ({ key }) => {
+    if (key === ENTER_KEY) {
       setSortState(!isSortOpened);
     }
   };
 
-  const onSortOptionClick: MouseEventHandler<HTMLLIElement> = ({ currentTarget }) => {
-    handleSortOptionAction(currentTarget);
+  const onOptionClick: MouseEventHandler<HTMLLIElement> = ({ currentTarget }) => {
+    handleSortOptionChange(currentTarget);
   };
 
-  const onSortOptionKeyDown: KeyboardEventHandler<HTMLLIElement> = ({ currentTarget, key }) => {
-    if (key === 'Enter') {
-      handleSortOptionAction(currentTarget);
+  const onOptionKeyDown: KeyboardEventHandler<HTMLLIElement> = ({ currentTarget, key }) => {
+    if (key === ENTER_KEY) {
+      handleSortOptionChange(currentTarget);
     }
   };
 
@@ -50,8 +53,8 @@ const Sort = () => {
     <form className="places__sorting" action="#" method="get">
       <span style={{ marginRight: '5px' }} className="places__sorting-caption">Sort by</span>
       <span
-        onKeyDown={onSortOpenPanelKeyDown}
-        onClick={onSortOpenPanelClick} className="places__sorting-type" tabIndex={0}
+        onKeyDown={onOpenPanelKeyDown}
+        onClick={onOpenPanelClick} className="places__sorting-type" tabIndex={0}
       >
         {sortTypeToTitle[activeSort]}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -59,12 +62,12 @@ const Sort = () => {
         </svg>
       </span>
       <ul
-        className={`places__options places__options--custom ${isSortOpened ? 'places__options--opened' : ''}`}
+        className={classNames('places__options places__options--custom', { 'places__options--opened': isSortOpened })}
       >{
           Object.values(SortType).map((type, index) => (
             <li
-              onKeyDown={onSortOptionKeyDown}
-              onClick={onSortOptionClick}
+              onKeyDown={onOptionKeyDown}
+              onClick={onOptionClick}
               key={`${index.toString()}-${type}`}
               data-sort={type}
               className={classNames(cl.sort, 'places__option', { 'places__option--active': activeSort === type })}
@@ -78,4 +81,4 @@ const Sort = () => {
   );
 };
 
-export default Sort;
+export default React.memo(Sort);

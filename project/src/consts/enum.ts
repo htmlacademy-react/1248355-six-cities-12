@@ -7,6 +7,11 @@ enum AppRoute {
   Error = '/error'
 }
 
+enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login'
+}
+
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -98,4 +103,14 @@ const OfferCardVariant = {
   }
 } as const;
 
-export { OfferCardVariant, AppRoute, AuthorizationStatus, City, BookmarkButtonVariant, Block, LogoVariant, SortType };
+export {
+  OfferCardVariant,
+  AppRoute,
+  AuthorizationStatus,
+  City,
+  BookmarkButtonVariant,
+  Block,
+  LogoVariant,
+  SortType,
+  APIRoute
+};

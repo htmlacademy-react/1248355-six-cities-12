@@ -1,4 +1,4 @@
-import { BookmarkVariant } from '../../../types/components';
+import { BookmarkVariant } from '../../../types/app';
 
 type ButtonProps = {
   variant: BookmarkVariant;

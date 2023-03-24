@@ -2,14 +2,11 @@ import React, { useMemo } from 'react';
 import { AppRoute } from '../../../consts/enum';
 import { filterOffersByCity } from '../../../utils/filter';
 import { sortCitiesByAlphabet } from '../../../utils/sort';
-import { Offer } from '../../../types/offers';
 import FavoritePlaces from '../favorite-places/favorite-places';
+import { useAppSelector } from '../../../hooks/store';
 
-type FavoritesListProps = {
-  offers: Offer [];
-}
-
-const FavoritesList = ({ offers }: FavoritesListProps) => {
+const FavoritesList = () => {
+  const offers = useAppSelector((state) => state.city.sourceOffers);
   const filteredOffers = useMemo(() => filterOffersByCity(offers).sort(sortCitiesByAlphabet), [offers]);
 
   return (

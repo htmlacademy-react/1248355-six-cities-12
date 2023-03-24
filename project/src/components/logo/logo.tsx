@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogoVariant } from '../../types/components';
+import { LogoVariant } from '../../types/app';
 import { NavLink } from 'react-router-dom';
 import { AppRoute } from '../../consts/enum';
 

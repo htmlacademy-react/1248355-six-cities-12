@@ -1,5 +1,5 @@
 import React from 'react';
-import { adaptRatingForRendering } from '../../utils/adapt';
+import { adaptRatingForRendering } from '../../utils/transform';
 import { Block } from '../../consts/enum';
 
 type RatingProps = {

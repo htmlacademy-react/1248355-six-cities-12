@@ -1,0 +1,12 @@
+.animation {
+  animation: color 1.5s infinite alternate;
+}
+
+@keyframes color {
+  0% {
+    color: blue;
+  }
+  100% {
+    color: #5d5d5d;
+  }
+}
