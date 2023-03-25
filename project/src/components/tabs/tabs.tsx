@@ -1,15 +1,15 @@
 import { AppRoute, City } from '../../consts/enum';
 import { generatePath, NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/store';
-import { setCity, setCityOffers } from '../../store/actions';
+import { changeCity, filterCityOffers } from '../../store/reducers/cities/city-actions';
 import classNames from 'classnames';
 
 const Tabs = () => {
   const dispatch = useAppDispatch();
 
   const handleNavLinkClick = (city: City) => {
-    dispatch(setCity(city));
-    dispatch(setCityOffers());
+    dispatch(filterCityOffers(city));
+    dispatch(changeCity());
   };
 
   return (
@@ -23,6 +23,7 @@ const Tabs = () => {
                 className={({ isActive }) =>
                   classNames({ 'tabs__item--active': isActive }, 'locations__item-link tabs__item')}
                 to={generatePath(AppRoute.City, { city })}
+                end
               >
                 <span>{city}</span>
               </NavLink>

@@ -1,6 +1,6 @@
 import { AppRoute, Block, BookmarkButtonVariant, OfferCardVariant } from '../../consts/enum';
 import { Offer } from '../../types/offers';
-import { OfferVariant } from '../../types/components';
+import { OfferVariant } from '../../types/app';
 import Mark from '../mark/mark';
 import classNames from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import BookmarkButton from '../button/bookmark-button/bookmark-button';
 import Price from '../price/price';
 import Rating from '../rating/rating';
 import { useAppDispatch } from '../../hooks/store';
-import { setActiveOffer } from '../../store/actions';
+import { changeActiveOffer } from '../../store/reducers/cities/city-actions';
 
 type PlaceCardProps = {
   variant: OfferVariant;
@@ -26,7 +26,7 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
   const dispatch = useAppDispatch();
 
   const handleActiveOffer = () => {
-    dispatch(setActiveOffer(offer));
+    dispatch(changeActiveOffer(offer));
   };
 
   return (

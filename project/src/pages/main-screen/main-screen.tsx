@@ -1,39 +1,25 @@
 import Tabs from '../../components/tabs/tabs';
-import { AppRoute, Block, City } from '../../consts/enum';
-import Cities from '../../components/cities/cities';
-import CityPlaces from '../../components/cities/city-places/city-places';
-import MapContainer from '../../components/cities/map-container/map-container';
+import { AppRoute, Block, City, OfferCardVariant } from '../../consts/enum';
 import Map from '../../components/map/map';
-import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import { useAppSelector } from '../../hooks/store';
 import MainEmptyScreen from '../main-empty-screen/main-empty-screen';
-import { generatePath, Navigate, useMatch, useParams } from 'react-router-dom';
-import { setCity, setCityOffers, setExternalVisit } from '../../store/actions';
-import { DEFAULT_CITY } from '../../consts/app';
-import ErrorNavigate from '../../components/navigate/error-navigate/error-navigate';
+import { generatePath, Navigate, useParams } from 'react-router-dom';
+import React from 'react';
+import Sort from '../../components/form/sort/sort';
+import OfferCard from '../../components/offer-card/offer-card';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 const MainScreen = () => {
-  const isRootRoute = !!useMatch(AppRoute.Root);
-  const dispatch = useAppDispatch();
+  const offers = useAppSelector((state) => state.city.offers);
+  const cityName = useAppSelector((state) => state.city.city?.name);
   const { city } = useParams<{ city: City }>();
-  const { offers, isExternalVisit } = useAppSelector((state) => state);
 
-  if (city && !Object.keys(City).includes(city)) {
-    return <ErrorNavigate/>;
+  if (!city) {
+    return <Navigate to={generatePath(AppRoute.City, { city: City.Paris })}/>;
   }
 
-  //редирект с AppRoute.Root
-  if (isRootRoute) {
-    dispatch(setExternalVisit(false));
-    dispatch(setCity(DEFAULT_CITY));
-    dispatch(setCityOffers());
-    return <Navigate to={generatePath(AppRoute.City, { city: DEFAULT_CITY })}/>;
-  }
-
-  //вход на страницу при вводе в адресную строку браузера или по ссылке из вне
-  if (city && isExternalVisit) {
-    dispatch(setExternalVisit(false));
-    dispatch(setCity(city));
-    dispatch(setCityOffers());
+  if (!Object.keys(City).includes(city)) {
+    return <NotFoundScreen/>;
   }
 
   return (
@@ -42,12 +28,26 @@ const MainScreen = () => {
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <Tabs/>
-          <Cities>
-            <CityPlaces/>
-            <MapContainer>
-              <Map block={Block.Cities}/>
-            </MapContainer>
-          </Cities>
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offers.length} places to stay in {cityName}</b>
+                <Sort/>
+                <div className="cities__places-list tabs__content places__list">
+                  {offers.map((offer) => (
+                    <OfferCard
+                      key={offer.id}
+                      offer={offer}
+                      variant={OfferCardVariant.Cities}
+                    />))}
+                </div>
+              </section>
+              <div className="cities__right-section">
+                <Map offers={offers} block={Block.Cities}/>
+              </div>
+            </div>
+          </div>
         </main>
       )
       : <MainEmptyScreen/>
