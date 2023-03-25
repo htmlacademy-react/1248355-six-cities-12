@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import cl from './styles.module.css';
 import { useAppDispatch } from '../../../hooks/store';
 import { sortCities } from '../../../store/reducers/cities/city-actions';
+import { ENTER_KEY } from '../../../consts/app';
 
 const sortTypeToTitle = {
   [SortType.Popular]: 'Popular',
@@ -11,8 +12,6 @@ const sortTypeToTitle = {
   [SortType.HighToLow]: 'Price: high to low',
   [SortType.LowToHigh]: 'Price: low to high'
 };
-
-const ENTER_KEY = 'Enter';
 
 const Sort = () => {
   const [isSortOpened, setSortState] = useState(false);

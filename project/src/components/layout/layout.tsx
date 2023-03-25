@@ -23,18 +23,15 @@ const Layout = () => {
   const isRootRoute = useMatch(AppRoute.Root);
   const isCityRoute = useMatch(AppRoute.City);
 
-  //удалил useMemo так как реакт разработчики советуют испольовать его толкьо на трудозатраных операциях или для dep[]
-  // плюс он практически всегда тут срабатывает так как зависимостей много и они всегда меняются при ререндере
-  const className = classNames(
-    LayoutClassName.Default,
-    {
-      [LayoutClassName.EmptyFavorites]: !offers.length && isFavoritesRoute,
-      [LayoutClassName.Main]: isRootRoute || isCityRoute,
-      [LayoutClassName.Login]: isLoginRoute
-    });
-
   return (
-    <div className={className}>
+    <div className={classNames(
+      LayoutClassName.Default,
+      {
+        [LayoutClassName.EmptyFavorites]: !offers.length && isFavoritesRoute,
+        [LayoutClassName.Main]: isRootRoute || isCityRoute,
+        [LayoutClassName.Login]: isLoginRoute
+      })}
+    >
       <Header authorizationStatus={authorizationStatus} isLoading={isLoading}/>
       {isLoading || authorizationStatus === AuthorizationStatus.Unknown
         ?
