@@ -1,7 +1,11 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { Login } from '../../../types/app';
+import { useAppDispatch } from '../../../hooks/store';
+import { authenticateUser } from '../../../store/thunk-actions';
 
 const LoginForm = () => {
-  const [formData, setFormData] = useState({
+  const dispatch = useAppDispatch();
+  const [formData, setFormData] = useState<Login>({
     email: '',
     password: ''
   });
@@ -11,8 +15,13 @@ const LoginForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(authenticateUser(formData));
+  };
+
   return (
-    <form className="login__form form" action="#" method="post">
+    <form onSubmit={handleSubmit} className="login__form form" action="#" method="post">
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
         <input

@@ -46,7 +46,7 @@ const App = ({ comments }: AppProps): JSX.Element => (
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <PrivateRoute>
                   {<FavoritesScreen/>}
                 </PrivateRoute>
               }

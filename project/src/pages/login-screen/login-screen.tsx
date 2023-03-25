@@ -1,27 +1,41 @@
 import { Helmet } from 'react-helmet-async';
 import LoginForm from '../../components/form/login/login-form';
-import { AppRoute } from '../../consts/enum';
+import { AppRoute, AuthorizationStatus, City } from '../../consts/enum';
+import { getRandomArrayElement } from '../../utils/common';
+import { generatePath, Link, Navigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/store';
+import Spinner from '../../components/spinner/spinner';
 
-const LoginScreen = () => (
-  <main className="page__main page__main--login">
-    <Helmet>
-      <title>Login</title>
-    </Helmet>
-    <div className="page__login-container container">
-      <section className="login">
-        <h1 className="login__title">Sign in</h1>
-        <LoginForm/>
-      </section>
-      <section className="locations locations--login locations--current">
-        <div className="locations__item">
-          <a className="locations__item-link" href={AppRoute.Root}>
-            <span>Amsterdam</span>
-          </a>
+const LoginScreen = () => {
+  const authorizationStatus = useAppSelector((state) => state.api.authorizationStatus);
+  const randomCity = getRandomArrayElement(Object.values(City));
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={generatePath(AppRoute.City, { city: City.Paris })}/>;
+  }
+
+  return (
+    <Spinner>
+      <main className="page__main page__main--login">
+        <Helmet>
+          <title>Login</title>
+        </Helmet>
+        <div className="page__login-container container">
+          <section className="login">
+            <h1 className="login__title">Sign in</h1>
+            <LoginForm/>
+          </section>
+          <section className="locations locations--login locations--current">
+            <div className="locations__item">
+              <Link className="locations__item-link" to={generatePath(AppRoute.City, { city: randomCity })}>
+                <span>{randomCity}</span>
+              </Link>
+            </div>
+          </section>
         </div>
-      </section>
-    </div>
-  </main>
-
-);
+      </main>
+    </Spinner>
+  );
+};
 
 export default LoginScreen;

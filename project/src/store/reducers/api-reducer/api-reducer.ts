@@ -1,17 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../../consts/enum';
-import { changeAuthStatus, setError, setLoading } from './api-actions';
+import { changeAuthStatus, setError, setLoading, setUser } from './api-actions';
+import { AuthUser } from '../../../types/comments';
 
 type InitialState = {
   error: string | null;
   isLoading: boolean;
   authorizationStatus: string;
+  user: AuthUser;
 }
 
 const initialState: InitialState = {
   error: null,
   isLoading: false,
-  authorizationStatus: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user: null
 };
 
 const apiReducer = createReducer(initialState, (builder) => {
@@ -24,6 +27,9 @@ const apiReducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeAuthStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });
 

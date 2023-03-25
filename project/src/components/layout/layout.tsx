@@ -30,7 +30,7 @@ const Layout = () => {
           [LayoutClassName.Login]: isLoginRoute
         })}
     >
-      <Header/>
+      <Header isLoginRoute={!!isLoginRoute}/>
       <Outlet/>
       {isFavoritesRoute && <Footer/>}
     </div>

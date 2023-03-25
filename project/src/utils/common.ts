@@ -2,6 +2,8 @@ const makeFirstLetterUpperCase = (string: string) => `${string[0].toUpperCase()}
 
 const getRandomNumber = (min: number, max: number) => Math.round(Math.random() * (max - min) + min);
 
+const getRandomArrayElement = <T>(elements: T[]) => elements[getRandomNumber(0, elements.length - 1)];
+
 const createRandomElementsArray = <T>(elements: T[], length: number = elements.length) => {
   const newElements = [...elements];
 
@@ -14,4 +16,4 @@ const createRandomElementsArray = <T>(elements: T[], length: number = elements.l
   return length === newElements.length ? newElements : newElements.slice(0, Math.min(length, newElements.length));
 };
 
-export { makeFirstLetterUpperCase, createRandomElementsArray };
+export { makeFirstLetterUpperCase, createRandomElementsArray, getRandomArrayElement };
