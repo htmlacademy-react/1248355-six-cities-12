@@ -4,9 +4,10 @@ import App from './components/app/app';
 import { comments } from './mocks/commets';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { checkAuth, fetchOffers } from './store/thunk-actions';
+import { checkAuth } from './store/thunk-actions';
+import { setLoading } from './store/reducers/api-reducer/api-actions';
 
-store.dispatch(fetchOffers());
+store.dispatch(setLoading(true));
 store.dispatch(checkAuth());
 
 const root = ReactDOM.createRoot(

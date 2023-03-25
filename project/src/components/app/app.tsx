@@ -53,10 +53,6 @@ const App = ({ comments }: AppProps): JSX.Element => (
             />
           </Route>
           <Route
-            path={AppRoute.Error}
-            element={<NotFoundScreen/>}
-          />
-          <Route
             path="*"
             element={<NotFoundScreen/>}
           />

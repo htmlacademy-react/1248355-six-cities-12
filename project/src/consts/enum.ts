@@ -4,7 +4,6 @@ enum AppRoute {
   Login = '/login',
   Offer = '/offer/:id',
   City = '/:city',
-  Error = '/error'
 }
 
 enum APIRoute {
