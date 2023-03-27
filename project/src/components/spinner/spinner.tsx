@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import cl from './spinner.module.css';
 import classNames from 'classnames';
 import { AuthorizationStatus } from '../../consts/enum';
 import { useAppSelector } from '../../hooks/store';
+import { ReactNode } from 'react';
 
 type SpinnerProps = {
   withLoading?: boolean;
@@ -27,7 +27,7 @@ const Spinner = ({ withLoading = true, children, variant = 'primary', isLoading 
       }}
       ><FaSpinner className={classNames(cl.spinner, cl[variant])}/>
       </div>
-      : <>{children}</>
+      : children as JSX.Element
   );
 };
 
