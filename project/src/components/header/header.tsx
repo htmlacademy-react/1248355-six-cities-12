@@ -12,7 +12,6 @@ type HeaderProps = {
 }
 
 const Header = ({ isLoginRoute }: HeaderProps) => {
-  const isLoading = useAppSelector((state) => state.api.isLoading);
   const authorizationStatus = useAppSelector((state) => state.api.authorizationStatus);
   const user = useAppSelector((state) => state.api.user);
   const dispatch = useAppDispatch();
@@ -34,7 +33,7 @@ const Header = ({ isLoginRoute }: HeaderProps) => {
               <ul
                 className={classNames(
                   'header__nav-list',
-                  { [cl.animation]: isLoading || authorizationStatus === AuthorizationStatus.Unknown })}
+                  { [cl.animation]: authorizationStatus === AuthorizationStatus.Unknown })}
               >
                 {
                   authorizationStatus === AuthorizationStatus.Auth
@@ -71,4 +70,4 @@ const Header = ({ isLoginRoute }: HeaderProps) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

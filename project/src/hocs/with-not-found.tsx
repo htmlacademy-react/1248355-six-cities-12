@@ -1,9 +1,9 @@
-import React, { ComponentType, useState } from 'react';
+import React, { ComponentType, Dispatch, SetStateAction, useState } from 'react';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 
 type HOCProps = {
   isNotFound: boolean;
-  setNotFound: (isNotFound: boolean) => void;
+  setNotFound: Dispatch<SetStateAction<boolean>>;
 }
 
 function withNotFound<T>(Component: ComponentType<T>): ComponentType<Omit<T, keyof HOCProps>> {

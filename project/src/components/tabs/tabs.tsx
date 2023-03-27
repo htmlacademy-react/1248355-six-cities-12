@@ -1,7 +1,7 @@
 import { AppRoute, City } from '../../consts/enum';
 import { generatePath, NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/store';
-import { changeCity, filterCityOffers } from '../../store/reducers/cities/city-actions';
+import { filterCityOffers } from '../../store/reducers/offers/offers-actions';
 import classNames from 'classnames';
 
 const Tabs = () => {
@@ -9,7 +9,6 @@ const Tabs = () => {
 
   const handleNavLinkClick = (city: City) => {
     dispatch(filterCityOffers(city));
-    dispatch(changeCity());
   };
 
   return (

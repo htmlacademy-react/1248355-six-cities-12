@@ -1,11 +1,17 @@
 .spinner {
   animation: spin 1.5s infinite linear;
-  width: 100px;
-  height: 100px;
+  fill: #3388ff;
 }
 
 .primary {
-  fill: #3388ff;
+  width: 100px;
+  height: 100px;
+
+}
+
+.small {
+  width: 20px;
+  height: 20px;
 }
 
 @keyframes spin {

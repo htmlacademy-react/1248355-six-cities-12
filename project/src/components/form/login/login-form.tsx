@@ -13,6 +13,12 @@ const LoginForm = () => {
   const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
+
+    if (evt.target.validity.patternMismatch) {
+      evt.target.setCustomValidity('Пароль должен состоять минимум из одной буквы и цифры');
+    } else {
+      evt.target.setCustomValidity('');
+    }
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -37,6 +43,7 @@ const LoginForm = () => {
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">Password</label>
         <input
+          pattern="^(?=.*[a-zA-Zа-яА-Я])(?=.*\d)[^\s].+"
           onChange={onInputChange}
           value={formData.password}
           className="login__input form__input"

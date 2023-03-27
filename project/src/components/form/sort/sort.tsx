@@ -3,7 +3,7 @@ import { SortType } from '../../../consts/enum';
 import classNames from 'classnames';
 import cl from './styles.module.css';
 import { useAppDispatch } from '../../../hooks/store';
-import { sortCities } from '../../../store/reducers/cities/city-actions';
+import { sortCityOffers } from '../../../store/reducers/offers/offers-actions';
 import { ENTER_KEY } from '../../../consts/app';
 
 const sortTypeToTitle = {
@@ -24,7 +24,7 @@ const Sort = () => {
     if (sort) {
       setActiveSort(sort as SortType);
       setSortState(!isSortOpened);
-      dispatch(sortCities(sort as SortType));
+      dispatch(sortCityOffers(sort as SortType));
     }
   };
 

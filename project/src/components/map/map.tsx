@@ -5,15 +5,13 @@ import { useEffect, useMemo, useRef } from 'react';
 import { PointExpression } from 'leaflet';
 import { createPoint } from '../../utils/leaflet';
 import { useAppSelector } from '../../hooks/store';
-import { mapOffersToLocation } from '../../utils/transform';
+import { getLocations, getLocationsWithActiveOffer } from '../../utils/transform';
 import { Offers } from '../../types/offers';
 
 type MapProps = {
   block: Block;
   offers: Offers;
 }
-
-const MAX_NEAR_PLACES_COUNT = 3;
 
 const Icon = {
   Default: {
@@ -30,19 +28,21 @@ const Icon = {
 
 const Map = ({ block, offers }: MapProps) => {
   const activeOffer = useAppSelector((state) => state.city.activeOffer);
-  const city = useAppSelector((state) => state.city.city);
+  const location = offers[0]?.city.location || activeOffer?.city.location;
 
-  const points = useMemo(() => activeOffer && block === Block.Property
-    ? [...mapOffersToLocation(offers).slice(0, MAX_NEAR_PLACES_COUNT), { id: activeOffer.id, ...activeOffer.city.location }]
-    : mapOffersToLocation(offers), [activeOffer, block, offers]);
+  const points = useMemo(() =>
+    activeOffer && block === Block.Property
+      ? getLocationsWithActiveOffer(offers, activeOffer)
+      : getLocations(offers),
+  [activeOffer, block, offers]);
 
   const mapConfig = useMemo(() => ({
-    zoom: city?.location.zoom,
+    zoom: location.zoom,
     center: {
-      lng: city?.location.longitude || 0,
-      lat: city?.location.latitude || 0
+      lng: location.longitude,
+      lat: location.latitude
     }
-  }), [city]);
+  }), [location.zoom, location.longitude, location.latitude]);
 
   const mapRef = useRef<HTMLElement>(null);
   const leaflet = useMap(mapRef, mapConfig);

@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '../types/store';
 import { AxiosInstance } from 'axios';
-import { Offers } from '../types/offers';
-import { APIRoute, AppRoute, AuthorizationStatus, City } from '../consts/enum';
-import { changeAuthStatus, redirectToRoute, setLoading, setUser } from './reducers/api-reducer/api-actions';
+import { Offer, Offers } from '../types/offers';
+import { APIRoute, AuthorizationStatus, City } from '../consts/enum';
+import { changeAuthStatus, redirectBack, setLoading, setUser } from './reducers/api-reducer/api-actions';
 import { Login } from '../types/app';
-import { AuthUser } from '../types/comments';
+import { AuthUser, Comments, NewComment } from '../types/comments';
 import { removeToken, setToken } from '../services/token';
-import { generatePath } from 'react-router-dom';
-import { changeCity, filterCityOffers, setCityOffers } from './reducers/cities/city-actions';
+import { filterCityOffers, setCityOffers } from './reducers/offers/offers-actions';
+import { setComments } from './reducers/comments/comments-actions';
 
 type ThunkConfig = {
   state: RootState;
@@ -26,8 +26,18 @@ const fetchOffers = createAsyncThunk<void, City, ThunkConfig>(
     dispatch(setLoading(false));
     dispatch(setCityOffers(offers));
     dispatch(filterCityOffers(city));
-    dispatch(changeCity());
   });
+
+const fetchNearOffers = createAsyncThunk<Offers, string, ThunkConfig>(
+  'fetchOffer',
+  async (id, { dispatch, extra: api }) => {
+    dispatch(setLoading(true));
+
+    const { data: offers } = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
+
+    return offers;
+  }
+);
 
 const checkAuth = createAsyncThunk<void, undefined, ThunkConfig>(
   'checkAuth',
@@ -50,7 +60,7 @@ const authenticateUser = createAsyncThunk<void, Login, ThunkConfig>(
     setToken(data.token);
     dispatch(changeAuthStatus(AuthorizationStatus.Auth));
     dispatch(setUser(data));
-    dispatch(redirectToRoute(generatePath(AppRoute.City, { city: City.Paris })));
+    dispatch(redirectBack());
   });
 
 const logUserOut = createAsyncThunk<void, undefined, ThunkConfig>(
@@ -61,7 +71,47 @@ const logUserOut = createAsyncThunk<void, undefined, ThunkConfig>(
     removeToken();
     dispatch(setUser(null));
     dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
-    dispatch(redirectToRoute(generatePath(AppRoute.City, { city: City.Paris })));
   });
 
-export { fetchOffers, checkAuth, authenticateUser, logUserOut };
+const fetchOffer = createAsyncThunk<Offer, string, ThunkConfig>(
+  'fetchOffer',
+  async (id, { dispatch, extra: api }) => {
+    dispatch(setLoading(true));
+
+    const { data: offer } = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+
+    return offer;
+  }
+);
+
+const fetchComments = createAsyncThunk<Comments, string, ThunkConfig>(
+  'fetchOffer',
+  async (id, { dispatch, extra: api }) => {
+    dispatch(setLoading(true));
+
+    const { data: comments } = await api.get<Comments>(`${APIRoute.Comments}/${id}`);
+
+    return comments;
+  }
+);
+
+const createComment = createAsyncThunk<void, NewComment, ThunkConfig>(
+  'createComment',
+  async ({ id, ...rest }, { dispatch, extra: api }) => {
+
+    const { data: comments } = await api.post<Comments>(`${APIRoute.Comments}/${id}`, rest);
+
+    dispatch(setComments(comments));
+  }
+);
+
+export {
+  fetchOffers,
+  checkAuth,
+  authenticateUser,
+  logUserOut,
+  fetchOffer,
+  fetchNearOffers,
+  fetchComments,
+  createComment
+};

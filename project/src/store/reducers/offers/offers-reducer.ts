@@ -1,12 +1,11 @@
 import { SortType } from '../../../consts/enum';
 import { createReducer } from '@reduxjs/toolkit';
-import { City, Offer } from '../../../types/offers';
-import { changeActiveOffer, changeCity, filterCityOffers, setCityOffers, sortCities } from './city-actions';
+import { Offer } from '../../../types/offers';
+import { changeActiveOffer, filterCityOffers, setCityOffers, setNearOffers, sortCityOffers } from './offers-actions';
 import { filter } from '../../../utils/filter';
 import { sortBy } from '../../../utils/sort';
 
 type InitialState = {
-  city: City | null;
   offers: Offer[];
   activeOffer: Offer | null;
   nearOffers: Offer[];
@@ -17,37 +16,25 @@ const initialState: InitialState = {
   offers: [],
   nearOffers: [],
   sourceOffers: [],
-  city: null,
-  activeOffer: null,
-
+  activeOffer: null
 };
 
-const cityReducer = createReducer(initialState, (builder) => {
+const offersReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCity, (state) => {
-      if (!state.offers.length) {
-        return;
-      }
-
-      state.city = {
-        name: state.offers[0].city.name,
-        location: state.offers[0].city.location
-      };
-    })
     .addCase(setCityOffers, (state, action) => {
       state.sourceOffers = action.payload;
+    })
+    .addCase(setNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
     })
     .addCase(filterCityOffers, (state, action) => {
       state.offers = filter[action.payload](state.sourceOffers);
 
     })
-    .addCase(sortCities, (state, action) => {
-      if (!state.city) {
-        return;
-      }
-
+    .addCase(sortCityOffers, (state, action) => {
       if (action.payload === SortType.Popular) {
-        state.offers = filter[state.city.name](state.sourceOffers);
+        state.offers = filter[state.offers[0].city.name](state.sourceOffers);
+
         return;
       }
 
@@ -58,4 +45,4 @@ const cityReducer = createReducer(initialState, (builder) => {
     });
 });
 
-export { cityReducer };
+export { offersReducer };

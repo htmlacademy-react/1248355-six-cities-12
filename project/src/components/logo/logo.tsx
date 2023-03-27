@@ -1,15 +1,16 @@
 import React from 'react';
 import { LogoVariant } from '../../types/app';
 import { AppRoute } from '../../consts/enum';
+import { Link } from 'react-router-dom';
 
 type LogoTypes = {
   variant: LogoVariant;
 }
 
 const Logo = ({ variant }: LogoTypes) => (
-  <a
+  <Link
     className={`${variant.block}__logo-link ${variant.block}__logo-link--active`}
-    href={AppRoute.Root}
+    to={AppRoute.Root}
   >
     <img
       className={`${variant.block}__logo`}
@@ -18,7 +19,7 @@ const Logo = ({ variant }: LogoTypes) => (
       width={variant.imgSize.width}
       height={variant.imgSize.height}
     />
-  </a>
+  </Link>
 );
 
 export default Logo;
