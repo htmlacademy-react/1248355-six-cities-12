@@ -1,6 +1,6 @@
-import Rating from '../../../rating/rating';
-import { Block } from '../../../../consts/enum';
-import { Comment } from '../../../../types/comments';
+import Rating from '../../rating/rating';
+import { Block } from '../../../consts/enum';
+import { Comment } from '../../../types/comments';
 import dayjs from 'dayjs';
 
 type ReviewProps = {
@@ -8,10 +8,12 @@ type ReviewProps = {
 }
 
 const REVIEW_DATE_FORMAT = 'MMMM YYYY';
+const MACHINE_DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ss[Z]';
 
 const Review = ({ data }: ReviewProps) => {
   const { comment, user, rating, date } = data;
   const formattedDate = dayjs(date).format(REVIEW_DATE_FORMAT);
+  const machineDate = dayjs(date).format(MACHINE_DATE_FORMAT);
 
   return (
     <li className="reviews__item">
@@ -34,7 +36,7 @@ const Review = ({ data }: ReviewProps) => {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date.toJSON()}>{formattedDate}</time>
+        <time className="reviews__time" dateTime={machineDate}>{formattedDate}</time>
       </div>
     </li>
   );

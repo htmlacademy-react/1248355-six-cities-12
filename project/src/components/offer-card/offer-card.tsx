@@ -9,7 +9,7 @@ import BookmarkButton from '../button/bookmark-button/bookmark-button';
 import Price from '../price/price';
 import Rating from '../rating/rating';
 import { useAppDispatch } from '../../hooks/store';
-import { changeActiveOffer } from '../../store/reducers/cities/city-actions';
+import { changeActiveOffer } from '../../store/reducers/offers/offers-actions';
 
 type PlaceCardProps = {
   variant: OfferVariant;
@@ -36,7 +36,7 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
     >
       {isPremium && <Mark block={Block.OfferCard}/>}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <a href={AppRoute.Root}>
+        <Link to={generatePath(AppRoute.Offer, { id: id.toString() })}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -44,7 +44,7 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
             height={imgSize.height}
             alt={`Place ${title}`}
           />
-        </a>
+        </Link>
       </div>
       <div className={classNames('place-card__info', { 'favorites__card-info': isFavoriteVariant })}>
         <div className="place-card__price-wrapper">
@@ -53,10 +53,8 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
         </div>
         <Rating block={Block.OfferCard} rating={rating}/>
         <h2 className="place-card__name">
-          <Link
-            onClick={handleActiveOffer}
-            to={generatePath(AppRoute.Offer, { id: id.toString() })}
-          >{title}
+          <Link to={generatePath(AppRoute.Offer, { id: id.toString() })}>
+            {title}
           </Link>
         </h2>
         <p className="place-card__type">{makeFirstLetterUpperCase(type)}</p>

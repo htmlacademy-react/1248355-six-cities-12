@@ -7,16 +7,11 @@ import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../consts/enum';
-import { Comments } from '../../types/comments';
+import { AppRoute } from '../../consts/enum';
 import HistoryRouter from '../history-router/history-router';
 import { browserHistory } from '../../utils/browser-history';
 
-type AppProps = {
-  comments: Comments;
-}
-
-const App = ({ comments }: AppProps): JSX.Element => (
+const App = (): JSX.Element => (
   <HelmetProvider>
     <HistoryRouter history={browserHistory}>
       <Routes>
@@ -33,10 +28,7 @@ const App = ({ comments }: AppProps): JSX.Element => (
             <Route
               path={AppRoute.Offer}
               element={
-                <OfferScreen
-                  comments={comments}
-                  authorizationStatus={AuthorizationStatus.Auth}
-                />
+                <OfferScreen/>
               }
             />
             <Route

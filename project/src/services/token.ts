@@ -1,4 +1,4 @@
-const AUTH_TOKEN_KEY_NAME = 'app-cities-token';
+const AUTH_TOKEN_KEY_NAME = 'app-offers-token';
 
 const getToken = () => localStorage.getItem(AUTH_TOKEN_KEY_NAME) ?? '';
 

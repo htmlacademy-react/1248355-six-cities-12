@@ -18,4 +18,10 @@ export type AuthUser = User & {
   token: string;
 } | null
 
+export type NewComment = {
+  comment: string;
+  rating: number;
+  id: number;
+}
+
 export type Comments = Comment[]

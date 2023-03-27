@@ -15,7 +15,7 @@ const LoginScreen = () => {
   }
 
   return (
-    <Spinner>
+    <Spinner withLoading={false}>
       <main className="page__main page__main--login">
         <Helmet>
           <title>Login</title>

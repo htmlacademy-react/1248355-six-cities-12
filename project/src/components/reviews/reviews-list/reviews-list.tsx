@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
-import { Comments } from '../../../../types/comments';
+import { Comments } from '../../../types/comments';
 import Review from '../review/review';
-import { sortReviewsByDate } from '../../../../utils/sort';
+import { sortReviewsByDate } from '../../../utils/sort';
 
 type ReviewsListProps = {
   comments: Comments;

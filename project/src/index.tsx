@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { comments } from './mocks/commets';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { checkAuth } from './store/thunk-actions';
 import { setLoading } from './store/reducers/api-reducer/api-actions';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 store.dispatch(setLoading(true));
 store.dispatch(checkAuth());
@@ -17,7 +18,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App comments={comments}/>
+      <ToastContainer
+        position="top-center"
+        closeOnClick
+        pauseOnHover
+        theme="light"
+      />
+      <App/>
     </Provider>
   </React.StrictMode>
 );

@@ -1,32 +1,33 @@
-import React from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import cl from './spinner.module.css';
 import classNames from 'classnames';
 import { AuthorizationStatus } from '../../consts/enum';
 import { useAppSelector } from '../../hooks/store';
+import { ReactNode } from 'react';
 
 type SpinnerProps = {
   withLoading?: boolean;
-  children: JSX.Element;
-  variant?: string;
+  isLoading?: boolean;
+  children: ReactNode;
+  variant?: 'small' | 'primary';
 }
 
-const Spinner = ({ withLoading = true, children, variant = 'primary' }: SpinnerProps) => {
-  const isLoading = useAppSelector((state) => state.api.isLoading);
+const Spinner = ({ withLoading = true, children, variant = 'primary', isLoading = false }: SpinnerProps) => {
+  const isGlobalLoading = useAppSelector((state) => state.api.isLoading);
   const authorizationStatus = useAppSelector((state) => state.api.authorizationStatus);
 
   return (
-    (withLoading && isLoading) || authorizationStatus === AuthorizationStatus.Unknown
+    (withLoading && (isGlobalLoading || isLoading)) || authorizationStatus === AuthorizationStatus.Unknown
       ?
       <div style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh'
+        height: variant === 'small' ? '100%' : '100vh'
       }}
       ><FaSpinner className={classNames(cl.spinner, cl[variant])}/>
       </div>
-      : children
+      : children as JSX.Element
   );
 };
 
