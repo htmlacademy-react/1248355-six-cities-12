@@ -1,9 +1,8 @@
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { Outlet, useMatch } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../consts/enum';
+import { AppRoute } from '../../consts/enum';
 import classNames from 'classnames';
-import Spinner from '../spinner/spinner';
 import { useAppSelector } from '../../hooks/store';
 
 enum LayoutClassName {
@@ -14,8 +13,6 @@ enum LayoutClassName {
 }
 
 const Layout = () => {
-  const isLoading = useAppSelector((state) => state.api.isLoading);
-  const authorizationStatus = useAppSelector((state) => state.api.authorizationStatus);
   const offers = useAppSelector((state) => state.city.offers);
 
   const isFavoritesRoute = useMatch(AppRoute.Favorites);
@@ -24,27 +21,17 @@ const Layout = () => {
   const isCityRoute = useMatch(AppRoute.City);
 
   return (
-    <div className={classNames(
-      LayoutClassName.Default,
-      {
-        [LayoutClassName.EmptyFavorites]: !offers.length && isFavoritesRoute,
-        [LayoutClassName.Main]: isRootRoute || isCityRoute,
-        [LayoutClassName.Login]: isLoginRoute
-      })}
+    <div
+      className={classNames(
+        LayoutClassName.Default,
+        {
+          [LayoutClassName.EmptyFavorites]: !offers.length && isFavoritesRoute,
+          [LayoutClassName.Main]: isRootRoute || isCityRoute,
+          [LayoutClassName.Login]: isLoginRoute
+        })}
     >
-      <Header authorizationStatus={authorizationStatus} isLoading={isLoading}/>
-      {isLoading || authorizationStatus === AuthorizationStatus.Unknown
-        ?
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh'
-        }}
-        ><Spinner/>
-        </div>
-        :
-        <Outlet/>}
+      <Header isLoginRoute={!!isLoginRoute}/>
+      <Outlet/>
       {isFavoritesRoute && <Footer/>}
     </div>
   );

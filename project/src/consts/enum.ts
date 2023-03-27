@@ -4,12 +4,12 @@ enum AppRoute {
   Login = '/login',
   Offer = '/offer/:id',
   City = '/:city',
-  Error = '/error'
 }
 
 enum APIRoute {
   Offers = '/hotels',
-  Login = '/login'
+  Login = '/login',
+  Logout = '/logout'
 }
 
 enum AuthorizationStatus {

@@ -4,14 +4,18 @@ import { FaSadTear } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../consts/enum';
 
-const NotFoundScreen = () => (
+type NotFoundScreenProps = {
+  resetNotFound?: () => void;
+}
+
+const NotFoundScreen = ({ resetNotFound }: NotFoundScreenProps) => (
   <main className={cl.container}>
     <Helmet>
       <title>Not found</title>
     </Helmet>
     <FaSadTear className={cl.sadFace}/>
     <h1>404. Page not found</h1>
-    <Link className={cl.link} to={AppRoute.Root}>Вернуться на главную</Link>
+    <Link onClick={resetNotFound} className={cl.link} to={AppRoute.Root}>Вернуться на главную</Link>
   </main>
 );
 

@@ -13,4 +13,9 @@ export type Comment = {
   date: Date;
 }
 
+export type AuthUser = User & {
+  email: string;
+  token: string;
+} | null
+
 export type Comments = Comment[]

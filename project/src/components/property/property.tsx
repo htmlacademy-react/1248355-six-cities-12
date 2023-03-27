@@ -7,7 +7,6 @@ import Host from './host/host';
 import { Comments } from '../../types/comments';
 import Map from '../map/map';
 import { useAppSelector } from '../../hooks/store';
-import ErrorNavigate from '../navigate/error-navigate/error-navigate';
 import Container from '../container/container';
 import React from 'react';
 import Mark from '../mark/mark';
@@ -16,6 +15,7 @@ import { createRandomElementsArray } from '../../utils/common';
 import { OFFER_SCREEN_IMG_COUNT } from '../../consts/app';
 import ReviewsList from './reviews/reviews-list/reviews-list';
 import ReviewForm from '../form/review/review-form';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
 type PropertyProps = {
   authorizationStatus: AuthorizationStatus;
@@ -28,7 +28,7 @@ const Property = ({ comments, authorizationStatus }: PropertyProps) => {
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   if (!activeOffer) {
-    return <ErrorNavigate/>;
+    return <NotFoundScreen/>;
   }
 
   return (

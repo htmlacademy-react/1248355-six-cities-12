@@ -46,16 +46,12 @@ const App = ({ comments }: AppProps): JSX.Element => (
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <PrivateRoute>
                   {<FavoritesScreen/>}
                 </PrivateRoute>
               }
             />
           </Route>
-          <Route
-            path={AppRoute.Error}
-            element={<NotFoundScreen/>}
-          />
           <Route
             path="*"
             element={<NotFoundScreen/>}
