@@ -10,6 +10,7 @@ import Price from '../price/price';
 import Rating from '../rating/rating';
 import { useAppDispatch } from '../../hooks/store';
 import { changeActiveOffer } from '../../store/reducers/offers/offers-actions';
+import React from 'react';
 
 type PlaceCardProps = {
   variant: OfferVariant;

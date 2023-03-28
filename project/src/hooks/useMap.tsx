@@ -1,9 +1,9 @@
-import { RefObject, useEffect, useState } from 'react';
-import Leaflet, { LayerGroup, Map, MapOptions } from 'leaflet';
+import { RefObject, useEffect, useMemo, useState } from 'react';
+import Leaflet, { LatLngLiteral, LayerGroup, Map, MapOptions } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { addTileLayer, createMapInstance } from '../utils/leaflet';
 
-type UseMapFn = (container: RefObject<HTMLElement>, options: MapOptions) =>
+type UseMapFn = (container: RefObject<HTMLElement>, options: MapOptions & { center: LatLngLiteral }) =>
   {
     map: Map;
     groupLayer: LayerGroup;
@@ -12,12 +12,14 @@ type UseMapFn = (container: RefObject<HTMLElement>, options: MapOptions) =>
 const UseMap: UseMapFn = (ref, options) => {
   const [leaflet, setLeaflet] = useState<ReturnType<UseMapFn>>();
 
+  const memoOptions = useMemo(() => options, [options.zoom, options.center.lng, options.center.lat]);
+
   useEffect(() => {
     if (!ref.current) {
       return;
     }
 
-    const mapInstance = createMapInstance(ref.current, options);
+    const mapInstance = createMapInstance(ref.current, memoOptions);
 
     addTileLayer(mapInstance);
     setLeaflet({
@@ -28,7 +30,7 @@ const UseMap: UseMapFn = (ref, options) => {
     return () => {
       mapInstance.remove();
     };
-  }, [ref, options]);
+  }, [ref, memoOptions]);
 
   return leaflet;
 };

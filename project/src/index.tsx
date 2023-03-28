@@ -19,6 +19,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer
+        limit={1}
         position="top-center"
         closeOnClick
         pauseOnHover

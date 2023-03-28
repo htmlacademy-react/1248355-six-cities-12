@@ -7,6 +7,7 @@ import { sortBy } from '../../../utils/sort';
 
 type InitialState = {
   offers: Offer[];
+  sortedOffers: Offer[];
   activeOffer: Offer | null;
   nearOffers: Offer[];
   sourceOffers: Offer[];
@@ -16,6 +17,7 @@ const initialState: InitialState = {
   offers: [],
   nearOffers: [],
   sourceOffers: [],
+  sortedOffers: [],
   activeOffer: null
 };
 
@@ -29,16 +31,17 @@ const offersReducer = createReducer(initialState, (builder) => {
     })
     .addCase(filterCityOffers, (state, action) => {
       state.offers = filter[action.payload](state.sourceOffers);
+      state.sortedOffers = state.offers;
 
     })
     .addCase(sortCityOffers, (state, action) => {
       if (action.payload === SortType.Popular) {
-        state.offers = filter[state.offers[0].city.name](state.sourceOffers);
+        state.sortedOffers = state.offers;
 
         return;
       }
 
-      state.offers = state.offers.sort(sortBy[action.payload]);
+      state.sortedOffers = state.sortedOffers.sort(sortBy[action.payload]);
     })
     .addCase(changeActiveOffer, (state, action) => {
       state.activeOffer = action.payload;

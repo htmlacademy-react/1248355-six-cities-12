@@ -80,4 +80,4 @@ const Sort = () => {
   );
 };
 
-export default React.memo(Sort);
+export default Sort;

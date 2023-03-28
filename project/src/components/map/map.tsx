@@ -1,7 +1,7 @@
 import { Block } from '../../consts/enum';
 import classNames from 'classnames';
 import useMap from '../../hooks/useMap';
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { PointExpression } from 'leaflet';
 import { createPoint } from '../../utils/leaflet';
 import { useAppSelector } from '../../hooks/store';
@@ -28,40 +28,39 @@ const Icon = {
 
 const Map = ({ block, offers }: MapProps) => {
   const activeOffer = useAppSelector((state) => state.city.activeOffer);
-  const location = offers[0]?.city.location || activeOffer?.city.location;
+  const cityLocation = offers[0]?.city.location || activeOffer?.city.location;
 
-  const points = useMemo(() =>
+  const locations = useMemo(() =>
     activeOffer && block === Block.Property
       ? getLocationsWithActiveOffer(offers, activeOffer)
       : getLocations(offers),
-  [activeOffer, block, offers]);
-
-  const mapConfig = useMemo(() => ({
-    zoom: location.zoom,
-    center: {
-      lng: location.longitude,
-      lat: location.latitude
-    }
-  }), [location.zoom, location.longitude, location.latitude]);
+  [offers, block]);
 
   const mapRef = useRef<HTMLElement>(null);
-  const leaflet = useMap(mapRef, mapConfig);
+
+  const leaflet = useMap(mapRef, {
+    zoom: cityLocation.zoom,
+    center: {
+      lng: cityLocation.longitude,
+      lat: cityLocation.latitude
+    }
+  });
 
   useEffect(() => {
     if (!leaflet) {
       return;
     }
 
-    points.forEach((point) => {
-      const icon = point.id === activeOffer?.id ? Icon.Active : Icon.Default;
+    locations.forEach((location) => {
+      const icon = location.id === activeOffer?.id ? Icon.Active : Icon.Default;
 
-      createPoint(point, icon).addTo(leaflet.groupLayer);
+      createPoint(location, icon).addTo(leaflet.groupLayer);
     });
 
     return () => {
       leaflet.groupLayer.clearLayers();
     };
-  }, [leaflet, activeOffer, points]);
+  }, [leaflet, activeOffer, locations]);
 
   return (
     <section

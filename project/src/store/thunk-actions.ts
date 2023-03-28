@@ -7,7 +7,7 @@ import { changeAuthStatus, redirectBack, setLoading, setUser } from './reducers/
 import { Login } from '../types/app';
 import { AuthUser, Comments, NewComment } from '../types/comments';
 import { removeToken, setToken } from '../services/token';
-import { filterCityOffers, setCityOffers } from './reducers/offers/offers-actions';
+import { changeActiveOffer, filterCityOffers, setCityOffers, setNearOffers } from './reducers/offers/offers-actions';
 import { setComments } from './reducers/comments/comments-actions';
 
 type ThunkConfig = {
@@ -27,17 +27,6 @@ const fetchOffers = createAsyncThunk<void, City, ThunkConfig>(
     dispatch(setCityOffers(offers));
     dispatch(filterCityOffers(city));
   });
-
-const fetchNearOffers = createAsyncThunk<Offers, string, ThunkConfig>(
-  'fetchOffer',
-  async (id, { dispatch, extra: api }) => {
-    dispatch(setLoading(true));
-
-    const { data: offers } = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
-
-    return offers;
-  }
-);
 
 const checkAuth = createAsyncThunk<void, undefined, ThunkConfig>(
   'checkAuth',
@@ -73,28 +62,6 @@ const logUserOut = createAsyncThunk<void, undefined, ThunkConfig>(
     dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
   });
 
-const fetchOffer = createAsyncThunk<Offer, string, ThunkConfig>(
-  'fetchOffer',
-  async (id, { dispatch, extra: api }) => {
-    dispatch(setLoading(true));
-
-    const { data: offer } = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
-
-    return offer;
-  }
-);
-
-const fetchComments = createAsyncThunk<Comments, string, ThunkConfig>(
-  'fetchOffer',
-  async (id, { dispatch, extra: api }) => {
-    dispatch(setLoading(true));
-
-    const { data: comments } = await api.get<Comments>(`${APIRoute.Comments}/${id}`);
-
-    return comments;
-  }
-);
-
 const createComment = createAsyncThunk<void, NewComment, ThunkConfig>(
   'createComment',
   async ({ id, ...rest }, { dispatch, extra: api }) => {
@@ -105,13 +72,27 @@ const createComment = createAsyncThunk<void, NewComment, ThunkConfig>(
   }
 );
 
+const initOfferActions = createAsyncThunk<Offer, string, ThunkConfig>(
+  'initOfferActions',
+  async (id, { dispatch, extra: api }) => {
+    const [offerResponse, commentsResponse, nearOffersResponse] =
+      await Promise.all([
+        api.get<Offer>(`${APIRoute.Offers}/${id}`),
+        api.get<Comments>(`${APIRoute.Comments}/${id}`),
+        api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`)]);
+
+    dispatch(setComments(commentsResponse.data));
+    dispatch(setNearOffers(nearOffersResponse.data));
+    dispatch(changeActiveOffer(offerResponse.data));
+    dispatch(setLoading(false));
+    return offerResponse.data;
+  });
+
 export {
   fetchOffers,
   checkAuth,
   authenticateUser,
   logUserOut,
-  fetchOffer,
-  fetchNearOffers,
-  fetchComments,
+  initOfferActions,
   createComment
 };

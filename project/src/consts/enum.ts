@@ -46,6 +46,11 @@ enum SortType {
   Popular = 'popular'
 }
 
+enum DaysjsDateFormat {
+  Review = 'MMMM YYYY',
+  Machine = 'YYYY-MM-DDTHH:mm:ss[Z]'
+}
+
 const LogoVariant = {
   Footer: {
     block: Block.Footer,
@@ -113,5 +118,6 @@ export {
   Block,
   LogoVariant,
   SortType,
-  APIRoute
+  APIRoute,
+  DaysjsDateFormat
 };
