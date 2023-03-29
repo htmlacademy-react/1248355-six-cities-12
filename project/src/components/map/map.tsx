@@ -1,16 +1,18 @@
 import { Block } from '../../consts/enum';
 import classNames from 'classnames';
 import useMap from '../../hooks/useMap';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { PointExpression } from 'leaflet';
 import { createPoint } from '../../utils/leaflet';
 import { useAppSelector } from '../../hooks/store';
-import { getLocations, getLocationsWithActiveOffer } from '../../utils/transform';
-import { Offers } from '../../types/offers';
+import { getLocations } from '../../utils/transform';
+import { getActiveOfferId } from '../../store/reducers/cities-slice/selectors';
+import { Location } from '../../types/offers';
 
 type MapProps = {
   block: Block;
-  offers: Offers;
+  cityLocation: Location;
+  locations: ReturnType<typeof getLocations>;
 }
 
 const Icon = {
@@ -26,16 +28,8 @@ const Icon = {
   }
 };
 
-const Map = ({ block, offers }: MapProps) => {
-  const activeOffer = useAppSelector((state) => state.city.activeOffer);
-  const cityLocation = offers[0]?.city.location || activeOffer?.city.location;
-
-  const locations = useMemo(() =>
-    activeOffer && block === Block.Property
-      ? getLocationsWithActiveOffer(offers, activeOffer)
-      : getLocations(offers),
-  [offers, block]);
-
+const Map = ({ block, cityLocation, locations }: MapProps) => {
+  const activeOfferId = useAppSelector(getActiveOfferId);
   const mapRef = useRef<HTMLElement>(null);
 
   const leaflet = useMap(mapRef, {
@@ -52,7 +46,7 @@ const Map = ({ block, offers }: MapProps) => {
     }
 
     locations.forEach((location) => {
-      const icon = location.id === activeOffer?.id ? Icon.Active : Icon.Default;
+      const icon = location.id === activeOfferId ? Icon.Active : Icon.Default;
 
       createPoint(location, icon).addTo(leaflet.groupLayer);
     });
@@ -60,7 +54,7 @@ const Map = ({ block, offers }: MapProps) => {
     return () => {
       leaflet.groupLayer.clearLayers();
     };
-  }, [leaflet, activeOffer, locations]);
+  }, [activeOfferId, leaflet, locations]);
 
   return (
     <section

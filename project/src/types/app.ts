@@ -1,4 +1,5 @@
 import { BookmarkButtonVariant, LogoVariant as LogoVariantEnum, OfferCardVariant } from '../consts/enum';
+import { User } from './comments';
 
 export type OfferVariant = typeof OfferCardVariant[keyof typeof OfferCardVariant]
 
@@ -10,3 +11,8 @@ export type Login = {
   email: string;
   password: string;
 }
+
+export type AuthUser = User & {
+  email: string;
+  token: string;
+} | null

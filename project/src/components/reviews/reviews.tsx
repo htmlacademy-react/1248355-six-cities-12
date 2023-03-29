@@ -4,14 +4,16 @@ import { AuthorizationStatus } from '../../consts/enum';
 import ReviewForm from '../form/review/review-form';
 import { useAppSelector } from '../../hooks/store';
 import { Offer } from '../../types/offers';
+import { getComments } from '../../store/reducers/offer-slice/selectors';
+import { getUserStatus } from '../../store/reducers/user-slice/selectors';
 
 type ReviewsProps = {
   offer: Offer;
 }
 
 const Reviews = ({ offer }: ReviewsProps) => {
-  const comments = useAppSelector((state) => state.comments.comments);
-  const authorizationStatus = useAppSelector((state) => state.api.authorizationStatus);
+  const comments = useAppSelector(getComments);
+  const authorizationStatus = useAppSelector(getUserStatus);
 
   return (
     <section className="property__reviews reviews">

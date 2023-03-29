@@ -13,11 +13,6 @@ export type Comment = {
   date: Date;
 }
 
-export type AuthUser = User & {
-  email: string;
-  token: string;
-} | null
-
 export type NewComment = {
   comment: string;
   rating: number;

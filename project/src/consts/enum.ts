@@ -1,3 +1,10 @@
+enum NameSpace {
+  DataStatus = 'DataStatus',
+  User = 'User',
+  Cities = 'Cities',
+  Offer = 'Offer'
+}
+
 enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
@@ -110,6 +117,7 @@ const OfferCardVariant = {
 } as const;
 
 export {
+  NameSpace,
   OfferCardVariant,
   AppRoute,
   AuthorizationStatus,

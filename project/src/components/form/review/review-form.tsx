@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { MAX_COMMENTS_LENGTH, MIN_COMMENTS_LENGTH, RATING_STARS_COUNT, RATING_TITLES } from '../../../consts/app';
 import { useAppDispatch } from '../../../hooks/store';
-import { createComment } from '../../../store/thunk-actions';
+import { createComment } from '../../../store/middlewares/thunk/thunk-actions';
 import Spinner from '../../spinner/spinner';
 
 type ReviewFormProps = {
@@ -92,7 +92,7 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
           type="submit"
           disabled={isSubmitButtonDisabled || isSubmitting}
         >
-          <Spinner variant="small" isLoading={isSubmitting}>Submit</Spinner>
+          <Spinner variant="small" isActive={isSubmitting}>Submit</Spinner>
         </button>
       </div>
     </form>

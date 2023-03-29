@@ -5,15 +5,16 @@ import classNames from 'classnames';
 import React, { MouseEventHandler } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { Link } from 'react-router-dom';
-import { logUserOut } from '../../store/thunk-actions';
+import { logUserOut } from '../../store/middlewares/thunk/thunk-actions';
+import { getUser, getUserStatus } from '../../store/reducers/user-slice/selectors';
 
 type HeaderProps = {
   isLoginRoute: boolean;
 }
 
 const Header = ({ isLoginRoute }: HeaderProps) => {
-  const authorizationStatus = useAppSelector((state) => state.api.authorizationStatus);
-  const user = useAppSelector((state) => state.api.user);
+  const authorizationStatus = useAppSelector(getUserStatus);
+  const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
 
   const handleLogoutClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {

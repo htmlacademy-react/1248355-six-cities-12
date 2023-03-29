@@ -3,8 +3,8 @@ import { SortType } from '../../../consts/enum';
 import classNames from 'classnames';
 import cl from './styles.module.css';
 import { useAppDispatch } from '../../../hooks/store';
-import { sortCityOffers } from '../../../store/reducers/offers/offers-actions';
 import { ENTER_KEY } from '../../../consts/app';
+import { sortCityOffers } from '../../../store/reducers/cities-slice/cities-slice';
 
 const sortTypeToTitle = {
   [SortType.Popular]: 'Popular',

@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { checkAuth } from './store/thunk-actions';
-import { setLoading } from './store/reducers/api-reducer/api-actions';
+import { checkAuth } from './store/middlewares/thunk/thunk-actions';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-store.dispatch(setLoading(true));
 store.dispatch(checkAuth());
 
 const root = ReactDOM.createRoot(

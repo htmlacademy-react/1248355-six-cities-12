@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Login } from '../../../types/app';
 import { useAppDispatch } from '../../../hooks/store';
-import { authenticateUser } from '../../../store/thunk-actions';
+import { authenticateUser } from '../../../store/middlewares/thunk/thunk-actions';
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +12,7 @@ const LoginForm = () => {
 
   const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
+
     setFormData({ ...formData, [name]: value });
 
     if (evt.target.validity.patternMismatch) {

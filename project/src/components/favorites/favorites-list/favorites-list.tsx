@@ -6,7 +6,7 @@ import FavoritePlaces from '../favorite-places/favorite-places';
 import { useAppSelector } from '../../../hooks/store';
 
 const FavoritesList = () => {
-  const offers = useAppSelector((state) => state.city.sourceOffers);
+  const offers = useAppSelector((state) => state.Cities.sourceOffers);
   const filteredOffers = useMemo(() => filterOffersByCity(offers).sort(sortCitiesByAlphabet), [offers]);
 
   return (
