@@ -1,5 +1,11 @@
 import React, { FormEvent, useState } from 'react';
-import { MAX_COMMENTS_LENGTH, MIN_COMMENTS_LENGTH, RATING_STARS_COUNT, RATING_TITLES } from '../../../consts/app';
+import {
+  ERROR,
+  MAX_COMMENTS_LENGTH,
+  MIN_COMMENTS_LENGTH,
+  RATING_STARS_COUNT,
+  RATING_TITLES
+} from '../../../consts/app';
 import { useAppDispatch } from '../../../hooks/store';
 import { createComment } from '../../../store/middlewares/thunk/thunk-actions';
 import Spinner from '../../spinner/spinner';
@@ -28,10 +34,13 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
       evt.preventDefault();
       setSubmitting(true);
 
-      await dispatch(createComment(formData));
+      const response = await dispatch(createComment(formData));
+
+      if (!Object.hasOwn(response, ERROR)) {
+        setFormData(initialFormData);
+      }
 
       setSubmitting(false);
-      setFormData(initialFormData);
     })();
   };
 
@@ -85,7 +94,13 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
-          describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          describe your stay with at least <b className="reviews__text-amount">50 characters</b>. &nbsp;
+          {(formData.comment && formData.comment.length < MIN_COMMENTS_LENGTH) &&
+            <>Remaining to
+              type: <b>{MIN_COMMENTS_LENGTH - formData.comment.length}</b>
+            </>}
+          {formData.comment.length > MAX_COMMENTS_LENGTH &&
+            <b style={{ color: 'red' }}>Maximum of 300 chars reached.</b>}
         </p>
         <button
           className="reviews__submit form__submit button"
