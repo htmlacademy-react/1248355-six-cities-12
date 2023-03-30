@@ -19,6 +19,7 @@ import Price from '../../components/price/price';
 import Reviews from '../../components/reviews/reviews';
 import { getLoadingStatus } from '../../store/reducers/data-loading-status-slice/selectors';
 import { getUserStatus } from '../../store/reducers/user-slice/selectors';
+import ReviewForm from '../../components/form/review/review-form';
 
 type OffersScreenProps = {
   setNotFound: Dispatch<SetStateAction<boolean>>;
@@ -117,7 +118,9 @@ const OfferScreen = ({ setNotFound }: OffersScreenProps) => {
                 </p>
               </div>
             </div>
-            <Reviews offer={offer}/>
+            <Reviews>
+              {authStatus === AuthorizationStatus.Auth && <ReviewForm id={offer.id}/>}
+            </Reviews>
           </div>
         </div>
         <Map

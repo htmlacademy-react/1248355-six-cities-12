@@ -29,6 +29,7 @@ const fetchOffers = createAsyncThunk<FetchOffers, City, ThunkConfig>(
   'fetchOffers',
   async (city, { extra: api }) => {
     const { data: offers } = await api.get<Offers>(APIRoute.Offers);
+
     return {
       city,
       offers

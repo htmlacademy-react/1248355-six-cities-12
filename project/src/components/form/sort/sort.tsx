@@ -53,7 +53,8 @@ const Sort = () => {
       <span style={{ marginRight: '5px' }} className="places__sorting-caption">Sort by</span>
       <span
         onKeyDown={onOpenPanelKeyDown}
-        onClick={onOpenPanelClick} className="places__sorting-type" tabIndex={0}
+        onClick={onOpenPanelClick}
+        className="places__sorting-type" tabIndex={0}
       >
         {sortTypeToTitle[activeSort]}
         <svg className="places__sorting-arrow" width="7" height="4">
