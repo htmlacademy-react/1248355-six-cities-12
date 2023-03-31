@@ -6,6 +6,7 @@ import { store } from './store';
 import { checkAuth } from './store/middlewares/thunk/thunk-actions';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { MAX_TOAST_ERRORS } from './consts/app';
 
 store.dispatch(checkAuth());
 
@@ -17,7 +18,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer
-        limit={1}
+        limit={MAX_TOAST_ERRORS}
         position="top-center"
         closeOnClick
         pauseOnHover

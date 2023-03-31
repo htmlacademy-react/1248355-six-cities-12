@@ -54,7 +54,8 @@ const Sort = () => {
       <span
         onKeyDown={onOpenPanelKeyDown}
         onClick={onOpenPanelClick}
-        className="places__sorting-type" tabIndex={0}
+        className="places__sorting-type"
+        tabIndex={0}
       >
         {sortTypeToTitle[activeSort]}
         <svg className="places__sorting-arrow" width="7" height="4">

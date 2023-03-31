@@ -106,8 +106,7 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={isSubmitButtonDisabled || isSubmitting}
-        >
-          <Spinner variant="small" isActive={isSubmitting}>Submit</Spinner>
+        > {isSubmitting ? <Spinner variant="small" isActive={isSubmitting}/> : 'Submit'}
         </button>
       </div>
     </form>

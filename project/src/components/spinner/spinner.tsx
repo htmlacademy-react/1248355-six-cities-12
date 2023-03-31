@@ -1,11 +1,10 @@
 import { FaSpinner } from 'react-icons/fa';
 import cl from './spinner.module.css';
 import classNames from 'classnames';
-import { ReactNode } from 'react';
 
 type SpinnerProps = {
   isActive: boolean;
-  children?: ReactNode;
+  children?: JSX.Element;
   variant?: 'small' | 'primary';
 }
 
@@ -18,9 +17,10 @@ const Spinner = ({ children, variant = 'primary', isActive = false }: SpinnerPro
       alignItems: 'center',
       height: variant === 'small' ? '100%' : '100vh'
     }}
-    ><FaSpinner className={classNames(cl.spinner, cl[variant])}/>
+    >
+      <FaSpinner className={classNames(cl.spinner, cl[variant])}/>
     </div>
-    : children as JSX.Element
+    : children || null
 );
 
 export default Spinner;

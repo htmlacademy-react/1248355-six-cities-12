@@ -1,13 +1,14 @@
 import { Block } from '../../consts/enum';
 import classNames from 'classnames';
 import useMap from '../../hooks/useMap';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { PointExpression } from 'leaflet';
 import { createPoint } from '../../utils/leaflet';
 import { useAppSelector } from '../../hooks/store';
 import { getLocations } from '../../utils/transform';
 import { getActiveOfferId } from '../../store/reducers/cities-slice/selectors';
 import { Location } from '../../types/offers';
+import { useParams } from 'react-router-dom';
 
 type MapProps = {
   block: Block;
@@ -31,14 +32,17 @@ const Icon = {
 const Map = ({ block, cityLocation, locations }: MapProps) => {
   const activeOfferId = useAppSelector(getActiveOfferId);
   const mapRef = useRef<HTMLElement>(null);
+  const { id } = useParams();
 
-  const leaflet = useMap(mapRef, {
+  const mapOptions = useMemo(() => ({
     zoom: cityLocation.zoom,
     center: {
       lng: cityLocation.longitude,
       lat: cityLocation.latitude
     }
-  });
+  }), [cityLocation.latitude, cityLocation.longitude, cityLocation.zoom]);
+
+  const leaflet = useMap(mapRef, mapOptions);
 
   useEffect(() => {
     if (!leaflet) {
@@ -46,7 +50,7 @@ const Map = ({ block, cityLocation, locations }: MapProps) => {
     }
 
     locations.forEach((location) => {
-      const icon = location.id === activeOfferId ? Icon.Active : Icon.Default;
+      const icon = location.id === (Number(id) || activeOfferId) ? Icon.Active : Icon.Default;
 
       createPoint(location, icon).addTo(leaflet.groupLayer);
     });
@@ -54,7 +58,7 @@ const Map = ({ block, cityLocation, locations }: MapProps) => {
     return () => {
       leaflet.groupLayer.clearLayers();
     };
-  }, [activeOfferId, leaflet, locations]);
+  }, [activeOfferId, id, leaflet, locations]);
 
   return (
     <section
