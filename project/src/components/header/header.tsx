@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { Link } from 'react-router-dom';
 import { logUserOut } from '../../store/middlewares/thunk/thunk-actions';
 import { getUser, getUserStatus } from '../../store/reducers/user-slice/selectors';
+import FavoritesCount from '../fvorites-count/favorites-count';
 
 type HeaderProps = {
   isLoginRoute: boolean;
@@ -42,10 +43,9 @@ const Header = ({ isLoginRoute }: HeaderProps) => {
                     <>
                       <li className="header__nav-item user">
                         <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                          <div className="header__avatar-wrapper user__avatar-wrapper">
-                          </div>
+                          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                           <span className="header__user-name user__name">{user?.email}</span>
-                          <span className="header__favorite-count">3</span>
+                          <FavoritesCount/>
                         </Link>
                       </li>
                       <li className="header__nav-item">
@@ -57,8 +57,7 @@ const Header = ({ isLoginRoute }: HeaderProps) => {
                     :
                     <li className="header__nav-item user">
                       <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                        </div>
+                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                         <span className="header__login">Sign in</span>
                       </Link>
                     </li>

@@ -1,14 +1,9 @@
 import React, { FormEvent, useState } from 'react';
-import {
-  ERROR,
-  MAX_COMMENTS_LENGTH,
-  MIN_COMMENTS_LENGTH,
-  RATING_STARS_COUNT,
-  RATING_TITLES
-} from '../../../consts/app';
+import { MAX_COMMENTS_LENGTH, MIN_COMMENTS_LENGTH, RATING_STARS_COUNT, RATING_TITLES } from '../../../consts/app';
 import { useAppDispatch } from '../../../hooks/store';
 import { createComment } from '../../../store/middlewares/thunk/thunk-actions';
 import Spinner from '../../spinner/spinner';
+import { toast } from 'react-toastify';
 
 type ReviewFormProps = {
   id: number;
@@ -34,10 +29,12 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
       evt.preventDefault();
       setSubmitting(true);
 
-      const response = await dispatch(createComment(formData));
+      const action = await dispatch(createComment(formData));
 
-      if (!Object.hasOwn(response, ERROR)) {
+      if (createComment.fulfilled.match(action)) {
         setFormData(initialFormData);
+      } else {
+        toast.error(action.error.message, { toastId: action.error.code });
       }
 
       setSubmitting(false);
@@ -48,8 +45,7 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
     <form
       onSubmit={handleSubmit}
       className="reviews__form form"
-      action="project/src/components/form#"
-      method="post"
+      action="#"
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -80,9 +76,11 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
         ))}
       </div>
       <textarea
-        onChange={(evt) => {
-          setFormData({ ...formData, comment: evt.target.value });
-        }}
+        onChange={
+          (evt) => {
+            setFormData({ ...formData, comment: evt.target.value });
+          }
+        }
         value={formData.comment}
         className="reviews__textarea form__textarea"
         id="review"
@@ -106,7 +104,8 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={isSubmitButtonDisabled || isSubmitting}
-        > {isSubmitting ? <Spinner variant="small" isActive={isSubmitting}/> : 'Submit'}
+        >
+          {isSubmitting ? <Spinner variant="small" isActive={isSubmitting}/> : 'Submit'}
         </button>
       </div>
     </form>

@@ -2,7 +2,7 @@ enum NameSpace {
   DataStatus = 'DataStatus',
   User = 'User',
   Cities = 'Cities',
-  Offer = 'Offer'
+  Offer = 'Offer',
 }
 
 enum AppRoute {
@@ -17,7 +17,8 @@ enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorites = '/favorite'
 }
 
 enum AuthorizationStatus {

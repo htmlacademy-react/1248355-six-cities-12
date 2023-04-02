@@ -51,7 +51,11 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
       <div className={classNames('place-card__info', { 'favorites__card-info': isFavoriteVariant })}>
         <div className="place-card__price-wrapper">
           <Price price={price} block={Block.OfferCard}/>
-          <BookmarkButton variant={BookmarkButtonVariant.Card} isActive={isFavorite}/>
+          <BookmarkButton
+            variant={BookmarkButtonVariant.Card}
+            isFavorite={isFavorite}
+            id={id}
+          />
         </div>
         <Rating block={Block.OfferCard} rating={rating}/>
         <h2 className="place-card__name">
@@ -59,9 +63,12 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
             {title}
           </Link>
         </h2>
-        <p className="place-card__type">{makeFirstLetterUpperCase(type)}</p>
+        <p className="place-card__type">
+          {makeFirstLetterUpperCase(type)}
+        </p>
       </div>
     </article>
   );
 };
-export default OfferCard;
+
+export default React.memo(OfferCard);

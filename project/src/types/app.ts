@@ -15,4 +15,9 @@ export type Login = {
 export type AuthUser = User & {
   email: string;
   token: string;
-} | null
+};
+
+export type UpdateFavorite = {
+  isFavorite: boolean;
+  id: number;
+};

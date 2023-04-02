@@ -8,18 +8,16 @@ import Tabs from '../../components/tabs/tabs';
 import Sort from '../../components/form/sort/sort';
 import Map from '../../components/map/map';
 import Spinner from '../../components/spinner/spinner';
-import withNotFound from '../../hocs/with-not-found';
+import withErrorScreens, { WithErrorScreensHOCProps } from '../../hocs/with-error-screens';
 import CitiesList from '../../components/cities-list/cities-list';
 import { getFilteredOffers } from '../../store/reducers/cities-slice/selectors';
 import { getLocations } from '../../utils/transform';
 import { getLoadingStatus } from '../../store/reducers/data-loading-status-slice/selectors';
 import { getUserStatus } from '../../store/reducers/user-slice/selectors';
 
-type MainScreenProps = {
-  setNotFound: (isNotFound: boolean) => void;
-}
+type MainScreenProps = WithErrorScreensHOCProps;
 
-const MainScreen = ({ setNotFound }: MainScreenProps) => {
+const MainScreen = ({ setErrorScreen, setNotFoundScreen }: MainScreenProps) => {
   const filteredOffers = useAppSelector(getFilteredOffers);
   const isLoading = useAppSelector(getLoadingStatus);
   const authStatus = useAppSelector(getUserStatus);
@@ -38,12 +36,17 @@ const MainScreen = ({ setNotFound }: MainScreenProps) => {
     }
 
     if (!Object.keys(City).includes(city)) {
-      setNotFound(true);
+      setNotFoundScreen(true);
       return;
     }
 
-    dispatch(fetchOffers(city));
-  }, [city, dispatch, navigate, filteredOffers.length, setNotFound]);
+    dispatch(fetchOffers(city))
+      .then((action) => {
+        if (fetchOffers.rejected.match(action)) {
+          setErrorScreen(true);
+        }
+      });
+  }, [city, dispatch, navigate, filteredOffers.length, setNotFoundScreen, setErrorScreen]);
 
   return (
     <Spinner isActive={isLoading || authStatus === AuthorizationStatus.Unknown}>
@@ -77,4 +80,4 @@ const MainScreen = ({ setNotFound }: MainScreenProps) => {
 
 };
 
-export default withNotFound(MainScreen);
+export default withErrorScreens(MainScreen);

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Comments } from '../../../types/comments';
 import Review from '../review/review';
 import { sortReviewsByDate } from '../../../utils/sort';
@@ -10,9 +10,11 @@ type ReviewsListProps = {
 const MAX_COMMENTS_COUNT = 10;
 
 const ReviewsList = ({ comments }: ReviewsListProps) => {
-  const sortedComments = useMemo(() =>
-    [...comments].sort(sortReviewsByDate).slice(0, MAX_COMMENTS_COUNT),
-  [comments]);
+  let sortedComments = [...comments].sort(sortReviewsByDate);
+
+  if (sortedComments.length > MAX_COMMENTS_COUNT) {
+    sortedComments = sortedComments.slice(0, MAX_COMMENTS_COUNT);
+  }
 
   return (
     <ul className="reviews__list">

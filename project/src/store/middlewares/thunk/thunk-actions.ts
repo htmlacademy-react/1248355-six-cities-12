@@ -1,29 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, RootState } from '../../../types/store';
-import { AxiosInstance } from 'axios';
 import { Offer, Offers } from '../../../types/offers';
 import { APIRoute, City } from '../../../consts/enum';
 import { redirectBack } from '../redirect/actions';
-import { AuthUser, Login } from '../../../types/app';
+import { AuthUser, Login, UpdateFavorite } from '../../../types/app';
 import { Comments, NewComment } from '../../../types/comments';
 import { removeToken, setToken } from '../../../services/token';
-
-type ThunkConfig = {
-  state: RootState;
-  dispatch: AppDispatch;
-  extra: AxiosInstance;
-}
-
-type InitOfferActions = {
-  offer: Offer;
-  comments: Comments;
-  nearOffers: Offers;
-}
-
-type FetchOffers = {
-  city: City;
-  offers: Offers;
-}
+import { CheckedUser, FetchOffers, InitOfferActions, ThunkConfig } from './types';
 
 const fetchOffers = createAsyncThunk<FetchOffers, City, ThunkConfig>(
   'fetchOffers',
@@ -36,23 +18,32 @@ const fetchOffers = createAsyncThunk<FetchOffers, City, ThunkConfig>(
     };
   });
 
-const checkAuth = createAsyncThunk<AuthUser, undefined, ThunkConfig>(
+const checkAuth = createAsyncThunk<CheckedUser, undefined, ThunkConfig>(
   'checkAuth',
   async (_args, { extra: api }) => {
-    const { data } = await api.get<AuthUser>(APIRoute.Login);
+    const { data: user } = await api.get<AuthUser>(APIRoute.Login);
+    const { data: favorites } = await api.get<Offers>(APIRoute.Favorites);
 
-    return data;
+    return {
+      user,
+      favorites
+    };
   }
 );
-const authenticateUser = createAsyncThunk<AuthUser, Login, ThunkConfig>(
+const authenticateUser = createAsyncThunk<CheckedUser, Login, ThunkConfig>(
   'authenticateUser',
   async (loginData, { dispatch, extra: api }) => {
-    const { data } = await api.post<NonNullable<AuthUser>>(APIRoute.Login, loginData);
+    const { data: user } = await api.post<NonNullable<AuthUser>>(APIRoute.Login, loginData);
 
-    setToken(data.token);
+    setToken(user.token);
+    const { data: favorites } = await api.get<Offers>(APIRoute.Favorites);
+
     dispatch(redirectBack());
 
-    return data;
+    return {
+      user,
+      favorites
+    };
   });
 
 const logUserOut = createAsyncThunk<void, undefined, ThunkConfig>(
@@ -89,7 +80,18 @@ const initOfferActions = createAsyncThunk<InitOfferActions, string, ThunkConfig>
     };
   });
 
+const updateFavorite = createAsyncThunk<Offer, UpdateFavorite, ThunkConfig>(
+  'updateFavorite',
+  async ({ id, isFavorite }, { extra: api }) => {
+
+    const { data: offer } = await api.post<Offer>(`${APIRoute.Favorites}/${id}/${Number(isFavorite)}`);
+
+    return offer;
+  }
+);
+
 export {
+  updateFavorite,
   fetchOffers,
   checkAuth,
   authenticateUser,
