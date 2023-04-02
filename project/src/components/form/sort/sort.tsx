@@ -73,7 +73,8 @@ const Sort = () => {
               data-sort={type}
               className={classNames(cl.sort, 'places__option', { 'places__option--active': activeSort === type })}
               tabIndex={0}
-            >{sortTypeToTitle[type]}
+            >
+              {sortTypeToTitle[type]}
             </li>
           ))
         }

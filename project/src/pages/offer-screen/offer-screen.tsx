@@ -2,11 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import { AuthorizationStatus, Block, BookmarkButtonVariant, OfferCardVariant } from '../../consts/enum';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import OfferCard from '../../components/offer-card/offer-card';
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
-import { ERROR, MAX_NEAR_PLACES_COUNT, OFFER_SCREEN_IMG_COUNT } from '../../consts/app';
+import React, { useEffect } from 'react';
+import { MAX_NEAR_PLACES_COUNT, OFFER_SCREEN_IMG_COUNT } from '../../consts/app';
 import Map from '../../components/map/map';
 import Spinner from '../../components/spinner/spinner';
-import withNotFound from '../../hocs/with-not-found';
+import withErrorScreens, { WithErrorScreensHOCProps } from '../../hocs/with-error-screens';
 import { useParams } from 'react-router-dom';
 import { initOfferActions } from '../../store/middlewares/thunk/thunk-actions';
 import { getNearOffers, getOffer } from '../../store/reducers/offer-slice/selectors';
@@ -20,12 +20,11 @@ import Reviews from '../../components/reviews/reviews';
 import { getLoadingStatus } from '../../store/reducers/data-loading-status-slice/selectors';
 import { getUserStatus } from '../../store/reducers/user-slice/selectors';
 import ReviewForm from '../../components/form/review/review-form';
+import ScrollToTop from '../../components/scroll/scrollToTop/scroll-to-top';
 
-type OffersScreenProps = {
-  setNotFound: Dispatch<SetStateAction<boolean>>;
-}
+type OffersScreenProps = WithErrorScreensHOCProps;
 
-const OfferScreen = ({ setNotFound }: OffersScreenProps) => {
+const OfferScreen = ({ handleErrorScreensShow }: OffersScreenProps) => {
   const nearOffers = useAppSelector(getNearOffers).slice(0, MAX_NEAR_PLACES_COUNT);
   const isLoading = useAppSelector(getLoadingStatus);
   const authStatus = useAppSelector(getUserStatus);
@@ -40,11 +39,11 @@ const OfferScreen = ({ setNotFound }: OffersScreenProps) => {
 
     dispatch(initOfferActions(id))
       .then((action) => {
-        if (Object.hasOwn(action, ERROR)) {
-          setNotFound(true);
+        if (initOfferActions.rejected.match(action)) {
+          handleErrorScreensShow(action.error.code);
         }
       });
-  }, [dispatch, id, setNotFound]);
+  }, [dispatch, handleErrorScreensShow, id]);
 
   if (!offer || isLoading || authStatus === AuthorizationStatus.Unknown) {
     return <Spinner isActive/>;
@@ -52,6 +51,7 @@ const OfferScreen = ({ setNotFound }: OffersScreenProps) => {
 
   return (
     <main className="page__main page__main--property">
+      <ScrollToTop/>
       <Helmet>
         <title>Property</title>
       </Helmet>
@@ -71,7 +71,7 @@ const OfferScreen = ({ setNotFound }: OffersScreenProps) => {
             {offer.isPremium && <Mark block={Block.Property}/>}
             <div className="property__name-wrapper">
               <h1 className="property__name">{offer.title}</h1>
-              <BookmarkButton isActive={offer.isFavorite} variant={BookmarkButtonVariant.Offer}/>
+              <BookmarkButton id={offer.id} isFavorite={offer.isFavorite} variant={BookmarkButtonVariant.Offer}/>
             </div>
             <Rating block={Block.Property} rating={offer.rating}/>
             <ul className="property__features">
@@ -145,4 +145,4 @@ const OfferScreen = ({ setNotFound }: OffersScreenProps) => {
   );
 };
 
-export default withNotFound(OfferScreen);
+export default withErrorScreens(OfferScreen);
