@@ -1,8 +1,8 @@
 import { AppRoute, City } from '../../consts/enum';
 import { generatePath, NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/store';
-import { filterCityOffers } from '../../store/reducers/offers/offers-actions';
 import classNames from 'classnames';
+import { filterCityOffers } from '../../store/reducers/cities-slice/cities-slice';
 
 const Tabs = () => {
   const dispatch = useAppDispatch();

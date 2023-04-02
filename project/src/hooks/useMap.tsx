@@ -1,9 +1,9 @@
 import { RefObject, useEffect, useState } from 'react';
-import Leaflet, { LayerGroup, Map, MapOptions } from 'leaflet';
+import Leaflet, { LatLngLiteral, LayerGroup, Map, MapOptions } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { addTileLayer, createMapInstance } from '../utils/leaflet';
 
-type UseMapFn = (container: RefObject<HTMLElement>, options: MapOptions) =>
+type UseMapFn = (container: RefObject<HTMLElement>, options: MapOptions & { center: LatLngLiteral }) =>
   {
     map: Map;
     groupLayer: LayerGroup;
@@ -28,7 +28,7 @@ const UseMap: UseMapFn = (ref, options) => {
     return () => {
       mapInstance.remove();
     };
-  }, [ref, options]);
+  }, [options, ref]);
 
   return leaflet;
 };

@@ -4,9 +4,10 @@ import { filterOffersByCity } from '../../../utils/filter';
 import { sortCitiesByAlphabet } from '../../../utils/sort';
 import FavoritePlaces from '../favorite-places/favorite-places';
 import { useAppSelector } from '../../../hooks/store';
+import { getFilteredOffers } from '../../../store/reducers/cities-slice/selectors';
 
 const FavoritesList = () => {
-  const offers = useAppSelector((state) => state.city.sourceOffers);
+  const offers = useAppSelector(getFilteredOffers);
   const filteredOffers = useMemo(() => filterOffersByCity(offers).sort(sortCitiesByAlphabet), [offers]);
 
   return (

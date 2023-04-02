@@ -4,6 +4,7 @@ import { Outlet, useMatch } from 'react-router-dom';
 import { AppRoute } from '../../consts/enum';
 import classNames from 'classnames';
 import { useAppSelector } from '../../hooks/store';
+import { getFilteredOffers } from '../../store/reducers/cities-slice/selectors';
 
 enum LayoutClassName {
   Main = 'page--gray page--main',
@@ -13,7 +14,7 @@ enum LayoutClassName {
 }
 
 const Layout = () => {
-  const offers = useAppSelector((state) => state.city.offers);
+  const offers = useAppSelector(getFilteredOffers);
 
   const isFavoritesRoute = useMatch(AppRoute.Favorites);
   const isLoginRoute = useMatch(AppRoute.Login);

@@ -1,3 +1,10 @@
+enum NameSpace {
+  DataStatus = 'DataStatus',
+  User = 'User',
+  Cities = 'Cities',
+  Offer = 'Offer'
+}
+
 enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
@@ -44,6 +51,11 @@ enum SortType {
   HighToLow = 'high-to-low',
   RatedFirst = 'rated-first',
   Popular = 'popular'
+}
+
+enum DaysjsDateFormat {
+  Review = 'MMMM YYYY',
+  Machine = 'YYYY-MM-DDTHH:mm:ss[Z]'
 }
 
 const LogoVariant = {
@@ -105,6 +117,7 @@ const OfferCardVariant = {
 } as const;
 
 export {
+  NameSpace,
   OfferCardVariant,
   AppRoute,
   AuthorizationStatus,
@@ -113,5 +126,6 @@ export {
   Block,
   LogoVariant,
   SortType,
-  APIRoute
+  APIRoute,
+  DaysjsDateFormat
 };

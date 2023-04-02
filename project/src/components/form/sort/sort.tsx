@@ -3,8 +3,8 @@ import { SortType } from '../../../consts/enum';
 import classNames from 'classnames';
 import cl from './styles.module.css';
 import { useAppDispatch } from '../../../hooks/store';
-import { sortCityOffers } from '../../../store/reducers/offers/offers-actions';
 import { ENTER_KEY } from '../../../consts/app';
+import { sortCityOffers } from '../../../store/reducers/cities-slice/cities-slice';
 
 const sortTypeToTitle = {
   [SortType.Popular]: 'Popular',
@@ -53,7 +53,9 @@ const Sort = () => {
       <span style={{ marginRight: '5px' }} className="places__sorting-caption">Sort by</span>
       <span
         onKeyDown={onOpenPanelKeyDown}
-        onClick={onOpenPanelClick} className="places__sorting-type" tabIndex={0}
+        onClick={onOpenPanelClick}
+        className="places__sorting-type"
+        tabIndex={0}
       >
         {sortTypeToTitle[activeSort]}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -80,4 +82,4 @@ const Sort = () => {
   );
 };
 
-export default React.memo(Sort);
+export default Sort;

@@ -1,16 +1,19 @@
 import { Block } from '../../consts/enum';
 import classNames from 'classnames';
 import useMap from '../../hooks/useMap';
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { PointExpression } from 'leaflet';
 import { createPoint } from '../../utils/leaflet';
 import { useAppSelector } from '../../hooks/store';
-import { getLocations, getLocationsWithActiveOffer } from '../../utils/transform';
-import { Offers } from '../../types/offers';
+import { getLocations } from '../../utils/transform';
+import { getActiveOfferId } from '../../store/reducers/cities-slice/selectors';
+import { Location } from '../../types/offers';
+import { useParams } from 'react-router-dom';
 
 type MapProps = {
   block: Block;
-  offers: Offers;
+  cityLocation: Location;
+  locations: ReturnType<typeof getLocations>;
 }
 
 const Icon = {
@@ -26,42 +29,36 @@ const Icon = {
   }
 };
 
-const Map = ({ block, offers }: MapProps) => {
-  const activeOffer = useAppSelector((state) => state.city.activeOffer);
-  const location = offers[0]?.city.location || activeOffer?.city.location;
-
-  const points = useMemo(() =>
-    activeOffer && block === Block.Property
-      ? getLocationsWithActiveOffer(offers, activeOffer)
-      : getLocations(offers),
-  [activeOffer, block, offers]);
-
-  const mapConfig = useMemo(() => ({
-    zoom: location.zoom,
-    center: {
-      lng: location.longitude,
-      lat: location.latitude
-    }
-  }), [location.zoom, location.longitude, location.latitude]);
-
+const Map = ({ block, cityLocation, locations }: MapProps) => {
+  const activeOfferId = useAppSelector(getActiveOfferId);
   const mapRef = useRef<HTMLElement>(null);
-  const leaflet = useMap(mapRef, mapConfig);
+  const { id } = useParams();
+
+  const mapOptions = useMemo(() => ({
+    zoom: cityLocation.zoom,
+    center: {
+      lng: cityLocation.longitude,
+      lat: cityLocation.latitude
+    }
+  }), [cityLocation.latitude, cityLocation.longitude, cityLocation.zoom]);
+
+  const leaflet = useMap(mapRef, mapOptions);
 
   useEffect(() => {
     if (!leaflet) {
       return;
     }
 
-    points.forEach((point) => {
-      const icon = point.id === activeOffer?.id ? Icon.Active : Icon.Default;
+    locations.forEach((location) => {
+      const icon = location.id === (Number(id) || activeOfferId) ? Icon.Active : Icon.Default;
 
-      createPoint(point, icon).addTo(leaflet.groupLayer);
+      createPoint(location, icon).addTo(leaflet.groupLayer);
     });
 
     return () => {
       leaflet.groupLayer.clearLayers();
     };
-  }, [leaflet, activeOffer, points]);
+  }, [activeOfferId, id, leaflet, locations]);
 
   return (
     <section

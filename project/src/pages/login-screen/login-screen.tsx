@@ -5,9 +5,10 @@ import { getRandomArrayElement } from '../../utils/common';
 import { generatePath, Link, Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/store';
 import Spinner from '../../components/spinner/spinner';
+import { getUserStatus } from '../../store/reducers/user-slice/selectors';
 
 const LoginScreen = () => {
-  const authorizationStatus = useAppSelector((state) => state.api.authorizationStatus);
+  const authorizationStatus = useAppSelector(getUserStatus);
   const randomCity = getRandomArrayElement(Object.values(City));
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -15,7 +16,7 @@ const LoginScreen = () => {
   }
 
   return (
-    <Spinner withLoading={false}>
+    <Spinner isActive={authorizationStatus === AuthorizationStatus.Unknown}>
       <main className="page__main page__main--login">
         <Helmet>
           <title>Login</title>

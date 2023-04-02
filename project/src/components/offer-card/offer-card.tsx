@@ -9,7 +9,9 @@ import BookmarkButton from '../button/bookmark-button/bookmark-button';
 import Price from '../price/price';
 import Rating from '../rating/rating';
 import { useAppDispatch } from '../../hooks/store';
-import { changeActiveOffer } from '../../store/reducers/offers/offers-actions';
+
+import React from 'react';
+import { changeActiveOffer } from '../../store/reducers/cities-slice/cities-slice';
 
 type PlaceCardProps = {
   variant: OfferVariant;
@@ -26,7 +28,7 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
   const dispatch = useAppDispatch();
 
   const handleActiveOffer = () => {
-    dispatch(changeActiveOffer(offer));
+    dispatch(changeActiveOffer(offer.id));
   };
 
   return (
