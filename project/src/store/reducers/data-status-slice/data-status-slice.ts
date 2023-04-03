@@ -10,7 +10,7 @@ const initialState: InitialState = {
   isLoading: true
 };
 
-const dataLoadingStatusSlice = createSlice({
+const dataStatusSlice = createSlice({
   name: NameSpace.DataStatus,
   initialState,
   reducers: {},
@@ -31,4 +31,4 @@ const dataLoadingStatusSlice = createSlice({
   }
 });
 
-export { dataLoadingStatusSlice };
+export { dataStatusSlice };

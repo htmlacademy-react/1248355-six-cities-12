@@ -35,4 +35,4 @@ const offerSlice = createSlice({
   }
 });
 
-export { offerSlice };
+export { offerSlice, initialState };

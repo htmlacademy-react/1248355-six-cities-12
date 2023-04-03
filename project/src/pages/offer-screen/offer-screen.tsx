@@ -17,7 +17,7 @@ import BookmarkButton from '../../components/button/bookmark-button/bookmark-but
 import Rating from '../../components/rating/rating';
 import Price from '../../components/price/price';
 import Reviews from '../../components/reviews/reviews';
-import { getLoadingStatus } from '../../store/reducers/data-loading-status-slice/selectors';
+import { getLoadingStatus } from '../../store/reducers/data-status-slice/selectors';
 import { getUserStatus } from '../../store/reducers/user-slice/selectors';
 import ReviewForm from '../../components/form/review/review-form';
 import ScrollToTop from '../../components/scroll/scrollToTop/scroll-to-top';
