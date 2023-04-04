@@ -18,7 +18,7 @@ const Spinner = ({ children, variant = 'primary', isActive = false }: SpinnerPro
       height: variant === 'small' ? '100%' : '100vh'
     }}
     >
-      <FaSpinner className={classNames(cl.spinner, cl[variant])}/>
+      <FaSpinner role="presentation" className={classNames(cl.spinner, cl[variant])}/>
     </div>
     : children || null
 );
