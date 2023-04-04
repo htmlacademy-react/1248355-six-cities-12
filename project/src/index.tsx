@@ -7,6 +7,8 @@ import { checkAuth } from './store/middlewares/thunk/thunk-actions';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { MAX_TOAST_ERRORS } from './consts/app';
+import { browserHistory } from './utils/browser-history';
+import HistoryRouter from './components/history-router/history-router';
 
 store.dispatch(checkAuth());
 
@@ -17,14 +19,16 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer
-        limit={MAX_TOAST_ERRORS}
-        position="top-center"
-        closeOnClick
-        pauseOnHover
-        theme="light"
-      />
-      <App/>
+      <HistoryRouter history={browserHistory}>
+        <ToastContainer
+          limit={MAX_TOAST_ERRORS}
+          position="top-center"
+          closeOnClick
+          pauseOnHover
+          theme="light"
+        />
+        <App/>
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>
 );

@@ -8,49 +8,45 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../../consts/enum';
-import HistoryRouter from '../history-router/history-router';
-import { browserHistory } from '../../utils/browser-history';
 
 const App = (): JSX.Element => (
   <HelmetProvider>
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route path={AppRoute.Root} element={<Layout/>}>
-          <Route>
-            <Route
-              index
-              element={<MainScreen/>}
-            />
-            <Route
-              path={AppRoute.City}
-              element={<MainScreen/>}
-            />
-            <Route
-              path={AppRoute.Offer}
-              element={
-                <OfferScreen/>
-              }
-            />
-            <Route
-              path={AppRoute.Login}
-              element={<LoginScreen/>}
-            />
-            <Route
-              path={AppRoute.Favorites}
-              element={
-                <PrivateRoute>
-                  {<FavoritesScreen/>}
-                </PrivateRoute>
-              }
-            />
-          </Route>
+    <Routes>
+      <Route path={AppRoute.Root} element={<Layout/>}>
+        <Route>
           <Route
-            path="*"
-            element={<NotFoundScreen/>}
+            index
+            element={<MainScreen/>}
+          />
+          <Route
+            path={AppRoute.City}
+            element={<MainScreen/>}
+          />
+          <Route
+            path={AppRoute.Offer}
+            element={
+              <OfferScreen/>
+            }
+          />
+          <Route
+            path={AppRoute.Login}
+            element={<LoginScreen/>}
+          />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute>
+                {<FavoritesScreen/>}
+              </PrivateRoute>
+            }
           />
         </Route>
-      </Routes>
-    </HistoryRouter>
+        <Route
+          path="*"
+          element={<NotFoundScreen/>}
+        />
+      </Route>
+    </Routes>
   </HelmetProvider>
 );
 

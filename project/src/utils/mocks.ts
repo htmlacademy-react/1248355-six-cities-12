@@ -38,7 +38,7 @@ const makeFakeOffer: MakeFakeOffer = (
       }
     },
     previewImage: faker.image.image(),
-    images: [faker.image.image(), faker.image.image(), faker.image.image()],
+    images: [`${faker.image.image()}1`, `${faker.image.image()}2`, `${faker.image.image()}3`],
     title: faker.name.findName(),
     isFavorite: isFavorite,
     isPremium: faker.datatype.boolean(),

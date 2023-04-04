@@ -10,7 +10,7 @@ enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
   Offer = '/offer/:id',
-  City = '/:city',
+  City = '/city/:city',
 }
 
 enum APIRoute {
