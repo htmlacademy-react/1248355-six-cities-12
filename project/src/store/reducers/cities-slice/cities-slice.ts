@@ -12,7 +12,7 @@ type InitialState = {
   activeOfferId: number | null;
 }
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   sourceOffers: [],
   filteredOffers: [],
   sortedOffers: [],

@@ -52,4 +52,4 @@ const userSlice = createSlice({
   }
 });
 
-export { userSlice };
+export { userSlice, initialState };

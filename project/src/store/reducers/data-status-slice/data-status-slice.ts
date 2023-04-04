@@ -10,7 +10,7 @@ const initialState: InitialState = {
   isLoading: true
 };
 
-const dataLoadingStatusSlice = createSlice({
+const dataStatusSlice = createSlice({
   name: NameSpace.DataStatus,
   initialState,
   reducers: {},
@@ -22,6 +22,12 @@ const dataLoadingStatusSlice = createSlice({
       .addCase(initOfferActions.fulfilled, (state) => {
         state.isLoading = false;
       })
+      .addCase(initOfferActions.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchOffers.rejected, (state) => {
+        state.isLoading = false;
+      })
       .addCase(fetchOffers.pending, (state) => {
         state.isLoading = true;
       })
@@ -31,4 +37,4 @@ const dataLoadingStatusSlice = createSlice({
   }
 });
 
-export { dataLoadingStatusSlice };
+export { dataStatusSlice };

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { ChangeEventHandler, FormEvent, useState } from 'react';
 import { MAX_COMMENTS_LENGTH, MIN_COMMENTS_LENGTH, RATING_STARS_COUNT, RATING_TITLES } from '../../../consts/app';
 import { useAppDispatch } from '../../../hooks/store';
 import { createComment } from '../../../store/middlewares/thunk/thunk-actions';
@@ -23,6 +23,14 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
   const isSubmitButtonDisabled =
     formData.rating === 0 ||
     (formData.comment.length < MIN_COMMENTS_LENGTH || formData.comment.length > MAX_COMMENTS_LENGTH);
+
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
+    setFormData({ ...formData, rating: +evt.target.value });
+  };
+
+  const onTextAreaChange: ChangeEventHandler<HTMLTextAreaElement> = (evt) => {
+    setFormData({ ...formData, comment: evt.target.value });
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     (async () => {
@@ -52,9 +60,7 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
         {Array.from({ length: RATING_STARS_COUNT }, (_, index) => (
           <React.Fragment key={`${index}-input`}>
             <input
-              onChange={(evt) => {
-                setFormData({ ...formData, rating: +evt.target.value });
-              }}
+              onChange={onInputChange}
               className="form__rating-input visually-hidden"
               name="rating"
               value={RATING_STARS_COUNT - index}
@@ -76,11 +82,7 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
         ))}
       </div>
       <textarea
-        onChange={
-          (evt) => {
-            setFormData({ ...formData, comment: evt.target.value });
-          }
-        }
+        onChange={onTextAreaChange}
         value={formData.comment}
         className="reviews__textarea form__textarea"
         id="review"

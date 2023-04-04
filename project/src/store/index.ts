@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
 import { redirect } from './middlewares/redirect/redirect';
-import { dataLoadingStatusSlice } from './reducers/data-loading-status-slice/data-loading-status-slice';
+import { dataStatusSlice } from './reducers/data-status-slice/data-status-slice';
 import { NameSpace } from '../consts/enum';
 import { citiesSlice } from './reducers/cities-slice/cities-slice';
 import { offerSlice } from './reducers/offer-slice/offer-slice';
@@ -10,7 +10,7 @@ import { userSlice } from './reducers/user-slice/user-slice';
 const api = createAPI();
 
 const rootReducer = combineReducers({
-  [NameSpace.DataStatus]: dataLoadingStatusSlice.reducer,
+  [NameSpace.DataStatus]: dataStatusSlice.reducer,
   [NameSpace.Cities]: citiesSlice.reducer,
   [NameSpace.Offer]: offerSlice.reducer,
   [NameSpace.User]: userSlice.reducer

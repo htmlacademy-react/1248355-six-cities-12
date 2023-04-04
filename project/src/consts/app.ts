@@ -6,10 +6,12 @@ const MIN_COMMENTS_LENGTH = 50;
 const MAX_COMMENTS_LENGTH = 300;
 const MAX_TOAST_ERRORS = 1;
 const TIMOUT_ERROR_CODE = 'ECONNABORTED';
+const AUTH_TOKEN_KEY_NAME = '6-cities-token';
 
 const RATING_TITLES = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
 export {
+  AUTH_TOKEN_KEY_NAME,
   MAX_TOAST_ERRORS,
   TIMOUT_ERROR_CODE,
   OFFER_SCREEN_IMG_COUNT,

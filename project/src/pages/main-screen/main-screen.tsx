@@ -12,7 +12,7 @@ import withErrorScreens, { WithErrorScreensHOCProps } from '../../hocs/with-erro
 import CitiesList from '../../components/cities-list/cities-list';
 import { getFilteredOffers } from '../../store/reducers/cities-slice/selectors';
 import { getLocations } from '../../utils/transform';
-import { getLoadingStatus } from '../../store/reducers/data-loading-status-slice/selectors';
+import { getLoadingStatus } from '../../store/reducers/data-status-slice/selectors';
 import { getUserStatus } from '../../store/reducers/user-slice/selectors';
 
 type MainScreenProps = WithErrorScreensHOCProps;

@@ -30,7 +30,7 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit} className="login__form form" action="#" method="post">
       <div className="login__input-wrapper form__input-wrapper">
-        <label className="visually-hidden">E-mail</label>
+        <label className="visually-hidden" htmlFor="e-mail">E-mail</label>
         <input
           onChange={onInputChange}
           value={formData.email}
@@ -39,10 +39,11 @@ const LoginForm = () => {
           name="email"
           placeholder="Email"
           required
+          id="e-mail"
         />
       </div>
       <div className="login__input-wrapper form__input-wrapper">
-        <label className="visually-hidden">Password</label>
+        <label className="visually-hidden" htmlFor="password">Password</label>
         <input
           pattern="^(?=.*[a-zA-Zа-яА-Я])(?=.*\d)[^\s].+"
           onChange={onInputChange}
@@ -52,6 +53,7 @@ const LoginForm = () => {
           name="password"
           placeholder="Password"
           required
+          id="password"
         />
       </div>
       <button className="login__submit form__submit button" type="submit">Sign in</button>
