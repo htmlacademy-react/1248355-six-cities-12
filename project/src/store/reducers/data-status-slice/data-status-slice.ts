@@ -22,6 +22,12 @@ const dataStatusSlice = createSlice({
       .addCase(initOfferActions.fulfilled, (state) => {
         state.isLoading = false;
       })
+      .addCase(initOfferActions.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchOffers.rejected, (state) => {
+        state.isLoading = false;
+      })
       .addCase(fetchOffers.pending, (state) => {
         state.isLoading = true;
       })

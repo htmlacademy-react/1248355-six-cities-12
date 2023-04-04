@@ -1,4 +1,4 @@
-const AUTH_TOKEN_KEY_NAME = 'app-data-status-slice-token';
+import { AUTH_TOKEN_KEY_NAME } from '../consts/app';
 
 const getToken = () => localStorage.getItem(AUTH_TOKEN_KEY_NAME) ?? '';
 

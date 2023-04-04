@@ -17,6 +17,11 @@ describe('Slice: dataStatus', () => {
       .toEqual({ isLoading: true });
   });
 
+  it('should set isLoading flag if initOfferActions rejected', () => {
+    expect(dataStatusSlice.reducer({ isLoading: true }, { type: fetchOffers.rejected.type }))
+      .toEqual({ isLoading: false });
+  });
+
   it('should set isLoading flag if fetchOffers fulfilled', () => {
     expect(dataStatusSlice.reducer({ isLoading: true }, { type: fetchOffers.fulfilled.type }))
       .toEqual({ isLoading: false });
@@ -25,5 +30,10 @@ describe('Slice: dataStatus', () => {
   it('should set isLoading flag if fetchOffers pending', () => {
     expect(dataStatusSlice.reducer({ isLoading: false }, { type: fetchOffers.pending.type }))
       .toEqual({ isLoading: true });
+  });
+
+  it('should set isLoading flag if fetchOffers rejected', () => {
+    expect(dataStatusSlice.reducer({ isLoading: true }, { type: fetchOffers.rejected.type }))
+      .toEqual({ isLoading: false });
   });
 });
