@@ -1,7 +1,12 @@
 import Tabs from '../../components/tabs/tabs';
+import {Helmet} from 'react-helmet-async';
+import React from 'react';
 
 const MainEmptyScreen = () => (
   <main className="page__main page__main--index page__main--index-empty">
+    <Helmet>
+      <title>6 cities</title>
+    </Helmet>
     <h1 className="visually-hidden">Cities</h1>
     <Tabs/>
     <div className="cities">
