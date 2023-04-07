@@ -1,6 +1,6 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Footer from './footer';
-import {ProviderWrapper} from '../../utils/jest';
+import { ProviderWrapper } from '../../utils/jest';
 
 describe('Component: Footer', () => {
   it('should render correctly', () => {

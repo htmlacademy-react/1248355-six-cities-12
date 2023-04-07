@@ -51,7 +51,7 @@ const makeFakeOffer: MakeFakeOffer = (
     host: {
       id,
       name: faker.name.findName(),
-      isPro: faker.datatype.boolean(),
+      isPro: true,
       avatarUrl: faker.image.avatar()
     },
     description: faker.name.findName(),

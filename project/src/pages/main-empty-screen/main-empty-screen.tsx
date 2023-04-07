@@ -1,5 +1,5 @@
 import Tabs from '../../components/tabs/tabs';
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import React from 'react';
 
 const MainEmptyScreen = () => (

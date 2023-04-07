@@ -1,25 +1,23 @@
-import {render, screen} from '@testing-library/react';
-import {createMockStoreWithAPI, ProviderWrapper} from '../../utils/jest';
+import { render, screen } from '@testing-library/react';
+import { createMockStoreWithAPI, ProviderWrapper } from '../../utils/jest';
 import Header from './header';
-import {RootState} from '../../types/store';
-import {AuthorizationStatus, NameSpace} from '../../consts/enum';
-import {DeepPartial} from '@reduxjs/toolkit';
-import {makeFakeUser} from '../../utils/mocks';
+import { RootState } from '../../types/store';
+import { AuthorizationStatus, NameSpace } from '../../consts/enum';
+import { DeepPartial } from '@reduxjs/toolkit';
+import { makeFakeUser } from '../../utils/mocks';
 import userEvent from '@testing-library/user-event';
 
+const fakeState: DeepPartial<RootState> = {
+  [NameSpace.User]: {
+    authorizationStatus: AuthorizationStatus.Auth,
+    user: makeFakeUser(),
+    favorites: []
+  }
+};
 
+const { fakeStore } = createMockStoreWithAPI(fakeState);
 
 describe('Component: Header', () => {
-  const fakeState: DeepPartial<RootState> = {
-    [NameSpace.User]: {
-      authorizationStatus: AuthorizationStatus.Auth,
-      user: makeFakeUser(),
-      favorites: []
-    }
-  };
-
-  const {fakeStore} = createMockStoreWithAPI(fakeState);
-
   it('should render correctly', () => {
     render(
       <ProviderWrapper fakeStore={fakeStore}>

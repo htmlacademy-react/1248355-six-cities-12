@@ -1,7 +1,7 @@
 import { Block } from '../../consts/enum';
 import classNames from 'classnames';
-import useMap from '../../hooks/useMap';
-import React, { useEffect, useMemo, useRef } from 'react';
+import useMap from '../../hooks/use-map';
+import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import { PointExpression } from 'leaflet';
 import { createPoint } from '../../utils/leaflet';
 import { useAppSelector } from '../../hooks/store';
@@ -44,7 +44,7 @@ const Map = ({ block, cityLocation, locations }: MapProps) => {
 
   const leaflet = useMap(mapRef, mapOptions);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!leaflet) {
       return;
     }

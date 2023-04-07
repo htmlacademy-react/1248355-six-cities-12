@@ -13,6 +13,13 @@ enum AppRoute {
   City = '/city/:city',
 }
 
+enum LayoutClassName {
+  Main = 'page--gray page--main',
+  EmptyFavorites = 'page--favorites-empty',
+  Login = 'page--gray page--login',
+  Default = 'page'
+}
+
 enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
@@ -118,6 +125,7 @@ const OfferCardVariant = {
 } as const;
 
 export {
+  LayoutClassName,
   NameSpace,
   OfferCardVariant,
   AppRoute,

@@ -1,13 +1,13 @@
-import {createMockStoreWithAPI, deferred, ProviderWrapper, RoutesWrapper} from '../../utils/jest';
-import {render, screen} from '@testing-library/react';
-import {DeepPartial} from '@reduxjs/toolkit';
-import {RootState} from '../../types/store';
-import {APIRoute, AppRoute, AuthorizationStatus, City, NameSpace} from '../../consts/enum';
-import {makeFakeOffer, makeFakeUser} from '../../utils/mocks';
+import { createMockStoreWithAPI, deferred, ProviderWrapper, RoutesWrapper } from '../../utils/jest';
+import { render, screen } from '@testing-library/react';
+import { DeepPartial } from '@reduxjs/toolkit';
+import { RootState } from '../../types/store';
+import { APIRoute, AppRoute, AuthorizationStatus, City, NameSpace } from '../../consts/enum';
+import { makeFakeOffer, makeFakeUser } from '../../utils/mocks';
 import MainScreen from './main-screen';
-import {createMemoryHistory} from 'history';
-import {generatePath} from 'react-router-dom';
-import {act} from 'react-dom/test-utils';
+import { createMemoryHistory } from 'history';
+import { generatePath } from 'react-router-dom';
+import { act } from 'react-dom/test-utils';
 
 const fakeState: DeepPartial<RootState> = {
   [NameSpace.DataStatus]: {
@@ -27,7 +27,7 @@ const fakeState: DeepPartial<RootState> = {
     }
 };
 
-const {fakeStore, mockAPI} = createMockStoreWithAPI(fakeState);
+const { fakeStore, mockAPI } = createMockStoreWithAPI(fakeState);
 const history = createMemoryHistory();
 
 describe('Component: MainScreen', () => {
@@ -37,10 +37,9 @@ describe('Component: MainScreen', () => {
         <RoutesWrapper jsxElement={<MainScreen/>} path={AppRoute.City}/>
       </ProviderWrapper>);
 
-
     expect(screen.getByText('2 places to stay in Paris')).toBeInTheDocument();
     expect(screen.getByText('Sort by')).toBeInTheDocument();
-    expect(screen.getByRole('link', {name: 'Leaflet'})).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Leaflet' })).toBeInTheDocument();
     expect(screen.getAllByAltText('Marker')).toHaveLength(fakeState[NameSpace.Cities]?.filteredOffers?.length as number);
   });
 
@@ -51,9 +50,8 @@ describe('Component: MainScreen', () => {
 
     render(
       <ProviderWrapper fakeStore={fakeStore} fakeHistory={history}>
-        <RoutesWrapper jsxElement={<MainScreen/>} path={generatePath(AppRoute.City, {city: City.Paris})}/>
+        <RoutesWrapper jsxElement={<MainScreen/>} path={generatePath(AppRoute.City, { city: City.Paris })}/>
       </ProviderWrapper>);
-
 
     expect(screen.getByText('No places to stay available')).toBeInTheDocument();
   });
@@ -63,13 +61,12 @@ describe('Component: MainScreen', () => {
       filteredOffers: []
     };
 
-    history.push(generatePath(AppRoute.City, {city: 'test'}));
+    history.push(generatePath(AppRoute.City, { city: 'test' }));
 
     render(
       <ProviderWrapper fakeStore={fakeStore} fakeHistory={history}>
         <RoutesWrapper jsxElement={<MainScreen/>} path={AppRoute.City}/>
       </ProviderWrapper>);
-
 
     expect(screen.getByText('Вернуться на главную')).toBeInTheDocument();
   });
@@ -83,14 +80,14 @@ describe('Component: MainScreen', () => {
       .onGet(APIRoute.Offers)
       .reply(400);
 
-    history.push(generatePath(AppRoute.City, {city: City.Paris}));
+    history.push(generatePath(AppRoute.City, { city: City.Paris }));
 
     render(
       <ProviderWrapper fakeStore={fakeStore} fakeHistory={history}>
         <RoutesWrapper jsxElement={<MainScreen/>} path={AppRoute.City}/>
       </ProviderWrapper>);
 
-    const {resolve, promise} = deferred();
+    const { resolve, promise } = deferred();
 
     await act(async () => {
       resolve(null);
@@ -98,5 +95,19 @@ describe('Component: MainScreen', () => {
     });
 
     expect(screen.getByText('Error happened while loading data')).toBeInTheDocument();
+  });
+
+  it('should render spinner correctly', () => {
+    fakeState[NameSpace.DataStatus] = {
+      isLoading: true
+    };
+
+    render(
+      <ProviderWrapper fakeStore={fakeStore}>
+        <MainScreen/>
+      </ProviderWrapper>
+    );
+
+    expect(screen.getByRole('presentation')).toBeInTheDocument();
   });
 });

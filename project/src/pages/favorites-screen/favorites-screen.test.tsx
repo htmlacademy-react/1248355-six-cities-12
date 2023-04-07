@@ -1,18 +1,18 @@
-import {AuthorizationStatus, City, NameSpace} from '../../consts/enum';
-import {createMockStoreWithAPI, ProviderWrapper} from '../../utils/jest';
-import {render, screen} from '@testing-library/react';
+import { AuthorizationStatus, City, NameSpace } from '../../consts/enum';
+import { createMockStoreWithAPI, ProviderWrapper } from '../../utils/jest';
+import { render, screen } from '@testing-library/react';
 import FavoritesScreen from './favorites-screen';
-import {makeFakeOffer} from '../../utils/mocks';
+import { makeFakeOffer } from '../../utils/mocks';
+
+const fakeState = {
+  [NameSpace.User]: {
+    authorizationStatus: AuthorizationStatus.Auth,
+    favorites: [makeFakeOffer({ city: City.Paris })]
+  }
+};
+const { fakeStore } = createMockStoreWithAPI(fakeState);
 
 describe('Component: FavoritesScreen', () => {
-  const fakeState = {
-    [NameSpace.User]: {
-      authorizationStatus: AuthorizationStatus.Auth,
-      favorites: [makeFakeOffer({city: City.Paris})]
-    }
-  };
-  const {fakeStore} = createMockStoreWithAPI(fakeState);
-
   it('should render "FavoritesScreen" properly', () => {
     render(
       <ProviderWrapper fakeStore={fakeStore}>
@@ -21,7 +21,7 @@ describe('Component: FavoritesScreen', () => {
     );
 
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', {name: 'Paris'})).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Paris' })).toBeInTheDocument();
   });
 
   it('should render "FavoritesScreenEmpty" properly', () => {

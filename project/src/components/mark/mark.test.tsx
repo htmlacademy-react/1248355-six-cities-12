@@ -1,17 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { Block } from '../../consts/enum';
-import HistoryRouter from '../history-router/history-router';
-import { createMemoryHistory } from 'history';
 import Mark from './mark';
 
-describe('Component: Price', () => {
+describe('Component: Mark', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-
     render(
-      <HistoryRouter history={history}>
-        <Mark block={Block.NearPlaces}/>
-      </HistoryRouter>
+      <Mark block={Block.NearPlaces}/>
     );
 
     expect(screen.getByText('Premium')).toBeInTheDocument();

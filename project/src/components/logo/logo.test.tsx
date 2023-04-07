@@ -1,12 +1,11 @@
-import {render, screen} from '@testing-library/react';
-import {LogoVariant} from '../../consts/enum';
+import { render, screen } from '@testing-library/react';
+import { LogoVariant } from '../../consts/enum';
 import HistoryRouter from '../history-router/history-router';
-import {createMemoryHistory} from 'history';
+import { createMemoryHistory } from 'history';
 import Logo from './logo';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import {act} from 'react-dom/test-utils';
-
+import { act } from 'react-dom/test-utils';
 
 const history = createMemoryHistory();
 

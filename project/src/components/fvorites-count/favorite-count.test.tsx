@@ -1,9 +1,9 @@
-import {render, screen} from '@testing-library/react';
-import {createMockStoreWithAPI, ProviderWrapper} from '../../utils/jest';
+import { render, screen } from '@testing-library/react';
+import { createMockStoreWithAPI, ProviderWrapper } from '../../utils/jest';
 import FavoritesCount from './favorites-count';
-import {DeepPartial} from '@reduxjs/toolkit';
-import {RootState} from '../../types/store';
-import {NameSpace} from '../../consts/enum';
+import { DeepPartial } from '@reduxjs/toolkit';
+import { RootState } from '../../types/store';
+import { NameSpace } from '../../consts/enum';
 
 describe('Component: FavoritesCount', () => {
   it('should render correctly', () => {
@@ -13,8 +13,7 @@ describe('Component: FavoritesCount', () => {
       }
     };
 
-    const {fakeStore} = createMockStoreWithAPI(fakeState);
-
+    const { fakeStore } = createMockStoreWithAPI(fakeState);
 
     render(
       <ProviderWrapper fakeStore={fakeStore}>

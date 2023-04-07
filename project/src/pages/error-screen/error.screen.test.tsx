@@ -1,14 +1,10 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ErrorScreen from './error-screen';
-import {createMemoryHistory} from 'history';
 import userEvent from '@testing-library/user-event';
-import {ProviderWrapper} from '../../utils/jest';
-
-const history = createMemoryHistory();
+import { ProviderWrapper } from '../../utils/jest';
 
 describe('Component: ErrorScreen', () => {
-
-  test('should render correctly', async () => {
+  it('should render correctly', async () => {
     const onClick = jest.fn();
 
     render(

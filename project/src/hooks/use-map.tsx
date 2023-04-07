@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useLayoutEffect, useState } from 'react';
 import Leaflet, { LatLngLiteral, LayerGroup, Map, MapOptions } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { addTileLayer, createMapInstance } from '../utils/leaflet';
@@ -12,7 +12,7 @@ type UseMapFn = (container: RefObject<HTMLElement>, options: MapOptions & { cent
 const UseMap: UseMapFn = (ref, options) => {
   const [leaflet, setLeaflet] = useState<ReturnType<UseMapFn>>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ref.current) {
       return;
     }

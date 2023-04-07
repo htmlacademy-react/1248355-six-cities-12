@@ -1,8 +1,8 @@
-import {HelmetProvider} from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 import HistoryRouter from '../../components/history-router/history-router';
-import {createMemoryHistory} from 'history';
+import { createMemoryHistory } from 'history';
 import NotFoundScreen from './not-found-screen';
-import {fireEvent, render, screen} from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 const history = createMemoryHistory();
 

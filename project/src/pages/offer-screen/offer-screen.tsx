@@ -13,14 +13,14 @@ import { getNearOffers, getOffer } from '../../store/reducers/offer-slice/select
 import { getLocationsWithActiveOffer } from '../../utils/transform';
 import { createRandomElementsArray, makeFirstLetterUpperCase } from '../../utils/common';
 import Mark from '../../components/mark/mark';
-import BookmarkButton from '../../components/button/bookmark-button/bookmark-button';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
 import Price from '../../components/price/price';
 import Reviews from '../../components/reviews/reviews';
 import { getLoadingStatus } from '../../store/reducers/data-status-slice/selectors';
 import { getUserStatus } from '../../store/reducers/user-slice/selectors';
 import ReviewForm from '../../components/form/review/review-form';
-import ScrollToTop from '../../components/scroll/scrollToTop/scroll-to-top';
+import ScrollToTop from '../../components/scrollToTop/scroll-to-top';
 
 type OffersScreenProps = WithErrorScreensHOCProps;
 
@@ -33,16 +33,17 @@ const OfferScreen = ({ handleErrorScreensShow }: OffersScreenProps) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!id) {
-      return;
-    }
+    (async () => {
+      if (!id) {
+        return;
+      }
 
-    dispatch(initOfferActions(id))
-      .then((action) => {
-        if (initOfferActions.rejected.match(action)) {
-          handleErrorScreensShow(action.error.code);
-        }
-      });
+      const action = await dispatch(initOfferActions(id));
+
+      if (initOfferActions.rejected.match(action)) {
+        handleErrorScreensShow(action.error.code);
+      }
+    })();
   }, [dispatch, handleErrorScreensShow, id]);
 
   if (!offer || isLoading || authStatus === AuthorizationStatus.Unknown) {

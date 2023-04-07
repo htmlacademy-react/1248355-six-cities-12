@@ -7,6 +7,7 @@ const MAX_COMMENTS_LENGTH = 300;
 const MAX_TOAST_ERRORS = 1;
 const TIMOUT_ERROR_CODE = 'ECONNABORTED';
 const AUTH_TOKEN_KEY_NAME = '6-cities-token';
+const MAX_COMMENTS_COUNT = 10;
 
 const RATING_TITLES = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
@@ -20,5 +21,6 @@ export {
   ENTER_KEY,
   MAX_NEAR_PLACES_COUNT,
   MIN_COMMENTS_LENGTH,
-  MAX_COMMENTS_LENGTH
+  MAX_COMMENTS_LENGTH,
+  MAX_COMMENTS_COUNT
 };

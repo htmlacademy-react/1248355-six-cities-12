@@ -1,14 +1,14 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import LoginScreen from './login-screen';
-import {AppRoute, AuthorizationStatus, NameSpace} from '../../consts/enum';
+import { AppRoute, AuthorizationStatus, NameSpace } from '../../consts/enum';
 import userEvent from '@testing-library/user-event';
-import {act} from 'react-dom/test-utils';
-import {createMockStoreWithAPI, ProviderWrapper, RoutesWrapper} from '../../utils/jest';
+import { act } from 'react-dom/test-utils';
+import { createMockStoreWithAPI, ProviderWrapper, RoutesWrapper } from '../../utils/jest';
+
+const fakeState = { [NameSpace.User]: { authorizationStatus: AuthorizationStatus.NoAuth } };
+const { fakeStore } = createMockStoreWithAPI(fakeState);
 
 describe('Component: LoginScreen', () => {
-  const fakeState = {[NameSpace.User]: {authorizationStatus: AuthorizationStatus.NoAuth}};
-  const {fakeStore} = createMockStoreWithAPI(fakeState);
-
   it('should render "LoginScreen" when user navigate to "login" url', async () => {
     render(
       <ProviderWrapper fakeStore={fakeStore}>
@@ -39,6 +39,6 @@ describe('Component: LoginScreen', () => {
       </ProviderWrapper>
     );
 
-    expect(screen.queryByLabelText(/E-mail/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/main page/i)).toBeInTheDocument();
   });
 });

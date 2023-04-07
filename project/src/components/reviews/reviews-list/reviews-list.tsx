@@ -2,12 +2,11 @@ import React from 'react';
 import { Comments } from '../../../types/comments';
 import Review from '../review/review';
 import { sortReviewsByDate } from '../../../utils/sort';
+import { MAX_COMMENTS_COUNT } from '../../../consts/app';
 
 type ReviewsListProps = {
   comments: Comments;
 }
-
-const MAX_COMMENTS_COUNT = 10;
 
 const ReviewsList = ({ comments }: ReviewsListProps) => {
   let sortedComments = [...comments].sort(sortReviewsByDate);

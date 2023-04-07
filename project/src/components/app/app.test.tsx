@@ -5,7 +5,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import App from './app';
 import { AppRoute, AuthorizationStatus, City, NameSpace } from '../../consts/enum';
 import HistoryRouter from '../history-router/history-router';
-import { AppDispatch, RootState } from '../../types/store';
+import { RootState } from '../../types/store';
 import { createAPI } from '../../services/api';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
@@ -17,8 +17,8 @@ const middlewares = [thunk.withExtraArgument(api)];
 
 const mockStore = configureMockStore<
   RootState,
-  Action<AppDispatch>,
-  ThunkDispatch<RootState, typeof api, Action<AppDispatch>>
+  Action<string>,
+  ThunkDispatch<RootState, typeof api, Action<string>>
 >(middlewares);
 
 const store = mockStore({

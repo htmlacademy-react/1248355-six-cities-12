@@ -1,12 +1,12 @@
 import cl from './style.module.css';
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 
 type ErrorScreenProps = {
   onClick: () => void;
 }
 
-const ErrorScreen = ({onClick}: ErrorScreenProps) => (
-  <main style={{height: '100vh'}} className="page__main page__main--index page__main--index-empty">
+const ErrorScreen = ({ onClick }: ErrorScreenProps) => (
+  <main style={{ height: '100vh' }} className="page__main page__main--index page__main--index-empty">
     <Helmet>
       <title>Error</title>
     </Helmet>

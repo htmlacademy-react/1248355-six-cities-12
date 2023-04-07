@@ -1,14 +1,13 @@
-import {createMemoryHistory} from 'history';
-import {render, screen} from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { render, screen } from '@testing-library/react';
 import HistoryRouter from '../../components/history-router/history-router';
-import {HelmetProvider} from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 import FavoritesEmptyScreen from './favorites-empty-screen';
 
 const history = createMemoryHistory();
 
 describe('Component: FavoritesEmptyScreen', () => {
-
-  test('should render correctly', () => {
+  it('should render correctly', () => {
     render(
       <HistoryRouter history={history}>
         <HelmetProvider>
@@ -18,6 +17,5 @@ describe('Component: FavoritesEmptyScreen', () => {
     );
 
     expect(screen.getByText('Nothing yet saved.')).toBeInTheDocument();
-
   });
 });
