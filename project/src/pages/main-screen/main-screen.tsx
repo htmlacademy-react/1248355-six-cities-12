@@ -14,6 +14,7 @@ import { getFilteredOffers } from '../../store/reducers/cities-slice/selectors';
 import { getLocations } from '../../utils/transform';
 import { getLoadingStatus } from '../../store/reducers/data-status-slice/selectors';
 import { getUserStatus } from '../../store/reducers/user-slice/selectors';
+import { Helmet } from 'react-helmet-async';
 
 type MainScreenProps = WithErrorScreensHOCProps;
 
@@ -26,26 +27,27 @@ const MainScreen = ({ setErrorScreen, setNotFoundScreen }: MainScreenProps) => {
   const { city } = useParams<{ city: City }>();
 
   useEffect(() => {
-    if (!city) {
-      navigate(generatePath(AppRoute.City, { city: City.Paris }));
-      return;
-    }
+    (async () => {
+      if (!city) {
+        navigate(generatePath(AppRoute.City, { city: City.Paris }));
+        return;
+      }
 
-    if (filteredOffers.length) {
-      return;
-    }
+      if (filteredOffers.length) {
+        return;
+      }
 
-    if (!Object.keys(City).includes(city)) {
-      setNotFoundScreen(true);
-      return;
-    }
+      if (!Object.keys(City).includes(city)) {
+        setNotFoundScreen(true);
+        return;
+      }
 
-    dispatch(fetchOffers(city))
-      .then((action) => {
-        if (fetchOffers.rejected.match(action)) {
-          setErrorScreen(true);
-        }
-      });
+      const action = await dispatch(fetchOffers(city));
+
+      if (fetchOffers.rejected.match(action)) {
+        setErrorScreen(true);
+      }
+    })();
   }, [city, dispatch, navigate, filteredOffers.length, setNotFoundScreen, setErrorScreen]);
 
   return (
@@ -53,6 +55,9 @@ const MainScreen = ({ setErrorScreen, setNotFoundScreen }: MainScreenProps) => {
       {filteredOffers.length
         ? (
           <main className="page__main page__main--index">
+            <Helmet>
+              <title>6 cities</title>
+            </Helmet>
             <h1 className="visually-hidden">Cities</h1>
             <Tabs/>
             <div className="cities">

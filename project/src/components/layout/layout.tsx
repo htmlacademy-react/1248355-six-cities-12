@@ -1,17 +1,10 @@
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { Outlet, useMatch } from 'react-router-dom';
-import { AppRoute } from '../../consts/enum';
+import { AppRoute, LayoutClassName } from '../../consts/enum';
 import classNames from 'classnames';
 import { useAppSelector } from '../../hooks/store';
 import { getFavorites } from '../../store/reducers/user-slice/selectors';
-
-enum LayoutClassName {
-  Main = 'page--gray page--main',
-  EmptyFavorites = 'page--favorites-empty',
-  Login = 'page--gray page--login',
-  Default = 'page'
-}
 
 const Layout = () => {
   const favorites = useAppSelector(getFavorites);
@@ -23,6 +16,7 @@ const Layout = () => {
 
   return (
     <div
+      data-testid='layout'
       className={classNames(
         LayoutClassName.Default,
         {

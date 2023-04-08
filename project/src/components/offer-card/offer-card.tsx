@@ -5,7 +5,7 @@ import Mark from '../mark/mark';
 import classNames from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
 import { makeFirstLetterUpperCase } from '../../utils/common';
-import BookmarkButton from '../button/bookmark-button/bookmark-button';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 import Price from '../price/price';
 import Rating from '../rating/rating';
 import { useAppDispatch } from '../../hooks/store';
@@ -35,6 +35,7 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
     <article
       onMouseEnter={isMouseEnterEvent && handleActiveOffer}
       className={`${block}__card place-card`}
+      data-testid='card'
     >
       {isPremium && <Mark block={Block.OfferCard}/>}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>

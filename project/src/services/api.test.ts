@@ -1,14 +1,10 @@
-import { createAPI } from './api';
-import MockAdapter from 'axios-mock-adapter';
-import thunk, { ThunkDispatch } from 'redux-thunk';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { RootState } from '../types/store';
-import { Action } from 'redux';
 import { APIRoute, City } from '../consts/enum';
 import { Login, UpdateFavorite } from '../types/app';
 import { redirectBack } from '../store/middlewares/redirect/actions';
 import { AUTH_TOKEN_KEY_NAME } from '../consts/app';
 import { makeFakeComment, makeFakeOffer } from '../utils/mocks';
+import { NewComment } from '../types/comments';
+import { createMockStoreWithAPI } from '../utils/jest';
 import {
   authenticateUser,
   checkAuth,
@@ -18,22 +14,11 @@ import {
   logUserOut,
   updateFavorite
 } from '../store/middlewares/thunk/thunk-actions';
-import { NewComment } from '../types/comments';
+
+const { fakeStore: store, mockAPI } = createMockStoreWithAPI({});
 
 describe('Async actions', () => {
-  const api = createAPI();
-  const mockAPI = new MockAdapter(api);
-  const middlewares = [thunk.withExtraArgument(api)];
-
-  const mockStore = configureMockStore<
-    RootState,
-    Action<string>,
-    ThunkDispatch<RootState, typeof api, Action>
-  >(middlewares);
-
   it('should authorization status is «auth» and fetch favorites when server return 200', async () => {
-    const store = mockStore();
-
     mockAPI
       .onGet(APIRoute.Login)
       .reply(200, []);
@@ -66,9 +51,9 @@ describe('Async actions', () => {
       .onGet(APIRoute.Favorites)
       .reply(200, []);
 
-    const store = mockStore();
-
     Storage.prototype.setItem = jest.fn();
+
+    store.clearActions();
 
     await store.dispatch(authenticateUser(fakeUser));
 
@@ -89,7 +74,7 @@ describe('Async actions', () => {
       .onDelete(APIRoute.Logout)
       .reply(204);
 
-    const store = mockStore();
+    store.clearActions();
 
     Storage.prototype.removeItem = jest.fn();
 
@@ -113,7 +98,7 @@ describe('Async actions', () => {
       .onGet(APIRoute.Offers)
       .reply(200, mockOffers);
 
-    const store = mockStore();
+    store.clearActions();
 
     await store.dispatch(fetchOffers(City.Paris));
 
@@ -133,7 +118,7 @@ describe('Async actions', () => {
       .onPost(`${APIRoute.Favorites}/${fakeUpdate.id}/${Number(fakeUpdate.isFavorite)}`)
       .reply(200, fakeOffer);
 
-    const store = mockStore();
+    store.clearActions();
 
     await store.dispatch(updateFavorite(fakeUpdate));
 
@@ -153,7 +138,7 @@ describe('Async actions', () => {
       .onPost(`${APIRoute.Comments}/${fakeId}`)
       .reply(200, fakeComment);
 
-    const store = mockStore();
+    store.clearActions();
 
     await store.dispatch(createComment(fakeComment));
 
@@ -183,7 +168,7 @@ describe('Async actions', () => {
       .onGet(`${APIRoute.Offers}/${fakeId}/nearby`)
       .reply(200, fakeOffers);
 
-    const store = mockStore();
+    store.clearActions();
 
     await store.dispatch(initOfferActions(fakeId));
 

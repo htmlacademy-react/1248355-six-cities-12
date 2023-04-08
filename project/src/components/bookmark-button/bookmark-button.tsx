@@ -1,9 +1,9 @@
-import { BookmarkVariant } from '../../../types/app';
+import { BookmarkVariant } from '../../types/app';
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks/store';
-import { updateFavorite } from '../../../store/middlewares/thunk/thunk-actions';
-import { getUserStatus } from '../../../store/reducers/user-slice/selectors';
-import { AppRoute, AuthorizationStatus } from '../../../consts/enum';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import { updateFavorite } from '../../store/middlewares/thunk/thunk-actions';
+import { getUserStatus } from '../../store/reducers/user-slice/selectors';
+import { AppRoute, AuthorizationStatus } from '../../consts/enum';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

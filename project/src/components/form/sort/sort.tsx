@@ -56,6 +56,7 @@ const Sort = () => {
         onClick={onOpenPanelClick}
         className="places__sorting-type"
         tabIndex={0}
+        data-testid='sort-menu'
       >
         {sortTypeToTitle[activeSort]}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -73,6 +74,7 @@ const Sort = () => {
               data-sort={type}
               className={classNames(cl.sort, 'places__option', { 'places__option--active': activeSort === type })}
               tabIndex={0}
+              data-testid='sort-option'
             >
               {sortTypeToTitle[type]}
             </li>

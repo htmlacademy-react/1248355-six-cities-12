@@ -51,7 +51,7 @@ const makeFakeOffer: MakeFakeOffer = (
     host: {
       id,
       name: faker.name.findName(),
-      isPro: faker.datatype.boolean(),
+      isPro: true,
       avatarUrl: faker.image.avatar()
     },
     description: faker.name.findName(),
@@ -81,9 +81,9 @@ const makeFakeComment = (): Comment => ({
 const makeFakeUser = (): AuthUser => ({
   id: faker.datatype.number(),
   isPro: faker.datatype.boolean(),
-  name: faker.name.findName(),
+  name: faker.internet.userName(),
   avatarUrl: faker.image.avatar(),
-  email: faker.datatype.string(),
+  email: faker.internet.email(),
   token: faker.datatype.string()
 });
 

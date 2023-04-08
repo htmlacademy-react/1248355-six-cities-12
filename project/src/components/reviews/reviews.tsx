@@ -14,7 +14,10 @@ const Reviews = ({ children }: ReviewsProps) => {
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
         Reviews &middot;
-        <span className="reviews__amount">
+        <span
+          data-testid='count'
+          className="reviews__amount"
+        >
           {comments.length}
         </span>
       </h2>

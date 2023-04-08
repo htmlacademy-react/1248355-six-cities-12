@@ -68,6 +68,7 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
               type="radio"
               checked={formData.rating === RATING_STARS_COUNT - index}
               disabled={isSubmitting}
+              data-testid='rating'
             />
             <label
               htmlFor={`${RATING_STARS_COUNT - index}-stars`}
@@ -89,6 +90,7 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         disabled={isSubmitting}
+        data-testid='textarea'
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -97,10 +99,10 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>. &nbsp;
           {(formData.comment && formData.comment.length < MIN_COMMENTS_LENGTH) &&
             <>Remaining to
-              type: <b>{MIN_COMMENTS_LENGTH - formData.comment.length}</b>
+              type: <b data-testid='prompt'>{MIN_COMMENTS_LENGTH - formData.comment.length}</b>
             </>}
           {formData.comment.length > MAX_COMMENTS_LENGTH &&
-            <b style={{ color: 'red' }}>Maximum of 300 chars reached.</b>}
+            <b data-testid='alert' style={{ color: 'red' }}>Maximum of 300 chars reached.</b>}
         </p>
         <button
           className="reviews__submit form__submit button"

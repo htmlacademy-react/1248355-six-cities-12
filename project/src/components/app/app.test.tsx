@@ -18,7 +18,7 @@ const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore<
   RootState,
   Action<string>,
-  ThunkDispatch<RootState, typeof api, Action>
+  ThunkDispatch<RootState, typeof api, Action<string>>
 >(middlewares);
 
 const store = mockStore({
@@ -94,7 +94,7 @@ describe('Application Routing', () => {
       favorites: [makeFakeOffer({ city: City.Paris })]
     };
 
-    history.push('/login');
+    history.push(AppRoute.Login);
 
     render(fakeApp);
 
