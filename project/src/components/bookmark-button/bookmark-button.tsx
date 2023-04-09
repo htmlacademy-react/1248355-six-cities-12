@@ -20,7 +20,7 @@ const BookmarkButton = ({ variant, isFavorite, id }: ButtonProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
+  const onClick = () => {
     (async () => {
       if (AuthorizationStatus.Auth !== authStatus) {
         navigate(AppRoute.Login);
@@ -28,10 +28,11 @@ const BookmarkButton = ({ variant, isFavorite, id }: ButtonProps) => {
         return;
       }
 
-      const action = await dispatch(updateFavorite({
-        id,
-        isFavorite: !isActive
-      }));
+      const action = await dispatch(
+        updateFavorite({
+          id,
+          isFavorite: !isActive
+        }));
 
       if (updateFavorite.fulfilled.match(action)) {
         setActive(!isActive);
@@ -43,7 +44,7 @@ const BookmarkButton = ({ variant, isFavorite, id }: ButtonProps) => {
 
   return (
     <button
-      onClick={handleClick}
+      onClick={onClick}
       className={
         classNames(
           `${variant.block}__bookmark-button button`,

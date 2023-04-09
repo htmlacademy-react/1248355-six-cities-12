@@ -1,4 +1,4 @@
-import { createMockStoreWithAPI, deferred, ProviderWrapper, RoutesWrapper } from '../../utils/jest';
+import { createMockStoreWithAPI, getPromiseHelper, ProviderWrapper, RoutesWrapper } from '../../utils/jest';
 import { render, screen } from '@testing-library/react';
 import { DeepPartial } from '@reduxjs/toolkit';
 import { RootState } from '../../types/store';
@@ -87,7 +87,7 @@ describe('Component: MainScreen', () => {
         <RoutesWrapper jsxElement={<MainScreen/>} path={AppRoute.City}/>
       </ProviderWrapper>);
 
-    const { resolve, promise } = deferred();
+    const { resolve, promise } = getPromiseHelper();
 
     await act(async () => {
       resolve(null);

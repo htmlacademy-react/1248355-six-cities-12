@@ -13,7 +13,9 @@ const UseMap: UseMapFn = (ref, options) => {
   const [leaflet, setLeaflet] = useState<ReturnType<UseMapFn>>();
 
   useLayoutEffect(() => {
-    if (!ref.current) {
+    let isMounted = true;
+
+    if (!ref.current || !isMounted) {
       return;
     }
 
@@ -26,6 +28,8 @@ const UseMap: UseMapFn = (ref, options) => {
     });
 
     return () => {
+      isMounted = false;
+
       mapInstance.remove();
     };
   }, [options, ref]);

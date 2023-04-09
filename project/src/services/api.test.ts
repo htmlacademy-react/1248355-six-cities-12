@@ -10,7 +10,7 @@ import {
   checkAuth,
   createComment,
   fetchOffers,
-  initOfferActions,
+  initOffer,
   logUserOut,
   updateFavorite
 } from '../store/middlewares/thunk/thunk-actions';
@@ -170,13 +170,13 @@ describe('Async actions', () => {
 
     store.clearActions();
 
-    await store.dispatch(initOfferActions(fakeId));
+    await store.dispatch(initOffer(fakeId));
 
     const actions = store.getActions().map(({ type }) => type);
 
     expect(actions).toEqual([
-      initOfferActions.pending.type,
-      initOfferActions.fulfilled.type
+      initOffer.pending.type,
+      initOffer.fulfilled.type
     ]);
   });
 });

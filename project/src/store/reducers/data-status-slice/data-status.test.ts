@@ -1,5 +1,5 @@
 import { dataStatusSlice } from './data-status-slice';
-import { fetchOffers, initOfferActions } from '../../middlewares/thunk/thunk-actions';
+import { fetchOffers, initOffer } from '../../middlewares/thunk/thunk-actions';
 
 describe('Slice: dataStatus', () => {
   it('without additional parameters should return initial state', () => {
@@ -8,12 +8,12 @@ describe('Slice: dataStatus', () => {
   });
 
   it('should set isLoading flag if initOfferActions fulfilled', () => {
-    expect(dataStatusSlice.reducer({ isLoading: true }, { type: initOfferActions.fulfilled.type }))
+    expect(dataStatusSlice.reducer({ isLoading: true }, { type: initOffer.fulfilled.type }))
       .toEqual({ isLoading: false });
   });
 
   it('should set isLoading flag if initOfferActions pending', () => {
-    expect(dataStatusSlice.reducer({ isLoading: false }, { type: initOfferActions.pending.type }))
+    expect(dataStatusSlice.reducer({ isLoading: false }, { type: initOffer.pending.type }))
       .toEqual({ isLoading: true });
   });
 

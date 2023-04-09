@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
 
-const redirectBack = createAction('api/redirectBack');
+const redirectBack = createAction('nav/redirectBack');
 
 export { redirectBack };

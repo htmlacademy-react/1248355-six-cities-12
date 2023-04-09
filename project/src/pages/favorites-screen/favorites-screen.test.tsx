@@ -4,16 +4,16 @@ import { render, screen } from '@testing-library/react';
 import FavoritesScreen from './favorites-screen';
 import { makeFakeOffer } from '../../utils/mocks';
 
-const fakeState = {
-  [NameSpace.User]: {
-    authorizationStatus: AuthorizationStatus.Auth,
-    favorites: [makeFakeOffer({ city: City.Paris })]
-  }
-};
-const { fakeStore } = createMockStoreWithAPI(fakeState);
-
 describe('Component: FavoritesScreen', () => {
   it('should render "FavoritesScreen" properly', () => {
+    const fakeState = {
+      [NameSpace.User]: {
+        authorizationStatus: AuthorizationStatus.Auth,
+        favorites: [makeFakeOffer({ city: City.Amsterdam })]
+      }
+    };
+    const { fakeStore } = createMockStoreWithAPI(fakeState);
+
     render(
       <ProviderWrapper fakeStore={fakeStore}>
         <FavoritesScreen/>
@@ -21,13 +21,17 @@ describe('Component: FavoritesScreen', () => {
     );
 
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Paris' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Amsterdam' })).toBeInTheDocument();
   });
 
   it('should render "FavoritesScreenEmpty" properly', () => {
-    fakeStore.getState()[NameSpace.User] = {
-      favorites: []
+    const fakeState = {
+      [NameSpace.User]: {
+        authorizationStatus: AuthorizationStatus.Auth,
+        favorites: []
+      }
     };
+    const { fakeStore } = createMockStoreWithAPI(fakeState);
 
     render(
       <ProviderWrapper fakeStore={fakeStore}>

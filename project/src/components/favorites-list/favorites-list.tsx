@@ -24,7 +24,6 @@ const FavoritesList = ({ favorites }: FavoritesListProps) => (
       ))
     }
   </ul>
-
 );
 
 export default FavoritesList;

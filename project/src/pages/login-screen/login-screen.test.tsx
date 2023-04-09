@@ -9,7 +9,7 @@ const fakeState = { [NameSpace.User]: { authorizationStatus: AuthorizationStatus
 const { fakeStore } = createMockStoreWithAPI(fakeState);
 
 describe('Component: LoginScreen', () => {
-  it('should render "LoginScreen" when user navigate to "login" url', async () => {
+  it('should render "LoginScreen" when user navigate to login url', async () => {
     render(
       <ProviderWrapper fakeStore={fakeStore}>
         <LoginScreen/>

@@ -2,7 +2,7 @@ import { DeepPartial } from '@reduxjs/toolkit';
 import { RootState } from '../../types/store';
 import { APIRoute, AppRoute, AuthorizationStatus, NameSpace } from '../../consts/enum';
 import { makeFakeComment, makeFakeOffer, makeFakeUser } from '../../utils/mocks';
-import { createMockStoreWithAPI, deferred, ProviderWrapper, RoutesWrapper } from '../../utils/jest';
+import { createMockStoreWithAPI, getPromiseHelper, ProviderWrapper, RoutesWrapper } from '../../utils/jest';
 import { render, screen } from '@testing-library/react';
 import OfferScreen from './offer-screen';
 import { createMemoryHistory } from 'history';
@@ -70,7 +70,7 @@ describe('Component: OfferScreen', () => {
         <RoutesWrapper jsxElement={<OfferScreen/>} path={AppRoute.Offer} isMain={false}/>
       </ProviderWrapper>);
 
-    const { resolve, promise } = deferred();
+    const { resolve, promise } = getPromiseHelper();
 
     await act(async () => {
       resolve(null);

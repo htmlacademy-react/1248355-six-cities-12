@@ -13,7 +13,7 @@ const sortTypeToTitle = {
   [SortType.LowToHigh]: 'Price: low to high'
 };
 
-const Sort = () => {
+const SortForm = () => {
   const [isSortOpened, setSortState] = useState(false);
   const [activeSort, setActiveSort] = useState<SortType>(SortType.Popular);
   const dispatch = useAppDispatch();
@@ -85,4 +85,4 @@ const Sort = () => {
   );
 };
 
-export default Sort;
+export default SortForm;

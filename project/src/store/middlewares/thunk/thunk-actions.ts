@@ -5,10 +5,10 @@ import { redirectBack } from '../redirect/actions';
 import { AuthUser, Login, UpdateFavorite } from '../../../types/app';
 import { Comments, NewComment } from '../../../types/comments';
 import { removeToken, setToken } from '../../../services/token';
-import { CheckedUser, FetchOffers, InitOfferActions, ThunkConfig } from './types';
+import { CheckedUser, FetchOffers, InitOfferActions, ThunkConfig } from '../../../types/thunk';
 
 const fetchOffers = createAsyncThunk<FetchOffers, City, ThunkConfig>(
-  'fetchOffers',
+  'cities/fetchOffers',
   async (city, { extra: api }) => {
     const { data: offers } = await api.get<Offers>(APIRoute.Offers);
 
@@ -19,7 +19,7 @@ const fetchOffers = createAsyncThunk<FetchOffers, City, ThunkConfig>(
   });
 
 const checkAuth = createAsyncThunk<CheckedUser, undefined, ThunkConfig>(
-  'checkAuth',
+  'user/checkAuth',
   async (_args, { extra: api }) => {
     const { data: user } = await api.get<AuthUser>(APIRoute.Login);
     const { data: favorites } = await api.get<Offers>(APIRoute.Favorites);
@@ -31,7 +31,7 @@ const checkAuth = createAsyncThunk<CheckedUser, undefined, ThunkConfig>(
   }
 );
 const authenticateUser = createAsyncThunk<CheckedUser, Login, ThunkConfig>(
-  'authenticateUser',
+  'user/authenticateUser',
   async (loginData, { dispatch, extra: api }) => {
     const { data: user } = await api.post<NonNullable<AuthUser>>(APIRoute.Login, loginData);
 
@@ -47,7 +47,7 @@ const authenticateUser = createAsyncThunk<CheckedUser, Login, ThunkConfig>(
   });
 
 const logUserOut = createAsyncThunk<void, undefined, ThunkConfig>(
-  'logUserOut',
+  'user/logUserOut',
   async (_args, { extra: api }) => {
     await api.delete(APIRoute.Logout);
 
@@ -55,7 +55,7 @@ const logUserOut = createAsyncThunk<void, undefined, ThunkConfig>(
   });
 
 const createComment = createAsyncThunk<Comments, NewComment, ThunkConfig>(
-  'createComment',
+  'user/createComment',
   async ({ id, ...rest }, { extra: api }) => {
 
     const { data: comments } = await api.post<Comments>(`${APIRoute.Comments}/${id}`, rest);
@@ -64,8 +64,8 @@ const createComment = createAsyncThunk<Comments, NewComment, ThunkConfig>(
   }
 );
 
-const initOfferActions = createAsyncThunk<InitOfferActions, string, ThunkConfig>(
-  'initOfferActions',
+const initOffer = createAsyncThunk<InitOfferActions, string, ThunkConfig>(
+  'offer/initOffer',
   async (id, { extra: api }) => {
     const [offerResponse, commentsResponse, nearOffersResponse] =
       await Promise.all([
@@ -81,7 +81,7 @@ const initOfferActions = createAsyncThunk<InitOfferActions, string, ThunkConfig>
   });
 
 const updateFavorite = createAsyncThunk<Offer, UpdateFavorite, ThunkConfig>(
-  'updateFavorite',
+  'user/updateFavorite',
   async ({ id, isFavorite }, { extra: api }) => {
 
     const { data: offer } = await api.post<Offer>(`${APIRoute.Favorites}/${id}/${Number(isFavorite)}`);
@@ -96,6 +96,6 @@ export {
   checkAuth,
   authenticateUser,
   logUserOut,
-  initOfferActions,
+  initOffer,
   createComment
 };

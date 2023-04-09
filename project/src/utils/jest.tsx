@@ -29,7 +29,6 @@ type RoutesWrapperProps = {
   isMain?: boolean;
 }
 
-
 const ProviderWrapper = ({ children, fakeStore, fakeHistory }: TestWrapperProps) => {
   const store = configureMockStore<RootState>()({});
   const brHistory = createMemoryHistory();
@@ -79,7 +78,7 @@ const RoutesWrapper = ({ path, jsxElement, isMain = true }: RoutesWrapperProps) 
   </Routes>
 );
 
-const deferred = () => {
+const getPromiseHelper = () => {
   let resolve: (value: unknown) => void = () => undefined;
 
   const promise = new Promise((res) => {
@@ -103,4 +102,4 @@ const createMockStoreWithAPI = (fakeState: DeepPartial<RootState>) => {
   return { fakeStore, mockAPI };
 };
 
-export { ProviderWrapper, createMockStoreWithAPI, RoutesWrapper, deferred };
+export { ProviderWrapper, createMockStoreWithAPI, RoutesWrapper, getPromiseHelper };

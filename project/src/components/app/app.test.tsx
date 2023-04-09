@@ -86,7 +86,7 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Paris/i)).toBeInTheDocument();
   });
 
-  it('should render "LoginScreen" when user navigate to "/login"', () => {
+  it('should render "LoginScreen" when user navigate to "/login-forms"', () => {
     const state = store.getState();
 
     state[NameSpace.User] = {

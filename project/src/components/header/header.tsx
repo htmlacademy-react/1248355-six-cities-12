@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { Link } from 'react-router-dom';
 import { logUserOut } from '../../store/middlewares/thunk/thunk-actions';
 import { getUser, getUserStatus } from '../../store/reducers/user-slice/selectors';
-import FavoritesCount from '../fvorites-count/favorites-count';
+import FavoritesCount from '../favorites-count/favorites-count';
 
 type HeaderProps = {
   isLoginRoute: boolean;
@@ -18,7 +18,7 @@ const Header = ({ isLoginRoute }: HeaderProps) => {
   const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
 
-  const handleLogoutClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
+  const onLogoutClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
     dispatch(logUserOut());
   };
@@ -49,7 +49,7 @@ const Header = ({ isLoginRoute }: HeaderProps) => {
                         </Link>
                       </li>
                       <li className="header__nav-item">
-                        <a onClick={handleLogoutClick} className="header__nav-link" href={AppRoute.Root}>
+                        <a onClick={onLogoutClick} className="header__nav-link" href={AppRoute.Root}>
                           <span className="header__signout">Sign out</span>
                         </a>
                       </li>

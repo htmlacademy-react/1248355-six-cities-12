@@ -1,6 +1,6 @@
 import { NameSpace } from '../../../consts/enum';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchOffers, initOfferActions } from '../../middlewares/thunk/thunk-actions';
+import { fetchOffers, initOffer } from '../../middlewares/thunk/thunk-actions';
 
 type InitialState = {
   isLoading: boolean;
@@ -16,13 +16,13 @@ const dataStatusSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(initOfferActions.pending, (state) => {
+      .addCase(initOffer.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(initOfferActions.fulfilled, (state) => {
+      .addCase(initOffer.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(initOfferActions.rejected, (state) => {
+      .addCase(initOffer.rejected, (state) => {
         state.isLoading = false;
       })
       .addCase(fetchOffers.rejected, (state) => {

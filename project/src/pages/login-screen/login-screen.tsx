@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import LoginForm from '../../components/form/login/login-form';
+import LoginForm from '../../components/forms/login-form/login-form';
 import { AppRoute, AuthorizationStatus, City } from '../../consts/enum';
 import { getRandomArrayElement } from '../../utils/common';
 import { generatePath, Link, Navigate } from 'react-router-dom';

@@ -5,7 +5,7 @@ import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { fetchOffers } from '../../store/middlewares/thunk/thunk-actions';
 import Tabs from '../../components/tabs/tabs';
-import Sort from '../../components/form/sort/sort';
+import SortForm from '../../components/forms/sort-form/sort-form';
 import Map from '../../components/map/map';
 import Spinner from '../../components/spinner/spinner';
 import withErrorScreens, { WithErrorScreensHOCProps } from '../../hocs/with-error-screens';
@@ -28,12 +28,14 @@ const MainScreen = ({ setErrorScreen, setNotFoundScreen }: MainScreenProps) => {
 
   useEffect(() => {
     (async () => {
-      if (!city) {
-        navigate(generatePath(AppRoute.City, { city: City.Paris }));
+      let isMounted = true;
+
+      if (!isMounted) {
         return;
       }
 
-      if (filteredOffers.length) {
+      if (!city) {
+        navigate(generatePath(AppRoute.City, { city: City.Paris }));
         return;
       }
 
@@ -47,8 +49,12 @@ const MainScreen = ({ setErrorScreen, setNotFoundScreen }: MainScreenProps) => {
       if (fetchOffers.rejected.match(action)) {
         setErrorScreen(true);
       }
+
+      return () => {
+        isMounted = false;
+      };
     })();
-  }, [city, dispatch, navigate, filteredOffers.length, setNotFoundScreen, setErrorScreen]);
+  }, [city, dispatch, navigate, setNotFoundScreen, setErrorScreen]);
 
   return (
     <Spinner isActive={isLoading || authStatus === AuthorizationStatus.Unknown}>
@@ -65,7 +71,7 @@ const MainScreen = ({ setErrorScreen, setNotFoundScreen }: MainScreenProps) => {
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
-                  <Sort/>
+                  <SortForm/>
                   <CitiesList/>
                 </section>
                 <div className="cities__right-section">
