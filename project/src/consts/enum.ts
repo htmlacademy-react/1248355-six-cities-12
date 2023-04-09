@@ -5,6 +5,14 @@ enum NameSpace {
   Offer = 'Offer',
 }
 
+enum MaxElementCountOnScreen {
+  OfferScreenImg = 6,
+  RatingStar = 5,
+  NearPlace = 3,
+  ToastError = 1,
+  Comment = 10
+}
+
 enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
@@ -125,6 +133,7 @@ const OfferCardVariant = {
 } as const;
 
 export {
+  MaxElementCountOnScreen,
   LayoutClassName,
   NameSpace,
   OfferCardVariant,

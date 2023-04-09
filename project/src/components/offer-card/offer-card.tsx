@@ -27,13 +27,13 @@ const OfferCard = ({ variant, offer }: PlaceCardProps) => {
 
   const dispatch = useAppDispatch();
 
-  const handleActiveOffer = () => {
+  const onCardMouseEnter = () => {
     dispatch(changeActiveOffer(offer.id));
   };
 
   return (
     <article
-      onMouseEnter={isMouseEnterEvent && handleActiveOffer}
+      onMouseEnter={isMouseEnterEvent && onCardMouseEnter}
       className={`${block}__card place-card`}
       data-testid='card'
     >

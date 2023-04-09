@@ -1,7 +1,7 @@
-import { RATING_STARS_COUNT } from '../consts/app';
 import { Offer, Offers } from '../types/offers';
+import { MaxElementCountOnScreen } from '../consts/enum';
 
-const adaptRatingForRendering = (rating: number) => Math.round(rating) * 100 / RATING_STARS_COUNT;
+const adaptRatingForRendering = (rating: number) => Math.round(rating) * 100 / MaxElementCountOnScreen.RatingStar;
 
 const getLocations = (offers: Offers = []) => offers.map((offer) => ({ ...offer.location, id: offer.id }));
 

@@ -1,16 +1,16 @@
 import { createMockStoreWithAPI, ProviderWrapper } from '../../../utils/jest';
 import { render, screen } from '@testing-library/react';
-import Sort from './sort';
+import SortForm from './sort-form';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 
 const { fakeStore } = createMockStoreWithAPI({});
 
-describe('Component: Sort', () => {
+describe('Component: SortForm', () => {
   it('should render correctly', () => {
     render(
       <ProviderWrapper>
-        <Sort/>
+        <SortForm/>
       </ProviderWrapper>
     );
 
@@ -24,7 +24,7 @@ describe('Component: Sort', () => {
   it('should pick sort and dispatch it', async () => {
     render(
       <ProviderWrapper fakeStore={fakeStore}>
-        <Sort/>
+        <SortForm/>
       </ProviderWrapper>
     );
 
@@ -44,7 +44,7 @@ describe('Component: Sort', () => {
   it('should pick sort by keyboard and dispatch it', async () => {
     render(
       <ProviderWrapper fakeStore={fakeStore}>
-        <Sort/>
+        <SortForm/>
       </ProviderWrapper>
     );
 

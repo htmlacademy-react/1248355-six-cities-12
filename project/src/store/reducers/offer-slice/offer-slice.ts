@@ -1,7 +1,7 @@
 import { NameSpace } from '../../../consts/enum';
 import { createSlice } from '@reduxjs/toolkit';
 import { Offer } from '../../../types/offers';
-import { createComment, initOfferActions } from '../../middlewares/thunk/thunk-actions';
+import { createComment, initOffer } from '../../middlewares/thunk/thunk-actions';
 import { Comments } from '../../../types/comments';
 
 type InitialState = {
@@ -22,7 +22,7 @@ const offerSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(initOfferActions.fulfilled, (state, action) => {
+      .addCase(initOffer.fulfilled, (state, action) => {
         const { nearOffers, offer, comments } = action.payload;
 
         state.nearOffers = nearOffers;

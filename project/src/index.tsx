@@ -6,9 +6,9 @@ import { store } from './store';
 import { checkAuth } from './store/middlewares/thunk/thunk-actions';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import { MAX_TOAST_ERRORS } from './consts/app';
 import { browserHistory } from './utils/browser-history';
 import HistoryRouter from './components/history-router/history-router';
+import { MaxElementCountOnScreen } from './consts/enum';
 
 store.dispatch(checkAuth());
 
@@ -21,7 +21,7 @@ root.render(
     <Provider store={store}>
       <HistoryRouter history={browserHistory}>
         <ToastContainer
-          limit={MAX_TOAST_ERRORS}
+          limit={MaxElementCountOnScreen.ToastError}
           position="top-center"
           closeOnClick
           pauseOnHover

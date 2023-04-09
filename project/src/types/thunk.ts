@@ -1,9 +1,9 @@
-import { AppDispatch, RootState } from '../../../types/store';
+import { AppDispatch, RootState } from './store';
 import { AxiosInstance } from 'axios';
-import { Offer, Offers } from '../../../types/offers';
-import { Comments } from '../../../types/comments';
-import { City } from '../../../consts/enum';
-import { AuthUser } from '../../../types/app';
+import { Offer, Offers } from './offers';
+import { Comments } from './comments';
+import { City } from '../consts/enum';
+import { AuthUser } from './app';
 
 export type ThunkConfig = {
   state: RootState;

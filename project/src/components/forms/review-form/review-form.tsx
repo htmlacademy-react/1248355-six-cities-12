@@ -1,9 +1,10 @@
 import React, { ChangeEventHandler, FormEvent, useState } from 'react';
-import { MAX_COMMENTS_LENGTH, MIN_COMMENTS_LENGTH, RATING_STARS_COUNT, RATING_TITLES } from '../../../consts/app';
+import { MAX_COMMENTS_LENGTH, MIN_COMMENTS_LENGTH, RATING_TITLES } from '../../../consts/app';
 import { useAppDispatch } from '../../../hooks/store';
 import { createComment } from '../../../store/middlewares/thunk/thunk-actions';
 import Spinner from '../../spinner/spinner';
 import { toast } from 'react-toastify';
+import { MaxElementCountOnScreen } from '../../../consts/enum';
 
 type ReviewFormProps = {
   id: number;
@@ -32,7 +33,7 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
     setFormData({ ...formData, comment: evt.target.value });
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     (async () => {
       evt.preventDefault();
       setSubmitting(true);
@@ -51,27 +52,27 @@ const ReviewForm = ({ id }: ReviewFormProps) => {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={onFormSubmit}
       className="reviews__form form"
       action="#"
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {Array.from({ length: RATING_STARS_COUNT }, (_, index) => (
+        {Array.from({ length: MaxElementCountOnScreen.RatingStar}, (_, index) => (
           <React.Fragment key={`${index}-input`}>
             <input
               onChange={onInputChange}
               className="form__rating-input visually-hidden"
               name="rating"
-              value={RATING_STARS_COUNT - index}
-              id={`${RATING_STARS_COUNT - index}-stars`}
+              value={MaxElementCountOnScreen.RatingStar - index}
+              id={`${MaxElementCountOnScreen.RatingStar - index}-stars`}
               type="radio"
-              checked={formData.rating === RATING_STARS_COUNT - index}
+              checked={formData.rating === MaxElementCountOnScreen.RatingStar - index}
               disabled={isSubmitting}
               data-testid='rating'
             />
             <label
-              htmlFor={`${RATING_STARS_COUNT - index}-stars`}
+              htmlFor={`${MaxElementCountOnScreen.RatingStar - index}-stars`}
               className="reviews__rating-label form__rating-label"
               title={RATING_TITLES[index]}
             >

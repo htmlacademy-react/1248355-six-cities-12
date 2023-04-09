@@ -12,7 +12,7 @@ type InitialState = {
   activeOfferId: number | null;
 }
 
-export const initialState: InitialState = {
+const initialState: InitialState = {
   sourceOffers: [],
   filteredOffers: [],
   sortedOffers: [],
@@ -29,6 +29,7 @@ const citiesSlice = createSlice({
     sortCityOffers: (state, action: PayloadAction<SortType>) => {
       if (action.payload === SortType.Popular) {
         state.sortedOffers = state.filteredOffers;
+
         return;
       }
 
@@ -50,4 +51,4 @@ const citiesSlice = createSlice({
 });
 
 export const { changeActiveOffer, sortCityOffers, filterCityOffers } = citiesSlice.actions;
-export { citiesSlice };
+export { citiesSlice, initialState };

@@ -1,11 +1,10 @@
 import { DeepPartial } from '@reduxjs/toolkit';
 import { RootState } from '../../../types/store';
-import { NameSpace } from '../../../consts/enum';
+import { MaxElementCountOnScreen, NameSpace } from '../../../consts/enum';
 import { makeFakeComment } from '../../../utils/mocks';
 import { createMockStoreWithAPI, ProviderWrapper } from '../../../utils/jest';
 import { render, screen } from '@testing-library/react';
 import ReviewsList from './reviews-list';
-import { MAX_COMMENTS_COUNT } from '../../../consts/app';
 
 const fakeState: DeepPartial<RootState> = {
   [NameSpace.Offer]: {
@@ -37,6 +36,6 @@ describe('Component: ReviewsList', () => {
       </ProviderWrapper>
     );
 
-    expect(screen.getAllByText(/rating/i)).toHaveLength(MAX_COMMENTS_COUNT);
+    expect(screen.getAllByText(/rating/i)).toHaveLength(MaxElementCountOnScreen.Comment);
   });
 });

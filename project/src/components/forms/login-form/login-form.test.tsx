@@ -6,6 +6,9 @@ import userEvent from '@testing-library/user-event';
 import { APIRoute } from '../../../consts/enum';
 import { authenticateUser } from '../../../store/middlewares/thunk/thunk-actions';
 import { Login } from '../../../types/app';
+import { toast } from 'react-toastify';
+
+jest.mock('react-toastify');
 
 const { fakeStore, mockAPI } = createMockStoreWithAPI({});
 const fakeToken = 'secret';
@@ -33,7 +36,7 @@ describe('Component: LoginForm', () => {
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
   });
 
-  it('should type values into login form and submit it', async () => {
+  it('should type values into loginForm and submit it', async () => {
     render(
       <ProviderWrapper fakeStore={fakeStore}>
         <LoginForm/>
@@ -59,5 +62,35 @@ describe('Component: LoginForm', () => {
     }
 
     expect({ email: 'keks', password: 'a123456' }).toEqual(formData);
+  });
+
+  it('should toast if auth rejected', async () => {
+    render(
+      <ProviderWrapper fakeStore={fakeStore}>
+        <LoginForm/>
+      </ProviderWrapper>
+    );
+
+    mockAPI
+      .onPost(APIRoute.Login)
+      .reply(400, {});
+
+    mockAPI
+      .onGet(APIRoute.Favorites)
+      .reply(400, []);
+
+    const email = screen.getByRole('textbox', { name: 'E-mail' });
+    const password = screen.getByTestId('password');
+    const signInBtn = screen.getByRole('button', { name: 'Sign in' });
+
+    await act(async () => await userEvent.type(email, 'kek@s.ru'));
+    await act(async () => await userEvent.type(password, 'a123456'));
+
+    expect(screen.getByDisplayValue(/kek@s.ru/i)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/a123456/i)).toBeInTheDocument();
+
+    await act(async () => await userEvent.click(signInBtn));
+
+    expect(toast.error).toBeCalledTimes(1);
   });
 });

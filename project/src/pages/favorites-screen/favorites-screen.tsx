@@ -2,15 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks/store';
-import { getFavorites, getUserStatus } from '../../store/reducers/user-slice/selectors';
+import { getFilteredFavorites, getUserStatus } from '../../store/reducers/user-slice/selectors';
 import { AuthorizationStatus } from '../../consts/enum';
-import { filterOffersByCity } from '../../utils/filter';
 import FavoritesEmptyScreen from '../favorites-empty-screen/favorites-empty-screen';
 import React from 'react';
 
 const FavoritesScreen = () => {
   const authStatus = useAppSelector(getUserStatus);
-  const filteredFavorites = filterOffersByCity(useAppSelector(getFavorites));
+  const filteredFavorites = useAppSelector(getFilteredFavorites);
 
   return (
     <Spinner isActive={authStatus === AuthorizationStatus.Unknown}>

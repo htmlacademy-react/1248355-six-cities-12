@@ -1,14 +1,19 @@
 import { Helmet } from 'react-helmet-async';
-import { AuthorizationStatus, Block, BookmarkButtonVariant, OfferCardVariant } from '../../consts/enum';
+import {
+  AuthorizationStatus,
+  Block,
+  BookmarkButtonVariant,
+  MaxElementCountOnScreen,
+  OfferCardVariant
+} from '../../consts/enum';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import OfferCard from '../../components/offer-card/offer-card';
 import React, { useEffect } from 'react';
-import { MAX_NEAR_PLACES_COUNT, OFFER_SCREEN_IMG_COUNT } from '../../consts/app';
 import Map from '../../components/map/map';
 import Spinner from '../../components/spinner/spinner';
 import withErrorScreens, { WithErrorScreensHOCProps } from '../../hocs/with-error-screens';
 import { useParams } from 'react-router-dom';
-import { initOfferActions } from '../../store/middlewares/thunk/thunk-actions';
+import { initOffer } from '../../store/middlewares/thunk/thunk-actions';
 import { getNearOffers, getOffer } from '../../store/reducers/offer-slice/selectors';
 import { getLocationsWithActiveOffer } from '../../utils/transform';
 import { createRandomElementsArray, makeFirstLetterUpperCase } from '../../utils/common';
@@ -19,13 +24,13 @@ import Price from '../../components/price/price';
 import Reviews from '../../components/reviews/reviews';
 import { getLoadingStatus } from '../../store/reducers/data-status-slice/selectors';
 import { getUserStatus } from '../../store/reducers/user-slice/selectors';
-import ReviewForm from '../../components/form/review/review-form';
+import ReviewForm from '../../components/forms/review-form/review-form';
 import ScrollToTop from '../../components/scrollToTop/scroll-to-top';
 
 type OffersScreenProps = WithErrorScreensHOCProps;
 
 const OfferScreen = ({ handleErrorScreensShow }: OffersScreenProps) => {
-  const nearOffers = useAppSelector(getNearOffers).slice(0, MAX_NEAR_PLACES_COUNT);
+  const nearOffers = useAppSelector(getNearOffers).slice(0, MaxElementCountOnScreen.NearPlace);
   const isLoading = useAppSelector(getLoadingStatus);
   const authStatus = useAppSelector(getUserStatus);
   const offer = useAppSelector(getOffer);
@@ -34,15 +39,21 @@ const OfferScreen = ({ handleErrorScreensShow }: OffersScreenProps) => {
 
   useEffect(() => {
     (async () => {
-      if (!id) {
+      let isMounted = true;
+
+      if (!id || !isMounted) {
         return;
       }
 
-      const action = await dispatch(initOfferActions(id));
+      const action = await dispatch(initOffer(id));
 
-      if (initOfferActions.rejected.match(action)) {
+      if (initOffer.rejected.match(action)) {
         handleErrorScreensShow(action.error.code);
       }
+
+      return () => {
+        isMounted = false;
+      };
     })();
   }, [dispatch, handleErrorScreensShow, id]);
 
@@ -59,9 +70,9 @@ const OfferScreen = ({ handleErrorScreensShow }: OffersScreenProps) => {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {createRandomElementsArray(offer.images, OFFER_SCREEN_IMG_COUNT)
-              .map(((image) => (
-                <div key={image} className="property__image-wrapper">
+            {createRandomElementsArray(offer.images, MaxElementCountOnScreen.OfferScreenImg)
+              .map(((image, index) => (
+                <div key={`${image}-${index.toString()}`} className="property__image-wrapper">
                   <img className="property__image" src={image} alt={offer.type}/>
                 </div>
               )))}

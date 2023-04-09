@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Login } from '../../../types/app';
 import { useAppDispatch } from '../../../hooks/store';
 import { authenticateUser } from '../../../store/middlewares/thunk/thunk-actions';
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -22,13 +23,20 @@ const LoginForm = () => {
     }
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    dispatch(authenticateUser(formData));
+  const onLoginSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    (async () => {
+      evt.preventDefault();
+
+      const action = await dispatch(authenticateUser(formData));
+
+      if (authenticateUser.rejected.match(action)) {
+        toast.error(action.error.message, { toastId: action.error.code });
+      }
+    })();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="login__form form" action="#" method="post">
+    <form onSubmit={onLoginSubmit} className="login__form form" action="#" method="post">
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden" htmlFor="e-mail">E-mail</label>
         <input

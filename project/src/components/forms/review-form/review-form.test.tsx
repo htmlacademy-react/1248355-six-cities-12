@@ -2,12 +2,11 @@ import { createMockStoreWithAPI, ProviderWrapper } from '../../../utils/jest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ReviewForm from './review-form';
-import { RATING_STARS_COUNT } from '../../../consts/app';
 import { act } from 'react-dom/test-utils';
 import { createComment } from '../../../store/middlewares/thunk/thunk-actions';
 import { NewComment } from '../../../types/comments';
 import { toast } from 'react-toastify';
-import { APIRoute } from '../../../consts/enum';
+import { APIRoute, MaxElementCountOnScreen } from '../../../consts/enum';
 
 jest.mock('react-toastify');
 
@@ -25,7 +24,7 @@ describe('Component: ReviewForm', () => {
     );
 
     expect(screen.getByTestId('textarea')).toBeInTheDocument();
-    expect(screen.getAllByTestId('rating')).toHaveLength(RATING_STARS_COUNT);
+    expect(screen.getAllByTestId('rating')).toHaveLength(MaxElementCountOnScreen.RatingStar);
     expect(screen.getByText(/To submit review please make sure to se/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Submit' })).toBeInTheDocument();
   });
