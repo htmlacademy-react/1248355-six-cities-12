@@ -2,7 +2,7 @@ import { AppRoute, AuthorizationStatus, Block, City } from '../../consts/enum';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import MainEmptyScreen from '../main-empty-screen/main-empty-screen';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { fetchOffers } from '../../store/middlewares/thunk/thunk-actions';
 import Tabs from '../../components/tabs/tabs';
 import SortForm from '../../components/forms/sort-form/sort-form';
@@ -25,12 +25,13 @@ const MainScreen = ({ setErrorScreen, setNotFoundScreen }: MainScreenProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { city } = useParams<{ city: City }>();
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     (async () => {
       let isMounted = true;
 
-      if (!isMounted) {
+      if (!isMounted || !isFirstRender.current) {
         return;
       }
 
@@ -45,6 +46,7 @@ const MainScreen = ({ setErrorScreen, setNotFoundScreen }: MainScreenProps) => {
       }
 
       const action = await dispatch(fetchOffers(city));
+      isFirstRender.current = false;
 
       if (fetchOffers.rejected.match(action)) {
         setErrorScreen(true);

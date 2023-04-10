@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { logUserOut } from '../../store/middlewares/thunk/thunk-actions';
 import { getUser, getUserStatus } from '../../store/reducers/user-slice/selectors';
 import FavoritesCount from '../favorites-count/favorites-count';
+import { toast } from 'react-toastify';
 
 type HeaderProps = {
   isLoginRoute: boolean;
@@ -19,8 +20,14 @@ const Header = ({ isLoginRoute }: HeaderProps) => {
   const dispatch = useAppDispatch();
 
   const onLogoutClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
-    evt.preventDefault();
-    dispatch(logUserOut());
+    (async () => {
+      evt.preventDefault();
+      const action = await dispatch(logUserOut());
+
+      if (logUserOut.rejected.match(action)) {
+        toast.error(action.error.message, { toastId: action.error.code });
+      }
+    })();
   };
 
   return (
