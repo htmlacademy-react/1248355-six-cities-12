@@ -17,18 +17,16 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <HistoryRouter history={browserHistory}>
-        <ToastContainer
-          limit={MaxElementCountOnScreen.ToastError}
-          position="top-center"
-          closeOnClick
-          pauseOnHover
-          theme="light"
-        />
-        <App/>
-      </HistoryRouter>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <HistoryRouter history={browserHistory}>
+      <ToastContainer
+        limit={MaxElementCountOnScreen.ToastError}
+        position="top-center"
+        closeOnClick
+        pauseOnHover
+        theme="light"
+      />
+      <App/>
+    </HistoryRouter>
+  </Provider>
 );
